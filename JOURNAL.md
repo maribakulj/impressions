@@ -346,3 +346,36 @@ encodeurs n'est **pas établi** sur le réel.
   Mathematician's Lament*, qui reproduit la gravure Melencolia I » ; « Capture d'écran d'un
   écran de verrouillage d'iPhone » (la Grande Vague en fond d'écran). Ce n'est pas une perte :
   c'est **une inversion de hiérarchie** — l'œuvre passe de sujet à complément de lieu.
+
+## 2026-10-06 — E4 : retrouver l'œuvre à travers les couches (fait)
+
+La mesure attendait depuis des heures dans la file des calculs lourds, occupée par deux longs
+calculs d'axel. Elle ne charge aucun modèle (produits de matrices par blocs, ~300 Mo) : je l'ai
+sortie de la file et lancée en basse priorité (`taskpolicy -b`), comme l'analyse d'E4b ; 3 min
+en tout. Résultats [`results/E4/`](results/E4/), figure
+[`article/figures/fig-retrouver.png`](article/figures/fig-retrouver.png).
+
+| étape | CLIP | SigLIP | DINOv2 | (témoin même surface) |
+| --- | --- | --- | --- | --- |
+| cadre doré | 1,00 | 1,00 | 1,00 | 1,00 / 1,00 / 1,00 |
+| mur (k=2) | 0,12 | 0,38 | 0,52 | 0,30 / 0,65 / 0,80 |
+| livre photographié (k=2) | 0,12 | 0,19 | 0,31 | 0,31 / 0,66 / 0,83 |
+| page web → écran (k=2) | 0,12 | 0,33 | 0,70 | 0,39 / 0,79 / 0,87 |
+| chaîne profonde k=6 | 0,00 | 0,00 | 0,00 | 0,00 / 0,00 / 0,00 |
+
+(part des 300 œuvres retrouvées dans les 10 premiers sur 18 405)
+
+- **H1 (le cadre est l'interrupteur) : réfutée**, comme prévu après la remarque de Marcel — le
+  cadre intérieur ne change rien (Δ log10 rang +0,00 à +0,01).
+- **À deux couches, les couches agissent au-delà de la taille** : Δ log10 rang étape − témoin
+  au livre photographié +1,08 à +1,19 (IC 95 % > 0 ; pire pour 78-89 % des œuvres), au mur
+  +0,53 à +0,77, à l'écran +0,41 à +1,16. Dès k=3 (surface ≤ 4 %), couches et témoins sont au
+  plancher.
+- **Mesure écartée** : « même support parmi les voisins » dans la galerie mêlée vaut 98-100 %
+  pour les étapes *et* pour les témoins → nos couches se regroupent par gabarit (même table, même
+  mur), pas par support. Biais de fabrication ; seul le réel (E6 : 37-50 %) fait foi.
+- **Écart avec le réel à dire dans l'article** : sur la synthèse, l'effet des couches au-delà
+  de la taille est net pour les trois encodeurs ; sur les 171 vraies images, il va dans le même
+  sens mais n'est établi que pour SigLIP (22 œuvres).
+
+Section 4.2 de l'article écrite ; limite « gabarits répétés » ajoutée.

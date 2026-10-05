@@ -27,7 +27,7 @@ for ax, (m, name) in zip(axes, MODELS):
     for s in ("top", "right"):
         ax.spines[s].set_visible(False)
 axes[0].set_ylabel("œuvre retrouvée dans les 10 premiers\n(sur 18 405 images)", fontsize=8.5)
-axes[0].legend(frameon=False, fontsize=8.5, loc="lower left")
+axes[0].legend(frameon=False, fontsize=8.5, loc="upper right")
 fig.suptitle("Retrouver l'œuvre : cadre doré → mur → page → livre photographié → page web → écran",
              fontsize=10.5, x=0.01, ha="left")
 fig.tight_layout()

@@ -250,7 +250,27 @@ telle que le musée la donne.
 
 ### 4.2 Retrouver l'œuvre à travers les couches
 
-[À ÉCRIRE — E4 : rang de l'œuvre par étape et par modèle, contre le témoin de même surface.]
+Pour chacune des 300 œuvres et chaque étape, nous cherchons l'image de musée de l'œuvre parmi
+les 18 405 du pool (figure 2, `article/figures/fig-retrouver.png`). Avec le cadre doré seul,
+l'œuvre est retrouvée dans les dix premiers pour 99 à 100 % des œuvres, avec les trois modèles :
+le cadre intérieur ne compte pas. Dès que l'œuvre devient un objet dans une scène — accrochée au
+mur, imprimée dans un livre photographié, affichée dans une page web — elle se perd : dans les
+dix premiers pour 12 % des œuvres avec CLIP au mur, 19 % avec SigLIP dans le livre.
+
+Le témoin de même surface répond à la question de la taille. À deux couches, l'œuvre seule,
+aussi petite, sur un fond gris, est bien mieux retrouvée que l'œuvre prise dans son support. Le
+rang de l'œuvre dans le livre photographié est 12 à 15 fois moins bon que celui de son témoin
+(différence de log10 du rang : +1,08 à +1,19 selon le modèle, intervalle à 95 % entièrement
+positif, l'œuvre est moins bien retrouvée que son témoin pour 78 à 89 % des œuvres) ; au mur, 3
+à 6 fois (+0,53 à +0,77). Sur la synthèse, les couches agissent donc au-delà de la taille. À
+partir de trois couches, l'œuvre ne couvre plus que 4 % de l'image ou moins, et couches comme
+témoins tombent au plancher : on ne peut plus départager.
+
+Une mesure prévue a dû être écartée. Dans une galerie mêlant les images transformées de toutes
+les œuvres, les voisins d'une image sont presque tous des images de même support (98 à 100 %) —
+mais les témoins aussi se regroupent entre eux. Nos couches réutilisent les mêmes gabarits (même
+table, même mur, même navigateur) : elles se ressemblent par fabrication. Sur cette question,
+seul le réel fait foi (section 4.5).
 
 ### 4.3 Le support prend la place du sujet
 
@@ -375,6 +395,9 @@ plus extérieure pèse sur ce qui est retrouvé et sur ce qui est nommé.
 - **Couches déjà présentes annotées par le même modèle.** Le nombre « vrai » de couches de l'image
   de musée vient d'une annotation de Claude : la mesure du comptage n'est pas indépendante sur la
   synthèse (elle l'est sur le réel, annoté séparément).
+- **Gabarits répétés.** Nos couches synthétiques réutilisent les mêmes décors ; elles se
+  regroupent entre elles par fabrication. La mesure « même support parmi les voisins » n'est
+  interprétable que sur le réel.
 - **Une seule chaîne profonde**, un seul ordre des couches ; d'autres ordres pourraient agir
   autrement.
 - **Pas d'humains.** L'enquête qui comparerait des personnes et des machines sur les mêmes images

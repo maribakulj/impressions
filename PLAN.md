@@ -75,7 +75,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       plus proches voisins dans la galerie (3 modèles) et description par Claude
       (`claude -p --model sonnet`). Planche HTML ou PNG. Écrire `notes/E3-pilote.md` : ce que
       l'on voit, ce qui surprend, ce qu'il faut corriger avant de mesurer.
-- [ ] **E4 — H1 et H2 (mesures).** Chaînes de k = 0…6 couches, ≥ 200 œuvres. Mesures :
+- [x] **E4 — H1 et H2 (mesures).** Chaînes de k = 0…6 couches, ≥ 200 œuvres. Mesures :
       déplacement cosinus par rapport à l'original ; précision@10 « même sujet » (Iconclass, à
       niveau 2-3) et « même type d'objet » ; un indice « support » = les voisins sont-ils des
       images transformées de même couche (ajouter à la galerie les versions transformées d'autres
