@@ -236,8 +236,17 @@ papiers) a été corrigé à cette étape.
 
 ### 4.1 Le musée livre déjà des poupées russes
 
-[Tableau d'E3 : couches présentes par type ; peinture 0,72 couche en moyenne, estampe 2,25,
-photographie 2,18 ; seules 48/300 sans couche. Le type d'objet est lisible dans les marges.]
+Avant d'ajouter la moindre couche, nous avons demandé à Claude de relever celles que les
+images de musée portent déjà (vérifié à l'œil sur un échantillon de 15). Sur 300 images, 48
+seulement montrent l'œuvre sans rien autour. Surtout, les musées ne traitent pas les types de
+la même façon : la peinture est presque toujours rognée au bord de la toile (0,72 couche en
+moyenne ; le cadre n'apparaît que dans 12 % des cas), alors que l'estampe et la photographie
+sont montrées avec leur feuille, leurs marges, leur carton et leurs inscriptions (2,25 et
+2,18 couches ; bords de feuille visibles dans 98 % et 80 % des cas). La sculpture est détourée
+sur un fond de studio (93 %). Le type d'objet est donc lisible dans les marges avant de l'être
+dans l'œuvre. Pour une machine qui apprend sur ces images, « estampe » veut dire en partie
+« feuille avec des bords ». La couche zéro n'existe pas : toutes nos mesures partent de l'image
+telle que le musée la donne.
 
 ### 4.2 Retrouver l'œuvre à travers les couches
 
@@ -245,16 +254,78 @@ photographie 2,18 ; seules 48/300 sans couche. Le type d'objet est lisible dans 
 
 ### 4.3 Le support prend la place du sujet
 
-[E5 Claude : à 6 couches, 27/30 descriptions parlent du support ; témoin de même surface 0/30.
-E5 zéro-coup : la peinture dans le livre devient « estampe ».]
+Claude a lu 30 œuvres (6 par type) à neuf étapes ; un second appel juge si le sujet qu'il nomme
+est celui de l'original (figure 1, `article/figures/fig-sujet-support.png`). Le cadre doré seul ne
+change rien : 30 descriptions sur 30 restent les mêmes. Au mur, dans le livre photographié, à
+l'écran, le sujet survit dans une majorité de cas. À quatre couches, 14 descriptions sur 30
+parlent du support plutôt que du sujet ; à six couches, 27 sur 30 : « un écran d'ordinateur
+affiche une page web de collection en ligne montrant la photo d'un livre ouvert… ».
+
+Le témoin tranche. À six couches, l'œuvre ne couvre que 0,3 % de l'image. Montrée seule, à la
+même taille, au centre d'un gris uni, elle n'est pas reconnue non plus — mais Claude décrit
+alors honnêtement « une minuscule peinture sombre au centre d'un grand fond gris » : 0 fois sur
+30 il ne parle d'un support. **La perte du sujet est un effet de taille ; son remplacement par le
+support est un effet des couches.**
+
+Claude compte d'ailleurs ces couches : rang de Spearman 0,75 entre couches dites et couches
+réelles, 76 % des réponses à une couche près, erreur moyenne 0,95 contre 1,44 pour une règle
+triviale. Les encodeurs reconnaissent moins bien le support extérieur en zéro-coup (précision
+équilibrée sur dix classes : SigLIP 53 %, CLIP 24 %, hasard 10 %) ; ils reconnaissent la page web
+et l'écran, pas le livre photographié ni le passe-partout.
+
+Le médium lu suit l'enveloppe, comme on pouvait s'y attendre : au mur, CLIP lit « une
+peinture » pour 256 œuvres sur 300 (69 sur l'original), dans le livre photographié « une
+estampe » pour 232 ; les témoins de même surface gardent la répartition de l'original (90 et
+103). C'est le support, non la taille, qui fixe le médium — un fait attendu, que nous ne
+développons pas.
 
 ### 4.4 La trame : envelopper ou imprégner
 
-[À ÉCRIRE — E4b.]
+Le cadre enveloppe : il agit par le bord. La trame d'impression n'entoure rien ; elle imprègne
+toute la surface. Un premier essai, avec une trame à trois encres sans noir, donnait des
+résultats spectaculaires (une Résurrection peinte lue comme « un haut-relief sculpté et doré »).
+Ils étaient en partie faux : cette trame jaunissait et violaçait l'image. Nous avons donc
+décomposé la couche : la même dominante de couleur sans points ; des points sans dominante (vraie
+quadrichromie) à trois finesses ; la rephotographie seule.
+
+La couleur seule ne fait pas perdre le sujet à Claude (18 descriptions identiques sur 30, aucune
+autre) ; c'est elle, en revanche, qui produit le « relief doré ». Les points, eux, font perdre
+le sujet (trame moyenne : 1 description identique, 10 autres), et à gros grain **la trame devient
+le sujet** : « une image très tramée de… » (10 sur 30). C'est l'équivalent, par imprégnation, de ce
+que les couches emboîtées font par enveloppement.
+
+Les encodeurs ne réagissent pas à la même composante. DINOv2, entraîné sur des images seules,
+réagit aux points (retrouvé dans les 10 premiers : 97 % avec la couleur seule, 54 % avec la trame
+moyenne, 4 % avec la grosse), ce qui rejoint le biais de texture décrit par Geirhos et al. (2019).
+CLIP réagit surtout à la couleur (60 % avec la dominante seule, 84 % avec la trame moyenne en
+couleurs justes). Tous perdent l'œuvre à gros grain (SigLIP 8 %). La rephotographie seule ne fait
+presque rien (90-99 %).
 
 ### 4.5 Sur de vraies reproductions
 
-[À ÉCRIRE — E6.]
+Nos couches sont fabriquées, et Claude le voit : il déclare « montées numériquement » toutes les
+images transformées. Nous avons donc réuni 171 vraies reproductions de 22 œuvres célèbres sur
+Wikimedia Commons (photos de visiteurs, pages de livres, timbres, affiches, écrans,
+rephotographies), annotées une à une : chaîne de couches et part de l'image occupée par l'œuvre.
+Sur ces images, Claude ne parle presque plus de montage (0 à 10 % selon le support).
+
+Il compte encore les couches (Spearman 0,59 ; 80 % à une couche près). Et le remplacement du sujet
+se retrouve : 0 cas sur 25 à zéro ou une couche, 1 sur 44 à deux, 12 sur 46 à trois, 23 sur 34
+à quatre et plus. À surface égale, l'effet des couches demeure : pour une œuvre qui occupe entre
+15 et 50 % de l'image, 1 cas sur 9 à deux couches ou moins, 11 sur 30 à trois ou plus.
+
+Le réel ajoute une nuance que la synthèse ne montrait pas. Claude *nomme* presque toujours
+l'œuvre, mais il la rétrograde : « des visiteurs se pressent dans une salle de musée devant La
+Nuit étoilée de Van Gogh » ; « couverture du livre *A Mathematician's Lament*, qui reproduit la
+gravure Melencolia I » ; « capture d'écran d'un écran de verrouillage d'iPhone » (la Grande
+Vague en fond d'écran). L'œuvre ne disparaît pas : elle passe de sujet à complément de lieu.
+
+Pour les encodeurs, le réel confirme que le cadre en gros plan est inerte (l'image propre de
+l'œuvre est parmi les cinq plus proches dans 95 à 100 % des cas) et qu'en salle l'œuvre se perd
+(30 à 40 %), ses voisins devenant les photos de salle d'autres œuvres (37 à 50 %). Mais la surface
+explique l'essentiel : dans une régression du rang sur le nombre de couches et la surface, la
+surface pèse nettement pour les trois modèles, les couches n'ajoutent un effet net que pour
+SigLIP. Avec 22 œuvres, l'effet propre des couches sur les encodeurs n'est pas établi.
 
 ## 5. Discussion
 
