@@ -1,475 +1,538 @@
 {
  "model": "clip",
- "works": 51,
- "support_balanced_accuracy": 0.21867413632119512,
+ "works": 300,
+ "support_balanced_accuracy": 0.23788888888888887,
  "support_chance": 0.1,
  "support_recall": {
-  "none": 0.24556489262371614,
-  "gilt_frame": 0.5098039215686274,
-  "mat_border": 0.0,
-  "museum_wall": 0.00980392156862745,
-  "book_page": 0.029411764705882353,
+  "none": 0.2,
+  "gilt_frame": 0.4288888888888889,
+  "mat_border": 0.03,
+  "museum_wall": 0.023333333333333334,
+  "book_page": 0.135,
   "book_photo": 0.0,
-  "screenshot_ui": 0.9803921568627451,
-  "screen_photo": 0.0196078431372549,
-  "halftone_print": 0.39215686274509803,
+  "screenshot_ui": 0.9816666666666667,
+  "screen_photo": 0.04666666666666667,
+  "halftone_print": 0.5333333333333333,
   "rephotograph": 0.0
  },
- "support_accuracy": 0.2474827768945416,
+ "support_accuracy": 0.22765765765765766,
  "support_majority_baseline": 0.5675675675675675,
  "stages": {
   "orig|0": {
-   "support_ok": 0.47058823529411764,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.32666666666666666,
+   "kind_ok": 0.79,
    "top_guess": "none",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 5,
-    "painting": 44
+    "painting": 69,
+    "sculpture": 62,
+    "drawing": 37,
+    "print": 91,
+    "photograph": 41
    }
   },
   "frame|1": {
-   "support_ok": 0.49019607843137253,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.4166666666666667,
+   "kind_ok": 0.76,
    "top_guess": "gilt_frame",
    "kind_guesses": {
-    "sculpture": 2,
-    "photograph": 1,
-    "print": 4,
-    "painting": 44
+    "painting": 81,
+    "sculpture": 58,
+    "drawing": 19,
+    "print": 89,
+    "photograph": 53
    }
   },
   "match|frame|1": {
-   "support_ok": 0.27450980392156865,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.24333333333333335,
+   "kind_ok": 0.7466666666666667,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "drawing": 1,
-    "print": 4,
-    "painting": 44
+    "sculpture": 63,
+    "painting": 71,
+    "drawing": 25,
+    "print": 107,
+    "photograph": 34
    }
   },
   "mat|1": {
-   "support_ok": 0.0,
-   "kind_ok": 0.7843137254901961,
-   "top_guess": "none",
+   "support_ok": 0.03,
+   "kind_ok": 0.7366666666666667,
+   "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 9,
-    "painting": 40
+    "painting": 65,
+    "sculpture": 59,
+    "drawing": 18,
+    "print": 113,
+    "photograph": 45
    }
   },
   "match|mat|1": {
-   "support_ok": 0.39215686274509803,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.29333333333333333,
+   "kind_ok": 0.7333333333333333,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 5,
-    "painting": 44
+    "sculpture": 61,
+    "painting": 73,
+    "drawing": 19,
+    "print": 108,
+    "photograph": 39
    }
   },
   "wall|1": {
-   "support_ok": 0.5882352941176471,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.43333333333333335,
+   "kind_ok": 0.7533333333333333,
    "top_guess": "gilt_frame",
    "kind_guesses": {
-    "print": 5,
-    "photograph": 1,
-    "sculpture": 1,
-    "painting": 44
+    "painting": 81,
+    "sculpture": 57,
+    "drawing": 17,
+    "print": 93,
+    "photograph": 52
    }
   },
   "match|wall|1": {
-   "support_ok": 0.29411764705882354,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.26666666666666666,
+   "kind_ok": 0.76,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 5,
-    "painting": 44
+    "painting": 71,
+    "sculpture": 62,
+    "drawing": 27,
+    "print": 106,
+    "photograph": 34
    }
   },
   "wall|2": {
-   "support_ok": 0.0196078431372549,
-   "kind_ok": 0.9803921568627451,
+   "support_ok": 0.03,
+   "kind_ok": 0.3233333333333333,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 1,
-    "painting": 50
+    "painting": 256,
+    "sculpture": 32,
+    "print": 9,
+    "photograph": 3
    }
   },
   "match|wall|2": {
-   "support_ok": 0.0784313725490196,
-   "kind_ok": 0.8431372549019608,
+   "support_ok": 0.09666666666666666,
+   "kind_ok": 0.6466666666666666,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 5,
-    "photograph": 1,
-    "sculpture": 2,
-    "painting": 43
+    "painting": 90,
+    "sculpture": 61,
+    "drawing": 8,
+    "print": 98,
+    "photograph": 43
    }
   },
   "book|1": {
-   "support_ok": 0.058823529411764705,
-   "kind_ok": 0.5686274509803921,
+   "support_ok": 0.27,
+   "kind_ok": 0.5266666666666666,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 21,
-    "sculpture": 1,
-    "painting": 29
+    "sculpture": 53,
+    "painting": 41,
+    "drawing": 1,
+    "print": 191,
+    "photograph": 14
    }
   },
   "match|book|1": {
-   "support_ok": 0.3137254901960784,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.25333333333333335,
+   "kind_ok": 0.71,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 5,
-    "painting": 44
+    "sculpture": 62,
+    "painting": 73,
+    "drawing": 11,
+    "print": 118,
+    "photograph": 36
    }
   },
   "book|2": {
    "support_ok": 0.0,
-   "kind_ok": 0.09803921568627451,
+   "kind_ok": 0.37666666666666665,
    "top_guess": "book_page",
    "kind_guesses": {
-    "print": 45,
-    "photograph": 1,
-    "painting": 5
+    "sculpture": 40,
+    "painting": 7,
+    "drawing": 10,
+    "print": 232,
+    "photograph": 11
    }
   },
   "match|book|2": {
-   "support_ok": 0.0392156862745098,
-   "kind_ok": 0.8431372549019608,
+   "support_ok": 0.13666666666666666,
+   "kind_ok": 0.67,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 5,
-    "photograph": 2,
-    "sculpture": 1,
-    "painting": 43
+    "painting": 88,
+    "sculpture": 59,
+    "drawing": 9,
+    "print": 103,
+    "photograph": 41
    }
   },
   "web|1": {
    "support_ok": 1.0,
-   "kind_ok": 0.6274509803921569,
+   "kind_ok": 0.5466666666666666,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 18,
-    "sculpture": 1,
-    "painting": 32
+    "sculpture": 42,
+    "painting": 43,
+    "drawing": 35,
+    "print": 173,
+    "photograph": 7
    }
   },
   "match|web|1": {
-   "support_ok": 0.3137254901960784,
-   "kind_ok": 0.8431372549019608,
+   "support_ok": 0.26,
+   "kind_ok": 0.7066666666666667,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 6,
-    "painting": 43
+    "sculpture": 62,
+    "painting": 74,
+    "drawing": 16,
+    "print": 114,
+    "photograph": 34
    }
   },
   "web|2": {
-   "support_ok": 0.0196078431372549,
-   "kind_ok": 0.5882352941176471,
+   "support_ok": 0.06666666666666667,
+   "kind_ok": 0.5533333333333333,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 17,
-    "drawing": 3,
-    "sculpture": 1,
-    "painting": 30
+    "painting": 44,
+    "sculpture": 45,
+    "drawing": 41,
+    "print": 159,
+    "photograph": 11
    }
   },
   "match|web|2": {
-   "support_ok": 0.0784313725490196,
-   "kind_ok": 0.8235294117647058,
+   "support_ok": 0.14666666666666667,
+   "kind_ok": 0.6766666666666666,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 7,
-    "photograph": 1,
-    "sculpture": 1,
-    "painting": 42
+    "painting": 83,
+    "sculpture": 60,
+    "drawing": 10,
+    "print": 108,
+    "photograph": 39
    }
   },
   "print|1": {
-   "support_ok": 0.39215686274509803,
-   "kind_ok": 0.8235294117647058,
-   "top_guess": "none",
+   "support_ok": 0.5333333333333333,
+   "kind_ok": 0.6766666666666666,
+   "top_guess": "halftone_print",
    "kind_guesses": {
-    "print": 6,
-    "sculpture": 1,
-    "photograph": 1,
-    "drawing": 1,
-    "painting": 42
+    "sculpture": 55,
+    "painting": 81,
+    "drawing": 16,
+    "print": 108,
+    "photograph": 40
    }
   },
   "match|print|1": {
-   "support_ok": 0.47058823529411764,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.32666666666666666,
+   "kind_ok": 0.79,
    "top_guess": "none",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 5,
-    "painting": 44
+    "painting": 69,
+    "sculpture": 62,
+    "drawing": 37,
+    "print": 91,
+    "photograph": 41
    }
   },
   "print|2": {
    "support_ok": 0.0,
-   "kind_ok": 0.803921568627451,
+   "kind_ok": 0.6933333333333334,
    "top_guess": "halftone_print",
    "kind_guesses": {
-    "print": 7,
-    "photograph": 2,
-    "sculpture": 1,
-    "painting": 41
+    "painting": 76,
+    "sculpture": 51,
+    "drawing": 16,
+    "print": 104,
+    "photograph": 53
    }
   },
   "match|print|2": {
-   "support_ok": 0.4117647058823529,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.29333333333333333,
+   "kind_ok": 0.7366666666666667,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 5,
-    "painting": 44
+    "painting": 75,
+    "sculpture": 60,
+    "drawing": 15,
+    "print": 109,
+    "photograph": 41
    }
   },
   "deep|1": {
-   "support_ok": 0.45098039215686275,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.43666666666666665,
+   "kind_ok": 0.7766666666666666,
    "top_guess": "gilt_frame",
    "kind_guesses": {
-    "sculpture": 2,
-    "photograph": 1,
-    "print": 4,
-    "painting": 44
+    "painting": 79,
+    "sculpture": 59,
+    "drawing": 18,
+    "print": 91,
+    "photograph": 53
    }
   },
   "match|deep|1": {
-   "support_ok": 0.3333333333333333,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.26,
+   "kind_ok": 0.7533333333333333,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "drawing": 1,
-    "print": 4,
-    "painting": 44
+    "painting": 73,
+    "sculpture": 62,
+    "drawing": 25,
+    "print": 105,
+    "photograph": 35
    }
   },
   "deep|2": {
-   "support_ok": 0.0,
-   "kind_ok": 1.0,
+   "support_ok": 0.016666666666666666,
+   "kind_ok": 0.3466666666666667,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "painting": 51
+    "painting": 247,
+    "sculpture": 37,
+    "print": 14,
+    "photograph": 2
    }
   },
   "match|deep|2": {
-   "support_ok": 0.058823529411764705,
-   "kind_ok": 0.8235294117647058,
+   "support_ok": 0.11,
+   "kind_ok": 0.6466666666666666,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 6,
-    "photograph": 1,
-    "sculpture": 2,
-    "painting": 42
+    "painting": 91,
+    "sculpture": 61,
+    "drawing": 8,
+    "print": 97,
+    "photograph": 43
    }
   },
   "deep|3": {
    "support_ok": 0.0,
-   "kind_ok": 0.8627450980392157,
+   "kind_ok": 0.3233333333333333,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 7,
-    "painting": 44
+    "painting": 190,
+    "sculpture": 17,
+    "print": 92,
+    "photograph": 1
    }
   },
   "match|deep|3": {
-   "support_ok": 0.0196078431372549,
-   "kind_ok": 0.8235294117647058,
+   "support_ok": 0.03,
+   "kind_ok": 0.5933333333333334,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 5,
-    "photograph": 1,
-    "drawing": 1,
-    "painting": 42
+    "painting": 103,
+    "sculpture": 60,
+    "drawing": 11,
+    "print": 74,
+    "photograph": 52
    }
   },
   "deep|4": {
    "support_ok": 0.0,
-   "kind_ok": 0.43137254901960786,
+   "kind_ok": 0.2733333333333333,
    "top_guess": "book_page",
    "kind_guesses": {
-    "print": 27,
-    "drawing": 2,
-    "painting": 22
+    "painting": 72,
+    "sculpture": 1,
+    "drawing": 32,
+    "print": 191,
+    "photograph": 4
    }
   },
   "match|deep|4": {
    "support_ok": 0.0,
-   "kind_ok": 0.8627450980392157,
+   "kind_ok": 0.44666666666666666,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 1,
-    "photograph": 4,
-    "drawing": 2,
-    "painting": 44
+    "painting": 169,
+    "sculpture": 38,
+    "drawing": 15,
+    "print": 33,
+    "photograph": 45
    }
   },
   "deep|5": {
-   "support_ok": 0.9607843137254902,
-   "kind_ok": 0.0,
+   "support_ok": 0.9633333333333334,
+   "kind_ok": 0.2,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 51
+    "drawing": 1,
+    "print": 299
    }
   },
   "match|deep|5": {
    "support_ok": 0.0,
-   "kind_ok": 0.8235294117647058,
+   "kind_ok": 0.30666666666666664,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 1,
-    "photograph": 7,
-    "drawing": 1,
-    "painting": 42
+    "painting": 197,
+    "sculpture": 29,
+    "drawing": 24,
+    "print": 4,
+    "photograph": 46
    }
   },
   "deep|6": {
-   "support_ok": 0.0196078431372549,
-   "kind_ok": 0.11764705882352941,
-   "top_guess": "book_photo",
+   "support_ok": 0.02666666666666667,
+   "kind_ok": 0.25333333333333335,
+   "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "print": 34,
-    "photograph": 1,
-    "drawing": 10,
-    "painting": 6
+    "painting": 18,
+    "drawing": 66,
+    "print": 212,
+    "photograph": 4
    }
   },
   "match|deep|6": {
    "support_ok": 0.0,
-   "kind_ok": 0.8823529411764706,
-   "top_guess": "screen_photo",
+   "kind_ok": 0.24666666666666667,
+   "top_guess": "mat_border",
    "kind_guesses": {
-    "sculpture": 3,
-    "drawing": 3,
-    "painting": 45
+    "sculpture": 19,
+    "drawing": 48,
+    "photograph": 3,
+    "painting": 230
    }
   },
   "ctrl_shrink|1": {
-   "support_ok": 0.3333333333333333,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.24,
+   "kind_ok": 0.7233333333333334,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "photograph": 1,
-    "print": 4,
-    "painting": 44
+    "sculpture": 61,
+    "painting": 74,
+    "drawing": 17,
+    "print": 110,
+    "photograph": 38
    }
   },
   "match|ctrl_shrink|1": {
-   "support_ok": 0.3333333333333333,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.24,
+   "kind_ok": 0.7233333333333334,
    "top_guess": "screenshot_ui",
    "kind_guesses": {
-    "sculpture": 2,
-    "photograph": 1,
-    "print": 4,
-    "painting": 44
+    "sculpture": 61,
+    "painting": 74,
+    "drawing": 17,
+    "print": 110,
+    "photograph": 38
    }
   },
   "ctrl_jpeg|1": {
-   "support_ok": 0.47058823529411764,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.35,
+   "kind_ok": 0.7866666666666666,
    "top_guess": "none",
    "kind_guesses": {
-    "sculpture": 2,
-    "drawing": 1,
-    "print": 4,
-    "painting": 44
+    "painting": 70,
+    "sculpture": 61,
+    "drawing": 34,
+    "print": 92,
+    "photograph": 43
    }
   },
   "match|ctrl_jpeg|1": {
-   "support_ok": 0.47058823529411764,
-   "kind_ok": 0.8627450980392157,
+   "support_ok": 0.32666666666666666,
+   "kind_ok": 0.79,
    "top_guess": "none",
    "kind_guesses": {
-    "sculpture": 2,
-    "print": 5,
-    "painting": 44
+    "painting": 69,
+    "sculpture": 62,
+    "drawing": 37,
+    "print": 91,
+    "photograph": 41
    }
   }
  },
  "confusion": {
   "none": {
-   "gilt_frame": 79,
-   "screenshot_ui": 588,
-   "mat_border": 43,
-   "none": 263,
-   "screen_photo": 42,
-   "book_photo": 16,
-   "halftone_print": 35,
-   "museum_wall": 5
+   "none": 1260,
+   "halftone_print": 676,
+   "screenshot_ui": 2836,
+   "mat_border": 531,
+   "museum_wall": 55,
+   "book_photo": 86,
+   "book_page": 517,
+   "screen_photo": 99,
+   "gilt_frame": 240
   },
   "gilt_frame": {
-   "gilt_frame": 78,
-   "none": 35,
-   "screenshot_ui": 28,
-   "halftone_print": 5,
-   "museum_wall": 7
+   "gilt_frame": 386,
+   "halftone_print": 86,
+   "none": 132,
+   "screenshot_ui": 226,
+   "museum_wall": 35,
+   "book_page": 30,
+   "book_photo": 1,
+   "mat_border": 4
   },
   "mat_border": {
-   "gilt_frame": 7,
-   "none": 20,
-   "screenshot_ui": 18,
-   "halftone_print": 4,
-   "book_photo": 1,
-   "museum_wall": 1,
-   "mat_border": 0
+   "none": 92,
+   "halftone_print": 39,
+   "book_page": 38,
+   "screenshot_ui": 93,
+   "gilt_frame": 16,
+   "museum_wall": 10,
+   "book_photo": 3,
+   "mat_border": 9
   },
   "museum_wall": {
-   "screenshot_ui": 100,
-   "none": 1,
-   "museum_wall": 1
+   "screenshot_ui": 573,
+   "none": 13,
+   "museum_wall": 14
   },
   "book_page": {
-   "screenshot_ui": 99,
-   "book_page": 3
+   "book_page": 81,
+   "screenshot_ui": 518,
+   "halftone_print": 1
   },
   "book_photo": {
-   "book_page": 94,
-   "screenshot_ui": 8,
+   "book_page": 576,
+   "screenshot_ui": 23,
+   "halftone_print": 1,
    "book_photo": 0
   },
   "screenshot_ui": {
-   "screenshot_ui": 100,
-   "book_photo": 2
+   "screenshot_ui": 589,
+   "book_photo": 11
   },
   "screen_photo": {
-   "screenshot_ui": 75,
-   "book_photo": 25,
-   "screen_photo": 2
+   "screenshot_ui": 443,
+   "book_photo": 127,
+   "screen_photo": 28,
+   "book_page": 2
   },
   "halftone_print": {
-   "none": 21,
-   "halftone_print": 20,
+   "halftone_print": 160,
+   "screenshot_ui": 38,
+   "none": 68,
+   "screen_photo": 8,
+   "gilt_frame": 10,
    "book_photo": 1,
-   "screenshot_ui": 4,
-   "gilt_frame": 4,
-   "mat_border": 1
+   "book_page": 9,
+   "mat_border": 6
   },
   "rephotograph": {
-   "screenshot_ui": 7,
-   "gilt_frame": 4,
-   "mat_border": 3,
-   "halftone_print": 19,
-   "none": 15,
-   "book_photo": 2,
-   "book_page": 1,
+   "halftone_print": 147,
+   "screenshot_ui": 50,
+   "mat_border": 19,
+   "none": 47,
+   "museum_wall": 2,
+   "gilt_frame": 11,
+   "book_page": 18,
+   "screen_photo": 1,
+   "book_photo": 5,
    "rephotograph": 0
   }
  }

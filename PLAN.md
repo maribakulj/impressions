@@ -90,7 +90,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       rephoto sans trame. Mesures : type lu (zéro-coup, Claude sur un sous-échantillon), rang de
       l'œuvre, sujet. Puis vraies trames dans E6 (pages de livres numérisés). Si l'effet est la
       couleur : biais de fabrication, le dire.
-- [ ] **E5 — H3 et H4.** Comptage de couches : CLIP/SigLIP en zéro-coup (prompts « a photo of a
+- [x] **E5 — H3 et H4.** Comptage de couches : CLIP/SigLIP en zéro-coup (prompts « a photo of a
       book page showing a painting of … », etc.) ; Claude en lecture d'image sur un sous-
       échantillon (≤ 300 appels, `claude -p`, abonnement). Stabilité des descriptions du sujet
       (comparer la description de l'original à celles des couches : recouvrement des entités

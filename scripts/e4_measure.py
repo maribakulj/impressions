@@ -60,13 +60,11 @@ def main(model: str) -> None:
     stage_subj = np.array([subject(works[w]) for w in W])
     per = defaultdict(lambda: defaultdict(list))
     log_rank = {}
-    pool_sims = V @ gal.vecs.T  # stages x pool
-    stage_sims = V @ V.T
     for i, (w, c, k) in enumerate(zip(W, C, K)):
         work = works[w]
         s_subj, s_kind = subject(work), work["kind"]
         dup = pool[w]["near_duplicate_group"]
-        ps = pool_sims[i].copy()
+        ps = gal.vecs @ V[i]  # row by row: the full matrices would take ~1 GB per model
         own = gal.index[w]
         self_rank = int((ps > ps[own]).sum()) + 1
         ps[pool_dup == dup] = -np.inf
@@ -80,7 +78,7 @@ def main(model: str) -> None:
         per[key]["subj@10"].append(float((pool_subj[top] == s_subj).mean()))
         per[key]["kind@10"].append(float((pool_kind[top] == s_kind).mean()))
         # mixed gallery: pool (minus duplicates) + stages of other works
-        ss = stage_sims[i].copy()
+        ss = V @ V[i]
         ss[W == w] = -np.inf
         allsims = np.concatenate([ps, ss])
         top = np.argpartition(-allsims, 10)[:10]

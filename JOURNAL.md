@@ -234,3 +234,33 @@ original, cadre doré, livre photographié, profondeur 4, profondeur 6), 5 liste
 l'asymétrie humain / machine. Les questions sont exactement celles posées à Claude en E5 :
 comparaison directe possible. Vérifié : le script du formulaire se charge, les 40 images sont
 là. **H5 reste non testée** : il faut ~40 participants, ce que la boucle ne peut pas faire.
+
+## 2026-10-06 — E5 terminé : zéro-coup sur les 300 œuvres
+
+Encodages d'E4 et d'E4b finis dans la nuit (11 100 + 1 800 images × 3 modèles). Zéro-coup refait
+sur les 300 œuvres ([`results/E5/zeroshot-clip.json`](results/E5/zeroshot-clip.json),
+[`zeroshot-siglip.json`](results/E5/zeroshot-siglip.json)).
+
+- **Support extérieur reconnu** (précision équilibrée, 10 classes, hasard 10 %) : SigLIP 53 %,
+  CLIP 24 %. Les deux reconnaissent la page web (93-98 %) ; SigLIP aussi l'écran photographié
+  (93 %) et la page de livre (74 %) ; aucun ne reconnaît le livre photographié (0-9 %) ni le
+  passe-partout (3-14 %). **H3 pour les encodeurs : partielle**, et bien en dessous de Claude.
+- **Le médium lu suit l'enveloppe — attendu, contrôlé, une phrase dans l'article.** Type lu sur
+  300 œuvres :
+
+| étape | CLIP « peinture » | CLIP « estampe » | SigLIP « peinture » | SigLIP « estampe » |
+| --- | --- | --- | --- | --- |
+| original | 69 | 91 | 65 | 80 |
+| cadre doré seul | 81 | 89 | 84 | 85 |
+| **au mur** (k=2) | **256** | 9 | **112** | 61 |
+| témoin même surface | 90 | 98 | 69 | 96 |
+| **livre photographié** (k=2) | 7 | **232** | 3 | **150** |
+| témoin même surface | 88 | 103 | 67 | 103 |
+| profondeur 6 | 18 | **212** | 0 | **240** |
+| témoin même surface | 230 | 0 | 0 | 2 (297 « dessin ») |
+
+  Le cadre doré seul déplace à peine ; le mur fait de presque tout « une peinture », le livre
+  « une estampe ». Les témoins de même surface gardent la répartition de l'original : c'est le
+  support, pas la taille. À profondeur 6, les deux échouent mais pas de la même façon : devant
+  la vignette minuscule ils répondent par défaut (CLIP « peinture », SigLIP « dessin ») ; devant
+  la chaîne réelle, « estampe ».

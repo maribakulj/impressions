@@ -124,7 +124,7 @@ def imageinfo(client: httpx.Client, titles: list[str]) -> dict[str, dict]:
             if not p.get("imageinfo"):
                 continue
             ii = p["imageinfo"][0]
-            em = ii.get("extmetadata", {})
+            em = ii.get("extmetadata") or {}
             out[p["title"]] = {
                 "title": p["title"], "width": ii.get("width"), "height": ii.get("height"),
                 "mime": ii.get("mime"), "thumb": ii.get("thumburl"),
@@ -209,7 +209,7 @@ def key(title: str) -> str:
     return hashlib.md5(title.encode()).hexdigest()[:10]
 
 
-def cmd_thumbs(slugs: list[str], per_work: int = 60) -> None:
+def cmd_thumbs(slugs: list[str], per_work: int = 40) -> None:
     """Thumbnails of candidates whose category or name hints at a support (or all if few)."""
     tdir = CAND / "thumbs"
     tdir.mkdir(parents=True, exist_ok=True)
@@ -252,7 +252,7 @@ def cmd_sheets(slugs: list[str]) -> None:
     for slug in slugs or WORKS:
         rows = json.loads((CAND / f"{slug}.json").read_text())["files"]
         cells = []
-        for r in pick_candidates(rows, 60):
+        for r in pick_candidates(rows, 40):
             p = CAND / "thumbs" / f"{slug}-{key(r['title'])}.jpg"
             if p.exists():
                 cells.append((p, r["title"]))
@@ -273,6 +273,21 @@ def cmd_sheets(slugs: list[str]) -> None:
         sheet.save(sdir / f"{slug}.jpg", quality=85)
         (sdir / f"{slug}.json").write_text(json.dumps(index, ensure_ascii=False, indent=0))
         print(slug, len(cells))
+
+
+def cmd_select() -> None:
+    """data/real/picks.json (titles chosen by looking at the sheets) -> selection.json,
+    keeping the annotations already written there."""
+    picks = json.loads((ROOT / "picks.json").read_text())
+    sp = ROOT / "selection.json"
+    old = {s["title"]: s for s in json.loads(sp.read_text())} if sp.exists() else {}
+    sel = []
+    for slug, titles in picks.items():
+        for t in titles:
+            ext = ".png" if t.lower().endswith(".png") else ".jpg"
+            sel.append(old.get(t) or {"work": slug, "title": t, "file": f"{slug}-{key(t)}{ext}"})
+    sp.write_text(json.dumps(sel, ensure_ascii=False, indent=1))
+    print(len(sel), "selected")
 
 
 def cmd_fetch() -> None:
@@ -320,4 +335,4 @@ def cmd_manifest() -> None:
 if __name__ == "__main__":
     cmd, *args = sys.argv[1:]
     {"list": cmd_list, "search": cmd_search, "thumbs": cmd_thumbs, "sheets": cmd_sheets}[cmd](args) \
-        if cmd in ("list", "search", "thumbs", "sheets") else {"fetch": cmd_fetch, "manifest": cmd_manifest}[cmd]()
+        if cmd in ("list", "search", "thumbs", "sheets") else {"select": cmd_select, "fetch": cmd_fetch, "manifest": cmd_manifest}[cmd]()
