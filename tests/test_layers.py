@@ -40,3 +40,22 @@ def test_frame_surrounds_the_picture():
     corner = out[2, 2]
     assert centre[1] > 150 and centre[0] < 80  # the picture is still in the middle
     assert corner[0] > corner[2]  # gold, not green, at the edge
+
+
+def test_content_mask_follows_the_work():
+    from impressions.layers import content_mask
+
+    masks = content_mask((400, 300), ["gilt_frame", "museum_wall", "book_page"], seed=2)
+    fractions = [m.mean() for m in masks]
+    assert fractions[0] > 0.99  # the bare image is all work
+    assert fractions[1] < fractions[0] and fractions[3] < fractions[2]
+    assert fractions[3] > 0.0
+
+
+def test_area_matched_has_the_stage_size_and_area():
+    from impressions.layers import area_matched
+
+    out = area_matched(_image(), (960, 720), 0.05)
+    assert out.size == (960, 720)
+    covered = (np.asarray(out).astype(int) - 128).any(2).mean()
+    assert 0.03 < covered < 0.07

@@ -54,9 +54,12 @@ def main(model: str) -> None:
     pool_kind = np.array([r["kind"] for r in gal.rows])
     pool_dup = np.array([r["near_duplicate_group"] for r in gal.rows])
     # outermost layer of each stage
-    last = np.array(["orig" if c == "orig" else CHAINS[c][k - 1] for c, k in zip(C, K)])
+    last = np.array(["orig" if c == "orig" else "match" if c.startswith("match|")
+                     else CHAINS[c][k - 1] for c, k in zip(C, K)])
+    A = data["area"]
     stage_subj = np.array([subject(works[w]) for w in W])
     per = defaultdict(lambda: defaultdict(list))
+    log_rank = {}
     pool_sims = V @ gal.vecs.T  # stages x pool
     stage_sims = V @ V.T
     for i, (w, c, k) in enumerate(zip(W, C, K)):
@@ -70,6 +73,8 @@ def main(model: str) -> None:
         top = np.argpartition(-ps, 10)[:10]
         key = (c, int(k))
         per[key]["drift"].append(1 - float(V[i] @ orig[w]))
+        per[key]["area"].append(float(A[i]))
+        log_rank[(w, c, int(k))] = np.log10(self_rank)
         per[key]["self_rank"].append(self_rank)
         per[key]["self_top10"].append(float(self_rank <= 10))
         per[key]["subj@10"].append(float((pool_subj[top] == s_subj).mean()))
@@ -109,8 +114,18 @@ def main(model: str) -> None:
         da, db = drift_of(*a), drift_of(*b)
         diff = np.array([da[w] - db[w] for w in da if w in db])
         contrasts[name] = boot(diff, rng) + [float((diff > 0).mean())]
+    # the decisive control: each stage against the work alone at the same area, no support
+    matched = {}
+    for name, chain in CHAINS.items():
+        if name.startswith("ctrl"):
+            continue
+        for k in range(1, len(chain) + 1):
+            diff = np.array([log_rank[(w, name, k)] - log_rank[(w, f"match|{name}", k)]
+                             for w in works if (w, name, k) in log_rank])
+            matched[f"{name}|{k}"] = boot(diff, rng) + [float((diff > 0).mean())]
     Path("results/E4").mkdir(parents=True, exist_ok=True)
-    json.dump({"model": model, "stages": out, "h1_contrasts": contrasts},
+    json.dump({"model": model, "stages": out, "h1_contrasts": contrasts,
+               "stage_minus_area_matched_log10_rank": matched},
               open(f"results/E4/{model}.json", "w"), indent=1)
     print(model, "written")
 

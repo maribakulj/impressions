@@ -114,3 +114,48 @@ photographie sont montrées *avec* leur feuille, leur carton, leurs inscriptions
 neutre pour la machine : le type d'objet est lisible dans les couches mêmes, avant tout sujet.
 À tester en E4 : une partie de ce que les modèles appellent « estampe » ou « photographie »
 est-elle la marge ?
+
+## 2026-10-05 — E3 (2/2) : le pilote regardé
+
+Pool encodé par les trois modèles (`data/cache/pool-*.npz`, 18 405 images, ~50 min chacun dans
+la file partagée). Pilote [`scripts/pilot.py`](scripts/pilot.py) : 3 œuvres (une peinture de
+Boucher ovale Q19912481, un bronze Q139858606, une gravure de Dürer Q18338511) × 9 chaînes, rang
+de l'œuvre elle-même parmi les 18 405 images, 3 voisins, lecture de Claude. Planches :
+[peinture](figures/E3-pilot-Q19912481.jpg), [bronze](figures/E3-pilot-Q139858606.jpg),
+[gravure](figures/E3-pilot-Q18338511.jpg) ; données [`results/E3/pilot.jsonl`](results/E3/pilot.jsonl).
+
+**Ce qu'on voit** (rang de l'œuvre retrouvée, CLIP / SigLIP / DINOv2) :
+
+1. **Le cadre seul ne change rien.** Cadre doré, passe-partout, réduction, JPEG : rang 1-2 pour
+   les 3 œuvres et les 3 modèles. La trame d'impression non plus (1-21). Si cela tient sur 300
+   œuvres, H1 est réfutée dans sa forme « recherche d'images ».
+2. **La bascule vient quand l'œuvre devient un objet dans une scène** : accrochée au mur (k=2 :
+   Boucher 249/296/31, Dürer 5335/1768/859), dans un livre photographié (k=2 : 240/72/93,
+   2833/308/383), dans une page web pour CLIP seulement (k=1 : 53, 5, 347 ; SigLIP reste à 1).
+   Chaîne profonde k=4-6 : rangs 1 800 à 17 600 sur 18 405, c'est-à-dire perdue.
+3. **Les voisins après la bascule sont des objets qui sont eux-mêmes des supports.** Le tableau au
+   mur rouge a pour voisins des daguerréotypes dans leur étui, des miniatures encadrées, un
+   retable ; le livre photographié a pour voisins des albums de cyanotypes, des manuscrits
+   enluminés, une photographie d'étagères de livres ; la page web, avec sa rangée de vignettes,
+   a pour voisins des lots de petits objets photographiés en grille (monnaies, fragments). La
+   machine ne voit plus l'œuvre : elle range l'image avec les objets de musée dont la forme est
+   celle du support.
+4. **Le bronze résiste plus longtemps** (rang 1 même au mur), peut-être parce que sa silhouette sur
+   fond gris est déjà « un objet posé quelque part ». À vérifier par type sur 300.
+5. **Claude ne perd pas le sujet jusqu'à k=5 et décrit toute la chaîne** (« un écran affichant
+   une page de collection en ligne montrant un livre ouvert dont la page de droite reproduit une
+   gravure encadrée accrochée sur un mur bleu »). À k=6, sa réponse à « que représente cette
+   image ? » **devient le support** : « Une photo de livre ouvert montrant une reproduction d'un
+   tableau encadré (portrait ou scène sombre) ». Le sujet a glissé d'un cran.
+6. **Biais à corriger avant de mesurer :** à k=2 l'œuvre ne couvre plus que ~13 % de l'image, à
+   k=6 0,3 %. La bascule peut être un effet de taille, pas de cadre. Ajouté :
+   `content_mask` (où sont les pixels de l'œuvre à chaque étape : la chaîne rejouée sur une image
+   blanche puis noire avec la même graine) et `area_matched` (l'œuvre seule sur gris, même
+   surface, même toile) ; E4 compare chaque étape à son témoin. Constat au passage : l'ancien
+   contrôle `shrink_neutral` (38 % de surface) réduisait *plus* que le cadre doré (66-71 %).
+7. **Claude repère la fabrication** : « le cadre semble ajouté numériquement ». Nos couches
+   synthétiques sont reconnaissables comme telles par un modèle vision-langage → H3/H4 doivent
+   être confirmées sur le réel (E6).
+
+Lancé : [`scripts/e4_embed_stages.py`](scripts/e4_embed_stages.py) (300 œuvres × 37 images =
+11 100 images × 3 modèles, reprenable œuvre par œuvre) dans la file des calculs lourds.

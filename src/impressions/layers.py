@@ -431,3 +431,31 @@ def apply_chain(im: Image.Image, chain: list[str], seed: int) -> list[Image.Imag
     for name in chain:
         stages.append(LAYERS[name](stages[-1], rng))
     return stages
+
+
+def content_mask(size: tuple[int, int], chain: list[str], seed: int) -> list[np.ndarray]:
+    """Where the original work's pixels end up at each stage of a chain.
+
+    The chain is run twice with the same seed, on an all-white and an all-black image of the
+    original's size; the layers draw their randomness independently of the image content, so
+    the two runs differ only where the work itself is shown. Returns one boolean mask per stage.
+    """
+    white = apply_chain(Image.new("RGB", size, (255, 255, 255)), chain, seed)
+    black = apply_chain(Image.new("RGB", size, (0, 0, 0)), chain, seed)
+    return [np.abs(np.asarray(w, np.int16) - np.asarray(b, np.int16)).mean(2) > 60
+            for w, b in zip(white, black)]
+
+
+def area_matched(im: Image.Image, stage_size: tuple[int, int], area_fraction: float,
+                 grey: int = 128) -> Image.Image:
+    """Control for any stage: the work alone, scaled so that it covers the same share of a
+    canvas of the stage's size, centred on flat grey. Same size, no frame, no support."""
+    im = _cap(_rgb(im))
+    W, H = stage_size
+    target = max(area_fraction, 1e-4) * W * H
+    scale = min((target / (im.width * im.height)) ** 0.5, W / im.width, H / im.height)
+    fg = im.resize((max(1, round(im.width * scale)), max(1, round(im.height * scale))),
+                   Image.LANCZOS)
+    out = Image.new("RGB", (W, H), (grey, grey, grey))
+    out.paste(fg, ((W - fg.width) // 2, (H - fg.height) // 2))
+    return out

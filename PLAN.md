@@ -70,7 +70,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       navigateur), `halftone_print` (trame), `rephotograph` (perspective, flou, balance des
       blancs). Plus les contrôles : `shrink_neutral` (même réduction, fond gris, sans cadre).
       Planche de chaque couche sur 5 œuvres, regardée et jugée. Tests unitaires.
-- [ ] **E3 — Pilote regardé.** Ajouter d'abord l'annotation des couches déjà présentes
+- [x] **E3 — Pilote regardé.** Ajouter d'abord l'annotation des couches déjà présentes
       dans chaque original (cadre, carton, feuille, fond de studio, reliure) — covariable d'E4. 3 œuvres × toutes les chaînes de couches ; pour chaque image :
       plus proches voisins dans la galerie (3 modèles) et description par Claude
       (`claude -p --model sonnet`). Planche HTML ou PNG. Écrire `notes/E3-pilote.md` : ce que

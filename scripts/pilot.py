@@ -52,9 +52,16 @@ def main() -> None:
                        for r, s in gal.neighbours(v, 3, exclude=w["id"])],
             }
     cache = Cache("data/annotations/pilot_readings.jsonl")
-    for w, name, k, p in stages:
-        if str(p) not in cache:
-            cache.add(str(p), {"answer": ask(str(p.resolve()), PROMPT)})
+    from concurrent.futures import ThreadPoolExecutor
+
+    todo = [p for *_, p in stages if str(p) not in cache]
+
+    def read(p):
+        return p, ask(str(p.resolve()), PROMPT)
+
+    with ThreadPoolExecutor(3) as ex:
+        for p, answer in ex.map(read, todo):
+            cache.add(str(p), {"answer": answer})
     rows = []
     for w, name, k, p in stages:
         rows.append({"work": w["id"], "kind": w["kind"], "iconclass": w["iconclass"],
