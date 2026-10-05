@@ -264,3 +264,46 @@ sur les 300 œuvres ([`results/E5/zeroshot-clip.json`](results/E5/zeroshot-clip.
   support, pas la taille. À profondeur 6, les deux échouent mais pas de la même façon : devant
   la vignette minuscule ils répondent par défaut (CLIP « peinture », SigLIP « dessin ») ; devant
   la chaîne réelle, « estampe ».
+
+## 2026-10-06 — E4b : la trame, enveloppe ou imprégnation ? (fait)
+
+Variantes de la couche « impression » sur les 300 œuvres (CLIP, SigLIP, DINOv2) et sur les 30
+œuvres d'E5 (Claude, même consigne, même juge). Planche des variantes :
+[`figures/E4b-screens-detail.jpg`](figures/E4b-screens-detail.jpg). Scripts
+[`e4b_embed_screens.py`](scripts/e4b_embed_screens.py), [`e4b_analyse.py`](scripts/e4b_analyse.py),
+[`e4b_claude.py`](scripts/e4b_claude.py) ; résultats [`results/E4b/screens.json`](results/E4b/screens.json),
+lectures `data/annotations/e4b_readings.jsonl`.
+
+**Retrouver l'œuvre** (part des 300 où l'image de musée est dans les 10 premiers voisins) :
+
+| variante | CLIP | SigLIP | DINOv2 |
+| --- | --- | --- | --- |
+| ancienne trame CMJ (dominante violet/jaune) | 0,75 | 0,70 | 0,79 |
+| sa couleur seule, sans points | 0,60 | 0,73 | **0,97** |
+| CMJN fine (3 px) | 0,69 | 0,69 | 0,87 |
+| CMJN moyenne (5 px) | 0,84 | 0,79 | **0,54** |
+| CMJN grosse (8 px, journal) | 0,32 | **0,08** | **0,04** |
+| rephotographie seule | 0,90 | 0,97 | 0,99 |
+
+**Claude** (30 œuvres ; sujet même / partiel / support / autre ; type d'œuvre juste) :
+
+| variante | sujet | type juste |
+| --- | --- | --- |
+| original | — | 28/30 |
+| ancienne trame CMJ | 5 / 18 / 2 / 5 | 22/30 |
+| couleur seule | **18 / 12 / 0 / 0** | 22/30 |
+| CMJN moyenne | 1 / 15 / 4 / 10 | 19/30 |
+| CMJN grosse | 0 / 10 / **10** / 10 | 14/30 |
+
+**Ce que cela dit.**
+- Le soupçon de Marcel était fondé : une partie du premier résultat venait de ma fausse couleur.
+  La lecture « haut-relief doré » de la Résurrection (Q116377829) persiste avec la couleur seule :
+  c'était la dominante jaune, pas la trame.
+- Mais la trame agit bien, et **autrement que le cadre**. Les points (pas la couleur) font perdre
+  le sujet à Claude ; à gros grain, **la trame devient le sujet** (« une image très tramée
+  de… », 10/30) — l'équivalent, par imprégnation, du support qui remplace le sujet en profondeur.
+- Chaque modèle est sensible à une composante différente : DINOv2 (images seules) aux points,
+  comme le biais de texture de Geirhos et al. ; CLIP à la couleur ; tous à la taille du grain.
+  La rephotographie seule ne fait presque rien.
+- Le médium lu bouge modérément (vers « estampe », 91 → 116-127 pour CLIP) : la trame n'est pas
+  un fabricant de médium aussi fort que le mur ou le livre.

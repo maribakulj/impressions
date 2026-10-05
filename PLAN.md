@@ -80,7 +80,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       niveau 2-3) et « même type d'objet » ; un indice « support » = les voisins sont-ils des
       images transformées de même couche (ajouter à la galerie les versions transformées d'autres
       œuvres). Bootstrap. Résultats `results/E4/`, figures, `notes/E4.md`.
-- [ ] **E4b — La trame : enveloppe ou imprégnation ?** Le cadre *enveloppe* (le bord le plus
+- [x] **E4b — La trame : enveloppe ou imprégnation ?** Le cadre *enveloppe* (le bord le plus
       extérieur décide) ; la trame *imprègne* toute la surface (texture → médium lu ; lien :
       Geirhos et al. 2019, biais de texture). Biais possibles du premier résultat : dominante de
       couleur (CMJ sans noir → violet/jaune, « doré »), trame et rephotographie confondues,
