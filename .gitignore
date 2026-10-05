@@ -4,3 +4,5 @@ data/cache/
 data/layers/
 *.npz
 logs/
+data/real/images/
+data/real/candidates/

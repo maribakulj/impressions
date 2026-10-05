@@ -159,3 +159,49 @@ de l'œuvre elle-même parmi les 18 405 images, 3 voisins, lecture de Claude. Pl
 
 Lancé : [`scripts/e4_embed_stages.py`](scripts/e4_embed_stages.py) (300 œuvres × 37 images =
 11 100 images × 3 modèles, reprenable œuvre par œuvre) dans la file des calculs lourds.
+
+## 2026-10-05 — E5 (1/2) : ce que Claude dit que l'image *est*
+
+30 œuvres (6 par type) × 9 étapes = 270 lectures, 0 erreur, puis un jugement par œuvre (le
+sujet nommé à chaque étape est-il celui de l'original ?). Script
+[`scripts/e5_readings.py`](scripts/e5_readings.py), analyse
+[`scripts/e5_analyse.py`](scripts/e5_analyse.py) → [`results/E5/claude.json`](results/E5/claude.json).
+Étapes regardées avant de compter : [planche](figures/E5-stages-check.jpg) ; le témoin
+`match|deep 6` est bien l'œuvre seule, minuscule, au centre d'un fond gris.
+
+| étape | couches vraies* | couches dites | sujet : même / partiel / **support** / autre | type d'œuvre juste |
+| --- | --- | --- | --- | --- |
+| original | 1,6 | 1,0 | — | 93 % |
+| cadre doré (k=1) | 2,6 | 2,0 | 30 / 0 / 0 / 0 | 93 % |
+| mur (k=2) | 3,6 | 2,8 | 23 / 6 / 1 / 0 | 93 % |
+| livre photographié (k=2) | 3,6 | 3,9 | 16 / 9 / 5 / 0 | 93 % |
+| écran (k=2) | 3,6 | 4,0 | 17 / 12 / 1 / 0 | 87 % |
+| trame + rephoto (k=2) | 3,6 | 2,2 | 10 / 17 / 0 / 3 | 73 % |
+| chaîne profonde k=4 | 5,6 | 5,0 | 1 / 12 / **14** / 3 | 73 % |
+| chaîne profonde k=6 | 7,6 | 6,4 | 0 / 0 / **27** / 3 | 47 % |
+| **témoin même surface que k=6** | 2,6 | 1,7 | 0 / 9 / **0** / 21 | 63 % |
+
+*couches vraies = couches déjà présentes dans l'image de musée (annotation E3, elle aussi faite
+par Claude : la mesure n'est pas indépendante) + couches ajoutées.
+
+**H3 (compter les couches) : soutenue pour Claude.** Rang de Spearman 0,75 entre couches dites et
+vraies ; erreur moyenne 0,95 couche contre 1,44 pour la règle triviale (toujours la moyenne) ;
+76 % à une couche près. Il sous-compte les couches déjà présentes (1,0 dit contre 1,6).
+Limite : il déclare **toutes** les images transformées « montées numériquement » (100 %) et
+aucun original (0 %) — il reconnaît notre fabrication ; le réel (E6) est indispensable.
+
+**H4 (le sens change, pas seulement le style) : soutenue, et le témoin la rend nette.** À 6
+couches, la réponse à « que représente l'image ? » parle du support dans 27 cas sur 30 (« un
+écran d'ordinateur affiche une page web de collection en ligne montrant la photo d'un livre
+ouvert… »). Dans le témoin, l'œuvre seule *aussi petite* (0,3 % de l'image) : 0 sur 30. Quand
+l'œuvre devient illisible sans support, Claude décrit une vignette illisible (« une minuscule
+peinture sombre au centre d'un grand fond gris ») ; quand elle devient illisible *dans* des
+supports, **le support prend la place du sujet**. La perte du sujet est un effet de taille ; son
+remplacement par le support est un effet des couches.
+
+**Inattendu : la trame est la couche qui trompe le plus sur le médium.** Trame + rephotographie
+fait tomber le type d'œuvre juste de 93 % à 73 % et donne 3 « autre sujet » : une Résurrection
+peinte devient « un haut-relief gothique sculpté et doré » (Q116377829), une caricature devient
+« deux hommes qui courent sous l'orage » (Q97733002). Le cadre doré, lui, ne trompe jamais.
+
+Reste pour E5 : le même comptage par CLIP et SigLIP en zéro-coup (attend les encodages d'E4).
