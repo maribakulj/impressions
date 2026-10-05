@@ -60,11 +60,15 @@ def main(model: str) -> None:
     stage_subj = np.array([subject(works[w]) for w in W])
     per = defaultdict(lambda: defaultdict(list))
     log_rank = {}
+    B = 512  # similarities by blocks of rows: fast, and ~40 MB per block instead of ~1 GB
     for i, (w, c, k) in enumerate(zip(W, C, K)):
+        if i % B == 0:
+            PS = V[i:i + B] @ gal.vecs.T
+            SS = V[i:i + B] @ V.T
         work = works[w]
         s_subj, s_kind = subject(work), work["kind"]
         dup = pool[w]["near_duplicate_group"]
-        ps = gal.vecs @ V[i]  # row by row: the full matrices would take ~1 GB per model
+        ps = PS[i % B].copy()
         own = gal.index[w]
         self_rank = int((ps > ps[own]).sum()) + 1
         ps[pool_dup == dup] = -np.inf
@@ -78,7 +82,7 @@ def main(model: str) -> None:
         per[key]["subj@10"].append(float((pool_subj[top] == s_subj).mean()))
         per[key]["kind@10"].append(float((pool_kind[top] == s_kind).mean()))
         # mixed gallery: pool (minus duplicates) + stages of other works
-        ss = V @ V[i]
+        ss = SS[i % B].copy()
         ss[W == w] = -np.inf
         allsims = np.concatenate([ps, ss])
         top = np.argpartition(-allsims, 10)[:10]
