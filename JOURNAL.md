@@ -84,3 +84,33 @@ contrôlée de supports emboîtés pour demander ce que l'image *est* (objet, œ
 
 État des calculs : annotation des couches existantes en cours (≈ 240/300), encodage du pool CLIP
 ≈ 9 000/18 405 (lent : la file est partagée avec axel).
+
+## 2026-10-05 — E3 (1/2) : les couches déjà présentes dans les « originaux »
+
+Claude (Sonnet, lecture d'image) a annoté les 300 œuvres :
+[`data/annotations/existing_layers.jsonl`](data/annotations/existing_layers.jsonl), script
+[`scripts/annotate_existing_layers.py`](scripts/annotate_existing_layers.py), 0 erreur.
+Contrôle à l'œil sur 15 tirées au hasard ([planche](figures/E3-existing-layers-check.jpg)) :
+juste partout (miniature Q19913961 dans un cadre doré sur coussin rose → 4 couches ;
+stéréo-daguerréotype Q97013011 dans son étui ; cyanotype Q96181857 vu dans l'album ouvert) ;
+léger excès sur « fond de studio » attribué à un simple fond clair.
+
+**Résultat** (part des œuvres, par type) :
+
+| couche présente | peinture | estampe | dessin | sculpture | photographie |
+| --- | --- | --- | --- | --- | --- |
+| cadre | 12 % | 0 % | 2 % | 3 % | 7 % |
+| montage / carton | 8 % | 15 % | 20 % | 2 % | 60 % |
+| bords de la feuille | 2 % | 98 % | 73 % | 0 % | 80 % |
+| inscriptions hors image | 5 % | 67 % | 27 % | 2 % | 33 % |
+| fond de studio | 32 % | 68 % | 45 % | 93 % | 43 % |
+| socle / support | 5 % | 0 % | 2 % | 40 % | 3 % |
+| reliure / album | 0 % | 0 % | 2 % | 0 % | 20 % |
+| **nombre moyen de couches** | **0,72** | **2,25** | **1,47** | **1,50** | **2,18** |
+
+Seules 48 images sur 300 n'ont aucune couche. **Les musées traitent les types différemment** :
+la peinture est rognée au bord de la toile (le cadre est retiré de l'image), l'estampe et la
+photographie sont montrées *avec* leur feuille, leur carton, leurs inscriptions. Ce n'est pas
+neutre pour la machine : le type d'objet est lisible dans les couches mêmes, avant tout sujet.
+À tester en E4 : une partie de ce que les modèles appellent « estampe » ou « photographie »
+est-elle la marge ?
