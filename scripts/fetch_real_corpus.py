@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """E6 — real corpus: the same famous works seen through real supports on Wikimedia Commons.
 
-Steps (each reprenable, polite to the API: >= 2 s between requests, 60 s pause on HTTP 429):
+Steps (each resumable, polite to the API: >= 2 s between requests, 60 s pause on HTTP 429):
 
   list    WORKS -> data/real/candidates/<slug>.json : files of the work's category and of its
           subcategories (depth 2), with size, licence, author, description (extmetadata).
@@ -10,9 +10,11 @@ Steps (each reprenable, polite to the API: >= 2 s between requests, 60 s pause o
   fetch   files listed in data/real/selection.json -> data/real/images/ at width 960
   manifest  data/real/selection.json + candidates metadata -> data/real/manifest.jsonl
 
+  select  data/real/picks.json (titles chosen on the sheets) -> data/real/selection.json
+
 The choice of images and their annotation (support, layers, work_area, note) were done by looking
-at every image (Claude, E6); they live in data/real/selection.json, which `manifest` joins with the
-Commons metadata.
+at every image (Claude, E6); the annotations live in data/real/annotations.jsonl, which `manifest`
+joins with selection.json and the Commons metadata.
 """
 
 from __future__ import annotations
@@ -70,8 +72,11 @@ SUBCAT_EXCLUDE = re.compile(r"cop(y|ies)|after |parod|pastiche|named|style|deriv
                             r"caricature|lego|costume|uploaded|wikidata|text|logo", re.I)
 
 
-def get(client: httpx.Client, url: str, params: dict | None = None) -> httpx.Response:
-    """GET with >= DELAY s between requests and a 60 s pause on 429."""
+def get(client: httpx.Client, url: str, params: dict | None = None,
+        give_up_on_429: bool = False) -> httpx.Response:
+    """GET with >= DELAY s between requests and a pause on 429 (Retry-After, 60-600 s).
+    With give_up_on_429, return the 429 response at once (the caller skips and retries later:
+    upload.wikimedia.org throttles single thumbnails with Retry-After 600)."""
     global _last, DELAY
     for attempt in range(6):
         wait = DELAY - (time.monotonic() - _last)
@@ -84,11 +89,17 @@ def get(client: httpx.Client, url: str, params: dict | None = None) -> httpx.Res
             print("  network error", e, file=sys.stderr)
             time.sleep(20)
             continue
+        if r.status_code == 429 and give_up_on_429:
+            print(f"  429 (retry-after {r.headers.get('retry-after')}), skipped for now", file=sys.stderr)
+            time.sleep(15)
+            return r
         if r.status_code == 429:
             DELAY = min(DELAY * 1.5, 15.0)  # back off for good
-            print(f"  429 (retry-after {r.headers.get('retry-after')}), waiting 60 s, delay now {DELAY:.1f} s",
+            ra = r.headers.get("retry-after", "")
+            pause = min(max(60, int(ra) if ra.isdigit() else 60), 600)  # honour Retry-After
+            print(f"  429 (retry-after {ra}), waiting {pause} s, delay now {DELAY:.1f} s",
                   str(r.url)[:100], file=sys.stderr)
-            time.sleep(60)
+            time.sleep(pause)
             continue
         return r
     raise RuntimeError(f"giving up on {url}")
@@ -290,27 +301,47 @@ def cmd_select() -> None:
     print(len(sel), "selected")
 
 
-def cmd_fetch() -> None:
+def cmd_fetch(passes: int = 4) -> None:
     sel = json.loads((ROOT / "selection.json").read_text())
     IMAGES.mkdir(parents=True, exist_ok=True)
     with httpx.Client(headers={"User-Agent": UA}) as c:
-        for s in sel:
-            dest = IMAGES / s["file"]
-            if dest.exists():
-                continue
-            name = s["title"].removeprefix("File:")
-            url = ("https://commons.wikimedia.org/wiki/Special:FilePath/"
-                   + urllib.parse.quote(name) + "?width=960")
-            r = get(c, url)
-            if r.status_code == 200 and r.headers.get("content-type", "").startswith("image"):
-                dest.write_bytes(r.content)
-                print("ok", s["file"], len(r.content) // 1024, "KB")
-            else:
-                print("FAIL", r.status_code, name, file=sys.stderr)
+        for p in range(passes):
+            todo = [s for s in sel if not (IMAGES / s["file"]).exists()]
+            if not todo:
+                return
+            if p:
+                time.sleep(300)  # let throttled thumbnails cool down
+            for s in todo:
+                name = s["title"].removeprefix("File:")
+                url = ("https://commons.wikimedia.org/wiki/Special:FilePath/"
+                       + urllib.parse.quote(name) + "?width=960")
+                try:
+                    r = get(c, url, give_up_on_429=True)
+                except RuntimeError as e:
+                    print("FAIL", e, file=sys.stderr)
+                    continue
+                if r.status_code == 200 and r.headers.get("content-type", "").startswith("image"):
+                    (IMAGES / s["file"]).write_bytes(r.content)
+                    print("ok", s["file"], len(r.content) // 1024, "KB")
+                else:
+                    print("FAIL", r.status_code, name, file=sys.stderr)
 
 
 def cmd_manifest() -> None:
+    """selection.json + annotations.jsonl (written by looking at each image; a line with "drop"
+    removes the image) + Commons metadata -> manifest.jsonl."""
     sel = json.loads((ROOT / "selection.json").read_text())
+    ann = {}
+    for line in (ROOT / "annotations.jsonl").read_text().splitlines():
+        if line.strip():
+            a = json.loads(line)
+            ann[a["file"]] = a  # last line wins
+    missing = [s["file"] for s in sel if s["file"] not in ann and (IMAGES / s["file"]).exists()]
+    if missing:
+        print("not annotated:", *missing, file=sys.stderr)
+    sel = [dict(s, **ann[s["file"]]) for s in sel
+           if s["file"] in ann and (IMAGES / s["file"]).exists()]
+    kept = 0
     meta = {}
     for slug in WORKS:
         p = CAND / f"{slug}.json"
@@ -330,6 +361,8 @@ def cmd_manifest() -> None:
                 "layers": s["layers"], "n_layers": s.get("n_layers", len(s["layers"]) - 1),
                 "work_area": s["work_area"], "note": s["note"],
             }, ensure_ascii=False) + "\n")
+            kept += 1
+    print(kept, "images in manifest.jsonl")
 
 
 if __name__ == "__main__":
