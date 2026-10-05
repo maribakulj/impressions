@@ -53,12 +53,12 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
 
 ## Étapes (cocher au fur et à mesure ; la boucle prend la première non cochée)
 
-- [ ] **E0 — Environnement.** `pyproject.toml` (uv) : numpy, pillow, torch, transformers,
+- [x] **E0 — Environnement.** `pyproject.toml` (uv) : numpy, pillow, torch, transformers,
       open-clip-torch, scipy, pandas, matplotlib. Modèles déjà en cache HF : CLIP ViT-B/32,
       SigLIP base, DINOv2 base. Test de fumée : encoder 3 images. Lien symbolique ou chemin vers
       le corpus caypollard (`~/caypollard/data/derived/museums-v0.2/manifest.jsonl`, images
       `~/caypollard/data/raw/...`) — lecture seule, ne jamais écrire dans caypollard.
-- [ ] **E1 — Corpus d'œuvres.** Échantillon stratifié : ≥ 40 œuvres par type (peinture,
+- [x] **E1 — Corpus d'œuvres.** Échantillon stratifié : ≥ 40 œuvres par type (peinture,
       estampe, dessin, sculpture, photographie), sujets Iconclass variés, image ≥ 600 px.
       Galerie de recherche : tout le pool museums-v0.2 (18 405) + emblèmes si utile.
       Écrire `data/works.jsonl`. Regarder une planche de 25 œuvres.
