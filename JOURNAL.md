@@ -205,3 +205,21 @@ peinte devient « un haut-relief gothique sculpté et doré » (Q116377829), une
 « deux hommes qui courent sous l'orage » (Q97733002). Le cadre doré, lui, ne trompe jamais.
 
 Reste pour E5 : le même comptage par CLIP et SigLIP en zéro-coup (attend les encodages d'E4).
+
+## 2026-10-05 — E5 (2/2, partiel) : CLIP et SigLIP en zéro-coup, 51 premières œuvres
+
+[`scripts/e5_zeroshot.py`](scripts/e5_zeroshot.py), lisible sur le cache partiel d'E4 (les 51
+premières œuvres sont toutes des **peintures** : le fichier est rangé par type ; résultats finaux
+à refaire sur les 300).
+
+- **Support extérieur reconnu** (précision équilibrée sur 10 classes, hasard 10 %) : SigLIP 49 %,
+  CLIP 22 %. Bien reconnus : cadre doré (SigLIP 96 %), page web (95-98 %), écran photographié
+  (SigLIP 89 %), page de livre (SigLIP 75 %). Mal reconnus : mur de musée, livre photographié,
+  passe-partout, rephotographie. H3 en partie seulement pour les encodeurs.
+- **Le support change le médium lu.** Type d'œuvre « peinture » lu juste à 86-88 % sur l'original ;
+  **dans une page de livre, la peinture devient « une estampe »** (CLIP 45/51 au livre
+  photographié, SigLIP 40/51 à la page seule) ; à 5-6 couches, 0 % de « peinture ». Ce n'est pas
+  une erreur au sens strict : une reproduction imprimée *est* une estampe photomécanique — le
+  modèle lit le médium de l'enveloppe extérieure, pas celui de l'œuvre. Au mur, au contraire,
+  « peinture » monte à 98-100 %. À tester sur les 300 : **accrocher une estampe ou une photo au
+  mur en fait-il « une peinture » ?** (le cadre comme fabrique du médium).
