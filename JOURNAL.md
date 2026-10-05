@@ -32,3 +32,29 @@ ajoutées *par rapport à* l'image donnée. C'est aussi un résultat en soi pour
 de musée est déjà une poupée russe.
 
 Suite : E2, les fonctions de couches, + annotation des couches existantes des 300 œuvres.
+
+## 2026-10-05 — E2, les couches
+
+[`src/impressions/layers.py`](src/impressions/layers.py) : 9 couches composables et
+déterministes (cadre doré, passe-partout, mur de musée avec cartel, page de livre, livre ouvert
+photographié sur une table, page web de collection, écran photographié dans une pièce, impression
+tramée CMJ, rephotographie au téléphone) + 2 contrôles (`shrink_neutral` : même réduction sur gris
+sans cadre ; `jpeg_resample` : dégâts de pixels sans cadre). Les légendes ne nomment jamais le
+sujet (« Fig. 40. — Reproduction autorisée. ») : sinon on testerait la lecture, pas le cadre.
+4 tests verts ([`tests/test_layers.py`](tests/test_layers.py)).
+
+**Regardé.** Planches : [cadres et contrôle](figures/E2-layers-gilt_frame-mat_border-museum_wall-shrink_neutral.jpg),
+[livre et web](figures/E2-layers-book_page-book_photo-screenshot_ui.jpg),
+[écran, trame, rephoto](figures/E2-layers-screen_photo-halftone_print-rephotograph-jpeg_resample.jpg),
+[après correction](figures/E2-layers-gilt_frame-mat_border-book_photo-screen_photo.jpg).
+Défaut trouvé à la première planche et corrigé : des taches « camouflage » sur le papier, la
+dorure et le mur de la pièce (bruit flouté en 8 bits puis réamplifié → plateaux à bords nets) ;
+flou refait en flottants. Restent visibles et assumés : la trame CMJ donne une dominante
+violette/jaune (impression bon marché) ; une sculpture « au mur » est la *photo* de la sculpture
+accrochée — on emboîte toujours la photo de musée, jamais l'objet, ce qui est la thèse même.
+
+**Dépôt public** créé à la demande de Marcel : github.com/maribakulj/impressions. Les chemins
+d'images de `data/works.jsonl` sont désormais relatifs au dépôt caypollard (plus de chemin
+personnel).
+
+Suite : E3, annoter les couches déjà présentes dans les originaux, puis pilote regardé sur 3 œuvres.

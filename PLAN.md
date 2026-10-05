@@ -62,7 +62,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       estampe, dessin, sculpture, photographie), sujets Iconclass variés, image ≥ 600 px.
       Galerie de recherche : tout le pool museums-v0.2 (18 405) + emblèmes si utile.
       Écrire `data/works.jsonl`. Regarder une planche de 25 œuvres.
-- [ ] **E2 — Les couches.** `src/impressions/layers.py` : fonctions composables, déterministes
+- [x] **E2 — Les couches.** `src/impressions/layers.py` : fonctions composables, déterministes
       (graine) : `crop_tight`, `museum_photo` (œuvre dans un mur, petite perspective),
       `gilt_frame` (cadre doré procédural), `mat_border` (passe-partout), `book_page` (marges,
       légende en vraie typographie, papier), `book_photo` (page en perspective sur une table,
@@ -70,7 +70,8 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       navigateur), `halftone_print` (trame), `rephotograph` (perspective, flou, balance des
       blancs). Plus les contrôles : `shrink_neutral` (même réduction, fond gris, sans cadre).
       Planche de chaque couche sur 5 œuvres, regardée et jugée. Tests unitaires.
-- [ ] **E3 — Pilote regardé.** 3 œuvres × toutes les chaînes de couches ; pour chaque image :
+- [ ] **E3 — Pilote regardé.** Ajouter d'abord l'annotation des couches déjà présentes
+      dans chaque original (cadre, carton, feuille, fond de studio, reliure) — covariable d'E4. 3 œuvres × toutes les chaînes de couches ; pour chaque image :
       plus proches voisins dans la galerie (3 modèles) et description par Claude
       (`claude -p --model sonnet`). Planche HTML ou PNG. Écrire `notes/E3-pilote.md` : ce que
       l'on voit, ce qui surprend, ce qu'il faut corriger avant de mesurer.
@@ -121,8 +122,9 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
 4. Regarder les images (outil Read sur les planches) avant chaque mesure nouvelle. Ne jamais
    présenter un échec de construction comme une réfutation de l'idée.
 5. Ne pas reprendre une conclusion de caypollard sans la revérifier.
-6. Commit à chaque morceau vérifié (dépôt local `~/impressions`, pas de dépôt distant sans
-   l'accord de Marcel). Ne jamais écrire dans `~/caypollard`.
+6. Commit à chaque morceau vérifié et push sur `main` du dépôt public
+   github.com/maribakulj/impressions (demandé par Marcel le 05/10/2026). Ne jamais écrire dans
+   `~/caypollard`. Ne jamais pousser d'image sous droits ni de clé.
 7. Journal : une entrée datée par réveil dans `JOURNAL.md` (fait / vu / chiffres / suite), en
    français simple, avec des chemins de fichiers cliquables.
 8. Une étape bloquée (accès, droits, besoin humain) : le noter, passer à la suivante, ne pas

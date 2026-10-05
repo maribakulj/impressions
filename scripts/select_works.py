@@ -49,7 +49,7 @@ def main() -> None:
         for r in chosen:
             fh.write(json.dumps({k: r[k] for k in (
                 "id", "kind", "collection", "iconclass", "depicts", "inception",
-                "image_abspath", "image_url", "source_url")}) + "\n")
+                "image_path", "image_url", "source_url")}) + "\n")
     sample = rng.sample(chosen, 25)
     sheet = contact_sheet([(Image.open(r["image_abspath"]),
                             f"{r['kind']} {r['iconclass'][0]}\n{r['id']}") for r in sample])

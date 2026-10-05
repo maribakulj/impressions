@@ -28,3 +28,14 @@ def load_pool() -> list[dict]:
             row["kind"] = kinds[0] if kinds else "other"
             rows.append(row)
     return rows
+
+
+def load_works(path: str | Path = "data/works.jsonl") -> list[dict]:
+    """The sampled works, with ``image_abspath`` resolved against the caypollard checkout."""
+    rows = []
+    with open(path) as fh:
+        for line in fh:
+            row = json.loads(line)
+            row["image_abspath"] = str(CAYPOLLARD / row["image_path"])
+            rows.append(row)
+    return rows
