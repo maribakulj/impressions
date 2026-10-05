@@ -51,7 +51,7 @@ WORKS: dict[str, tuple[str, str, list[str]]] = {
     "nike-samothrace": ("Victoire de Samothrace", "sculpture", ["Nike of Samothrace"]),
     "david-michelangelo": ("Michel-Ange, David", "sculpture", ["David by Michelangelo Buonarroti"]),
     "laocoon": ("Laocoon et ses fils", "sculpture", ["Laocoon group"]),
-    "nefertiti": ("Buste de Néfertiti", "sculpture", ["Nefertiti bust (Berlin)", "Nefertiti Bust on stamps"]),
+    "nefertiti": ("Buste de Néfertiti", "sculpture", ["Nefertiti Bust", "Nefertiti Bust on stamps"]),
     "melencolia": ("Dürer, Melencolia I", "print", ["Melencolia I by Albrecht Dürer"]),
     "great-wave": ("Hokusai, La Grande Vague de Kanagawa", "print", ["The Great Wave off Kanagawa by Katsushika Hokusai"]),
     "rhinoceros": ("Dürer, Le Rhinocéros", "print", ["Dürer's Rhinoceros"]),
@@ -115,12 +115,12 @@ def strip(s: str | None) -> str:
 
 
 def imageinfo(client: httpx.Client, titles: list[str]) -> dict[str, dict]:
-    out = {}
+    out: dict[str, dict] = {}
     for i in range(0, len(titles), 50):
         d = api(client, action="query", prop="imageinfo", titles="|".join(titles[i:i + 50]),
                 iiprop="url|size|mime|extmetadata", iiurlwidth="200",
                 iiextmetadatafilter="LicenseShortName|Artist|ImageDescription|Credit")
-        for p in d["query"]["pages"]:
+        for p in d.get("query", {}).get("pages", []):
             if not p.get("imageinfo"):
                 continue
             ii = p["imageinfo"][0]
@@ -167,7 +167,11 @@ def cmd_list(slugs: list[str]) -> None:
             print(slug, len(seen), "categories", len(rows), "files")
 
 
-SEARCH_NAME = {"birth-of-venus": "Birth of Venus", "the-kiss": "Klimt Kiss", "the-scream": "Munch Scream",
+SEARCH_NAME = {"night-watch": '"Night Watch" Rembrandt', "pearl-earring": '"Girl with a Pearl Earring"',
+               "starry-night": '"Starry Night" Gogh', "arnolfini": "Arnolfini",
+               "liberty": '"Liberté guidant le peuple"', "melencolia": "Melencolia",
+               "great-wave": '"Great Wave" Hokusai', "vitruvian-man": '"Vitruvian Man"',
+               "migrant-mother": '"Migrant Mother"',"birth-of-venus": "Birth of Venus", "the-kiss": "Klimt Kiss", "the-scream": "Munch Scream",
                "david-michelangelo": "David Michelangelo", "laocoon": "Laocoon",
                "praying-hands": "Praying Hands", "rhinoceros": "Dürer Rhinoceros",
                "le-gras": "Niépce", "knight-death-devil": "Knight, Death and the Devil",

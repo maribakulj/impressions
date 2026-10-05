@@ -111,6 +111,16 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       document « Arranger les images… » (lien en fin) ; résumé final dans `JOURNAL.md`.
       Arrêter la boucle.
 
+## Garde-fou (remarque de Marcel, 05/10/2026)
+
+« Utiliser de la puissance de calcul pour montrer qu'un cadre rapproche une estampe de la
+peinture, ça a un intérêt ? » — Non. L'article se construit autour de ce qui n'était **pas**
+prévisible et qui tient sur le réel (E6) : le cadre est inerte pour la machine alors que la
+théorie le met au centre ; le *lieu* (mur, livre posé, écran) fait basculer ; le support
+*remplace* le sujet (contrôlé par la surface) ; la trame trompe sur le médium. Les résultats
+attendus (cadre → « peinture », livre → « estampe ») tiennent en une phrase chacun, sans figure.
+Si les résultats contre-intuitifs ne tiennent pas sur le réel, le dire, ne pas gonfler le reste.
+
 ## Règles de la boucle
 
 1. À chaque réveil : lire `PLAN.md` et la fin de `JOURNAL.md`, prendre la première étape non
