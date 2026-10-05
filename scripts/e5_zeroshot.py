@@ -19,7 +19,7 @@ from pathlib import Path
 from impressions import CACHE
 import numpy as np
 
-from impressions.chains import CHAINS
+from impressions.chains import E4_CHAINS as CHAINS
 from impressions.corpus import load_works
 from impressions.encoders import Encoder
 
@@ -40,7 +40,7 @@ KINDS = {"painting": "a painting", "print": "a print, an engraving", "drawing": 
 
 
 def outermost(chain: str, k: int) -> str:
-    if chain == "orig" or chain.startswith("match|") or chain.startswith("ctrl"):
+    if chain == "orig" or chain.startswith(("match|", "degr|", "clut|", "ctrl")):
         return "none"
     return CHAINS[chain][k - 1]
 
@@ -49,8 +49,8 @@ def main(model: str) -> dict:
     enc = Encoder(model)
     s_names = list(SUPPORTS)
     k_names = list(KINDS)
-    t_sup = enc.texts([f"a photo of {SUPPORTS[s]}" if model == "clip" else SUPPORTS[s]
-                       for s in s_names])
+    # same template for both models (review I2)
+    t_sup = enc.texts([f"a photo of {SUPPORTS[s]}" for s in s_names])
     t_kind = enc.texts([f"a photo of {KINDS[k]}" for k in k_names])
     works = {w["id"]: w for w in load_works()}
     stats = defaultdict(lambda: defaultdict(list))
@@ -79,11 +79,22 @@ def main(model: str) -> dict:
     acc = np.mean([g == t for t, row in confusion.items() for g, c in row.items()
                    for _ in range(c)])
     recalls = [confusion[t][t] / sum(confusion[t].values()) for t in confusion]
+    per_class = {}
+    for c in s_names:
+        tp = confusion[c][c]
+        pred_n = sum(confusion[t][c] for t in confusion)
+        true_n = sum(confusion[c].values())
+        prec = tp / pred_n if pred_n else 0.0
+        rec = tp / true_n if true_n else 0.0
+        per_class[c] = {"precision": prec, "recall": rec,
+                        "f1": 2 * prec * rec / (prec + rec) if prec + rec else 0.0,
+                        "predicted": pred_n, "true": true_n}
     out = {
         "model": model, "works": n,
         "support_balanced_accuracy": float(np.mean(recalls)),
         "support_chance": 1 / len(s_names),
         "support_recall": {t: confusion[t][t] / sum(confusion[t].values()) for t in confusion},
+        "support_per_class": per_class,
         "support_accuracy": float(acc),
         "support_majority_baseline": float(all_truth.count(majority) / len(all_truth)),
         "stages": {k: {"support_ok": float(np.mean(v["support_ok"])),
