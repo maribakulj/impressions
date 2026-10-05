@@ -71,6 +71,10 @@ def main() -> None:
             print(f"  {chain:16s} rang médian {s['median_rank']:7.1f}  top10 {s['top10']:.2f} "
                   f"dérive {s['drift']:.3f}  type {s.get('kind_ok', float('nan')):.2f} "
                   f"{s.get('kinds', '')}")
+    # screen period once the image (long side 960, completed to a square) is resized to the
+    # 224-px input: below ~2 px the dots alias into moiré (review I3)
+    out["screen_period_input_px"] = {"ht_cmyk_fine": 3 * 224 / 960, "ht_cmyk_medium": 5 * 224 / 960,
+                                     "ht_cmyk_coarse": 8 * 224 / 960, "ht_cmy": 5 * 224 / 960}
     Path("results/E4b").mkdir(parents=True, exist_ok=True)
     json.dump(out, open("results/E4b/screens.json", "w"), indent=1)
 
