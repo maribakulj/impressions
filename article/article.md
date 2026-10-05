@@ -310,7 +310,7 @@ rephotographies), annotées une à une : chaîne de couches et part de l'image o
 Sur ces images, Claude ne parle presque plus de montage (0 à 10 % selon le support).
 
 Il compte encore les couches (Spearman 0,59 ; 80 % à une couche près). Et le remplacement du sujet
-se retrouve : 0 cas sur 25 à zéro ou une couche, 1 sur 44 à deux, 12 sur 46 à trois, 23 sur 34
+se retrouve (figure 3, `article/figures/fig-reel.png`) : 0 cas sur 25 à zéro ou une couche, 1 sur 44 à deux, 12 sur 46 à trois, 23 sur 34
 à quatre et plus. À surface égale, l'effet des couches demeure : pour une œuvre qui occupe entre
 15 et 50 % de l'image, 1 cas sur 9 à deux couches ou moins, 11 sur 30 à trois ou plus.
 
