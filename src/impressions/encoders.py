@@ -27,13 +27,25 @@ def device() -> str:
     return "mps" if torch.backends.mps.is_available() else "cpu"
 
 
+def letterbox(im: Image.Image, grey: int = 128) -> Image.Image:
+    """Complete an image to a square with grey margins. CLIP and DINOv2 processors centre-crop
+    a non-square image (a 4:3 image loses 25-34 % of its width): with the margins, every model
+    sees the whole image, edge included."""
+    im = im.convert("RGB")
+    side = max(im.size)
+    out = Image.new("RGB", (side, side), (grey, grey, grey))
+    out.paste(im, ((side - im.width) // 2, (side - im.height) // 2))
+    return out
+
+
 class Encoder:
     """Image (and, for CLIP/SigLIP, text) embeddings, L2-normalised, float32."""
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, pad: bool = True):
         from transformers import AutoImageProcessor, AutoModel, AutoProcessor
 
         self.name = name
+        self.pad = pad  # complete to a square so that no encoder crops the image (review I4)
         repo = MODELS[name]
         self.dev = device()
         self.model = AutoModel.from_pretrained(repo).to(self.dev).eval()
@@ -55,6 +67,8 @@ class Encoder:
         return np.concatenate(out) if out else np.zeros((0, 0), np.float32)
 
     def _images(self, chunk: list[Image.Image]) -> np.ndarray:
+        if self.pad:
+            chunk = [letterbox(im) for im in chunk]
         if self.name == "dinov2":
             inputs = self.processor(images=chunk, return_tensors="pt").to(self.dev)
             hidden = self.model(**inputs).last_hidden_state

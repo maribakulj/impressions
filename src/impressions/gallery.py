@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from impressions import CACHE
 import numpy as np
 
 from impressions.corpus import load_pool
@@ -9,7 +10,7 @@ from impressions.corpus import load_pool
 
 class Gallery:
     def __init__(self, model: str):
-        data = np.load(f"data/cache/pool-{model}.npz")
+        data = np.load(f"{CACHE}/pool-{model}.npz")
         self.ids = list(data["ids"])
         self.vecs = data["vecs"].astype(np.float32)
         self.vecs /= np.linalg.norm(self.vecs, axis=1, keepdims=True) + 1e-8

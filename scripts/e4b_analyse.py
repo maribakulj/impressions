@@ -11,6 +11,7 @@ import json
 from collections import Counter
 from pathlib import Path
 
+from impressions import CACHE
 import numpy as np
 
 from impressions.corpus import load_works
@@ -31,10 +32,10 @@ def main() -> None:
     out = {}
     for model in ["clip", "siglip", "dinov2"]:
         gal = Gallery(model)
-        st = np.load(f"data/cache/stages-{model}.npz")
+        st = np.load(f"{CACHE}/stages-{model}.npz")
         orig = {w: v for w, c, v in zip(st["work"], st["chain"], norm(st["vecs"].astype(np.float32)))
                 if c == "orig"}
-        sc = np.load(f"data/cache/screens-{model}.npz")
+        sc = np.load(f"{CACHE}/screens-{model}.npz")
         V = norm(sc["vecs"].astype(np.float32))
         tk = None
         if model != "dinov2":

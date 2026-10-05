@@ -15,6 +15,7 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from impressions import CACHE
 import numpy as np
 
 from impressions.encoders import Encoder
@@ -28,7 +29,7 @@ def main() -> None:
     rng = np.random.default_rng(0)
     out = {}
     for model in ["clip", "siglip", "dinov2"]:
-        d = np.load(f"data/cache/real-{model}.npz")
+        d = np.load(f"{CACHE}/real-{model}.npz")
         V = d["vecs"].astype(np.float32)
         V /= np.linalg.norm(V, axis=1, keepdims=True)
         S = V @ V.T

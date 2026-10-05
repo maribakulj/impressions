@@ -509,3 +509,51 @@ LAYERS.update({
     "cmyk_coarse": lambda im, rng: halftone_cmyk(im, rng, 8.0),
     "cmy_colour_only": colour_only(halftone_print, 5.0),
 })
+
+
+# --------------------------------------------------------------------------- E10b controls
+
+def degraded_matched(stage: Image.Image, mask: np.ndarray, grey: int = 128) -> Image.Image:
+    """Control 'same degradation': the stage itself, with every pixel that is not the work's
+    replaced by flat grey. Same area, same position, same resampling, blur, perspective and
+    moiré as in the chain — only the supports are gone."""
+    arr = np.asarray(_rgb(stage), np.uint8).copy()
+    arr[~mask] = grey
+    return Image.fromarray(arr)
+
+
+def clutter_matched(im: Image.Image, stage_size: tuple[int, int], area_fraction: float,
+                    background: Image.Image) -> Image.Image:
+    """Control 'clutter': the work at the same area, pasted with no frame onto a busy picture
+    that is not a support (another artwork filling the canvas). Separates 'a support surrounds
+    the work' from 'something surrounds the work'."""
+    W, H = stage_size
+    bg = _rgb(background).copy()
+    # keep only the central 60 %: museum images of paintings often show their own frame or
+    # mount, and the background must not itself be a support
+    bw, bh = bg.size
+    bg = bg.crop((round(bw * 0.2), round(bh * 0.2), round(bw * 0.8), round(bh * 0.8)))
+    scale = max(W / bg.width, H / bg.height)
+    bg = bg.resize((round(bg.width * scale) + 1, round(bg.height * scale) + 1), Image.LANCZOS)
+    bg = bg.crop(((bg.width - W) // 2, (bg.height - H) // 2, (bg.width - W) // 2 + W,
+                  (bg.height - H) // 2 + H))
+    fg = area_matched(im, stage_size, area_fraction)
+    out = bg.copy()
+    arr_fg = np.asarray(fg)
+    inside = (arr_fg != 128).any(2)
+    ys, xs = np.where(inside)
+    if len(xs):
+        box = (xs.min(), ys.min(), xs.max() + 1, ys.max() + 1)
+        out.paste(fg.crop(box), box[:2])
+    return out
+
+
+def blur_only(cell: float = 5.0) -> Callable:
+    """Control for the 'colour only' screen variant, which is a blur at the scale of one
+    cell: the same blur on the original, without any colour change (review I3)."""
+    def apply(im: Image.Image, rng: random.Random) -> Image.Image:
+        return _cap(_rgb(im)).filter(ImageFilter.GaussianBlur(cell * 0.9))
+    return apply
+
+
+LAYERS["blur_only"] = blur_only(5.0)

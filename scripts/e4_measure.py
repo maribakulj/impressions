@@ -20,6 +20,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from impressions import CACHE
 import numpy as np
 
 from impressions.chains import CHAINS
@@ -45,7 +46,7 @@ def main(model: str) -> None:
     works = {w["id"]: w for w in load_works()}
     pool = {r["id"]: r for r in load_pool()}
     gal = Gallery(model)
-    data = np.load(f"data/cache/stages-{model}.npz")
+    data = np.load(f"{CACHE}/stages-{model}.npz")
     W, C, K = data["work"], data["chain"], data["k"]
     V = data["vecs"].astype(np.float32)
     V /= np.linalg.norm(V, axis=1, keepdims=True) + 1e-8

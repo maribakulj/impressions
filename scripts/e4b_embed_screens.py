@@ -11,21 +11,21 @@ import time
 import zlib
 from pathlib import Path
 
+from impressions import CACHE
 import numpy as np
 from PIL import Image
 
-from impressions.chains import CHAINS
+from impressions.chains import CHAINS, SCREEN_CHAINS
 from impressions.corpus import load_works
 from impressions.encoders import Encoder
 from impressions.layers import apply_chain
 
-VARIANTS = ["ht_cmy", "ht_cmy_colour", "ht_cmyk_fine", "ht_cmyk_medium", "ht_cmyk_coarse",
-            "rephoto_only"]
+VARIANTS = SCREEN_CHAINS
 
 
 def main(models: list[str]) -> None:
     works = load_works()
-    dirs = {m: Path(f"data/cache/screens/{m}") for m in models}
+    dirs = {m: Path(f"{CACHE}/screens/{m}") for m in models}
     for d in dirs.values():
         d.mkdir(parents=True, exist_ok=True)
     encs = {m: Encoder(m) for m in models}
@@ -44,7 +44,7 @@ def main(models: list[str]) -> None:
     for m in models:
         ids = [w["id"] for w in works]
         vecs = np.concatenate([np.load(dirs[m] / f"{i.replace(':', '_')}.npy") for i in ids])
-        np.savez(f"data/cache/screens-{m}.npz",
+        np.savez(f"{CACHE}/screens-{m}.npz",
                  work=np.repeat(np.array(ids), len(VARIANTS)),
                  chain=np.tile(np.array(VARIANTS), len(ids)), vecs=vecs)
     print("done")

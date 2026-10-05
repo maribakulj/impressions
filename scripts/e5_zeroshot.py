@@ -16,6 +16,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from impressions import CACHE
 import numpy as np
 
 from impressions.chains import CHAINS
@@ -55,8 +56,8 @@ def main(model: str) -> dict:
     stats = defaultdict(lambda: defaultdict(list))
     confusion = defaultdict(lambda: defaultdict(int))
     n = 0
-    for meta_path in sorted(Path("data/cache/stages").glob("*.json")):
-        vec_path = Path(f"data/cache/stages/{model}/{meta_path.stem}.npy")
+    for meta_path in sorted((CACHE / "stages").glob("*.json")):
+        vec_path = Path(f"{CACHE}/stages/{model}/{meta_path.stem}.npy")
         if not vec_path.exists():
             continue
         meta = json.loads(meta_path.read_text())

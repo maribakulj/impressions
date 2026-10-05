@@ -12,6 +12,7 @@ CHAINS: dict[str, list[str]] = {
     # controls: as much reduction / pixel damage as a frame, but no frame
     "ctrl_shrink": ["shrink_neutral"],
     "ctrl_jpeg": ["jpeg_resample"],
+    "ht_blur_only": ["blur_only"],
     # E4b: what in the 'print' layer does the work — the colour, the dots, the rephotograph?
     "ht_cmy": ["halftone_print"],
     "ht_cmy_colour": ["cmy_colour_only"],
@@ -20,3 +21,10 @@ CHAINS: dict[str, list[str]] = {
     "ht_cmyk_coarse": ["cmyk_coarse"],
     "rephoto_only": ["rephotograph"],
 }
+
+
+# E4 measures only these (frozen: review m5) — the screen variants are measured in E4b.
+E4_CHAINS = {k: v for k, v in CHAINS.items()
+             if not k.startswith(("ht_", "rephoto_only"))}
+SCREEN_CHAINS = ["ht_cmy", "ht_cmy_colour", "ht_blur_only", "ht_cmyk_fine", "ht_cmyk_medium",
+                 "ht_cmyk_coarse", "rephoto_only"]

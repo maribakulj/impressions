@@ -7,6 +7,7 @@ import sys
 import time
 from pathlib import Path
 
+from impressions import CACHE
 import numpy as np
 from PIL import Image
 
@@ -26,7 +27,7 @@ def load(path: str) -> Image.Image:
 
 def main(model: str) -> None:
     pool = load_pool()
-    out_dir = Path(f"data/cache/pool-{model}")
+    out_dir = Path(f"{CACHE}/pool-{model}")
     out_dir.mkdir(parents=True, exist_ok=True)
     enc = Encoder(model)
     t0 = time.time()
@@ -39,7 +40,7 @@ def main(model: str) -> None:
         np.save(part, vecs.astype(np.float16))
         print(model, start + len(rows), f"{time.time() - t0:.0f}s", flush=True)
     vecs = np.concatenate([np.load(p) for p in sorted(out_dir.glob("*.npy"))])
-    np.savez(f"data/cache/pool-{model}.npz", ids=np.array([r["id"] for r in pool]), vecs=vecs)
+    np.savez(f"{CACHE}/pool-{model}.npz", ids=np.array([r["id"] for r in pool]), vecs=vecs)
     print("done", model, vecs.shape)
 
 
