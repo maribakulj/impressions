@@ -117,7 +117,7 @@ def main(model: str) -> None:
     # the decisive control: each stage against the work alone at the same area, no support
     matched = {}
     for name, chain in CHAINS.items():
-        if name.startswith("ctrl"):
+        if name.startswith(("ctrl", "ht_", "rephoto_only")):
             continue
         for k in range(1, len(chain) + 1):
             diff = np.array([log_rank[(w, name, k)] - log_rank[(w, f"match|{name}", k)]
