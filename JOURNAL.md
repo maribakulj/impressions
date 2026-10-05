@@ -223,3 +223,14 @@ premières œuvres sont toutes des **peintures** : le fichier est rangé par typ
   modèle lit le médium de l'enveloppe extérieure, pas celui de l'œuvre. Au mur, au contraire,
   « peinture » monte à 98-100 %. À tester sur les 300 : **accrocher une estampe ou une photo au
   mur en fait-il « une peinture » ?** (le cadre comme fabrique du médium).
+
+## 2026-10-05 — E7 : l'enquête humaine, prête mais non menée
+
+[`human_study/`](human_study/) : 40 images (8 œuvres du sous-échantillon d'E5 × 5 étapes :
+original, cadre doré, livre photographié, profondeur 4, profondeur 6), 5 listes en carré latin
+(chaque personne voit chaque œuvre une seule fois, 8 images), un formulaire hors ligne
+[`form.html`](human_study/form.html) (aucun serveur, les réponses se téléchargent en CSV), et
+[`PROTOCOLE.md`](human_study/PROTOCOLE.md) avec l'analyse fixée d'avance et ce qui réfuterait
+l'asymétrie humain / machine. Les questions sont exactement celles posées à Claude en E5 :
+comparaison directe possible. Vérifié : le script du formulaire se charge, les 40 images sont
+là. **H5 reste non testée** : il faut ~40 participants, ce que la boucle ne peut pas faire.

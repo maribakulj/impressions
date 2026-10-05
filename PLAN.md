@@ -91,7 +91,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       livres d'art numérisés. Annoter à la main (par lecture d'image) la chaîne de couches de
       chaque reproduction. Refaire les mesures d'E4/E5 sur ce réel. Dire où la simulation se
       trompe.
-- [ ] **E7 — H5 préparé.** Paquet pour une petite enquête humaine (≤ 40 images, questions :
+- [x] **E7 — H5 préparé.** Paquet pour une petite enquête humaine (≤ 40 images, questions :
       « que représente l'image ? », « combien de couches ? ») + protocole d'analyse. Non exécuté.
 - [x] **E8 — Revue de littérature vérifiée.** Chaque référence ouverte en ligne (page
       d'éditeur, DOI, catalogue) : Goffman *Frame Analysis* (laminations), Bateson 1955,
