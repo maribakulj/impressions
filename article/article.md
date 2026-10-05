@@ -1,11 +1,26 @@
 # Poupées russes : ce que les cadres emboîtés font à la lecture d'une image par la machine
 
-*Brouillon — projet `impressions`, octobre 2026. Les chiffres renvoient aux fichiers de
-`results/` ; les sections marquées [À ÉCRIRE] attendent la fin des calculs.*
+*Projet `impressions`, octobre 2026 — https://github.com/maribakulj/impressions. Chaque chiffre
+renvoie à un fichier de `results/` ou `data/annotations/` ; `make all` reproduit les mesures.*
 
 ## Résumé
 
-[À ÉCRIRE quand les résultats seront fixés.]
+Une œuvre nous parvient emboîtée dans des supports : cadre, mur, photographie, page de livre,
+écran. La vision par ordinateur traite ces supports comme un bruit à ignorer ; la théorie du cadre
+soutient qu'ils enveloppent une part du sens. Nous avons fait passer 300 œuvres de musée à travers
+des chaînes contrôlées de supports fabriqués, avec pour chaque étape un témoin où l'œuvre seule
+occupe la même surface, puis vérifié les résultats sur 171 vraies reproductions de 22 œuvres
+célèbres. Trois encodeurs (CLIP, SigLIP, DINOv2) et un modèle vision-langage (Claude) ont été
+interrogés. Le cadre intérieur ne change rien : pour la machine, seul compte le bord le plus
+extérieur, celui de l'image. Quand l'œuvre devient un objet dans une scène, elle se perd bien
+au-delà de ce qu'explique sa petite taille : à deux couches, son rang de recherche est 3 à 15 fois
+moins bon que celui du témoin. Au-delà, le support prend la place du sujet : à six couches, Claude
+décrit le support dans 27 cas sur 30, contre 0 pour l'œuvre seule aussi petite ; sur de vraies
+photos, il nomme l'œuvre mais la rétrograde en décor (« des visiteurs se pressent devant La Nuit
+étoilée »), et cet effet persiste à surface égale. La trame d'impression agit autrement : elle
+n'enveloppe pas, elle imprègne ; ses points font perdre le sujet et, à gros grain, deviennent le
+sujet. Les supports agissent donc de deux façons, par le bord et par la surface. Sur le réel, pour
+les encodeurs, la part propre des couches face à la taille n'est établie que pour SigLIP.
 
 ## 1. La question
 
