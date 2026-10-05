@@ -115,8 +115,29 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
 - [ ] **E9 — Article.** `article/article.md` en français (~8 000 mots) : question, état de
       l'art, protocole, résultats (avec figures et IC), ce qui est réfuté, limites, conclusion.
       Chaque chiffre renvoie à un fichier de `results/`. `make all` reproduit tout.
-- [ ] **E10 — Relecture adverse.** Un sous-agent neuf relit l'article et le code comme un
+- [x] **E10 — Relecture adverse.** Un sous-agent neuf relit l'article et le code comme un
       relecteur de revue hostile ; corriger ce qu'il trouve ; consigner dans `notes/relecture.md`.
+- [ ] **E10b — Révision après la relecture** ([`notes/relecture.md`](notes/relecture.md), verdict
+      « révision majeure »). À faire, dans l'ordre :
+      1. Lectures Claude **à l'aveugle** (B1, B2) : images copiées sous des noms opaques, juge
+         avec identifiants opaques et ordre mélangé ; question du sujet dans un appel séparé et
+         sans exemple ; consigne des couches sans exemple ; identifiant du modèle enregistré ;
+         juge d'un autre modèle (Opus) que le lecteur (Sonnet) (I9).
+      2. Mesure du sujet en deux temps (B3) : l'œuvre est-elle nommée ? en proposition
+         principale ou en complément ? + question « quelle œuvre est reproduite ? ».
+      3. Témoins nouveaux : **même dégradation** (les pixels de l'œuvre découpés dans l'étape
+         elle-même, le reste gris) (I6) ; **encombrement** (l'œuvre, même surface, sur un fond
+         qui n'est pas un support) (B3) ; **flou seul** pour la trame (I3).
+      4. Encodeurs **sans recadrage** (image complétée en carré) ; réencoder pool, étapes,
+         trames, réel (I4). Figer `E4_CHAINS` (m5).
+      5. Analyses : `spearmanr` + règle informée + rho par condition (I1) ; précision / rappel /
+         F1 par classe et même gabarit de prompt (I2) ; grain exprimé en cycles par image
+         d'entrée (I3) ; `scripts/e6_claude_analyse.py` avec logistique groupée par œuvre
+         (I5) ; une seule référence propre par œuvre (m7) ; intervalles partout (I7).
+      6. Article : retirer B4, « CLIP par la couleur », « la trame devient le sujet » comme
+         pendant (m9) ; reformuler la thèse selon les nouveaux résultats ; citer Wang, Larson &
+         Zhao 2026 et les familles manquantes (I8) ; mineurs m1-m4, m8, m10, m12 ; Limites I5, I9.
+      7. Seconde relecture adverse sur la version révisée.
 - [ ] **E11 — Publication.** Publier l'article comme document (Claude Docs) ; mettre à jour le
       document « Arranger les images… » (lien en fin) ; résumé final dans `JOURNAL.md`.
       Arrêter la boucle.

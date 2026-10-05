@@ -379,3 +379,23 @@ en tout. Résultats [`results/E4/`](results/E4/), figure
   sens mais n'est établi que pour SigLIP (22 œuvres).
 
 Section 4.2 de l'article écrite ; limite « gabarits répétés » ajoutée.
+
+## 2026-10-06 — E10 : la relecture adverse demande une révision majeure
+
+[`notes/relecture.md`](notes/relecture.md) (sous-agent neuf, rôle de relecteur hostile mais
+juste ; il a recalculé les chiffres depuis les fichiers bruts). Presque tous les nombres de
+l'article se vérifient. Mais :
+- **B1** les lectures de Claude n'étaient pas à l'aveugle : le nom du fichier donnait la
+  condition (`…_deep_6.jpg`, `…_match-deep_6.jpg`, `mona-lisa-….jpg`), le juge voyait `deep:6` ;
+- **B2** l'exemple de la consigne était la chaîne profonde elle-même ;
+- **B3** « le support remplace le sujet » est vrai par construction contre un témoin sur gris
+  qui ne contient aucun support ; à 6 couches 22/30 descriptions synthétiques nomment encore
+  l'œuvre (la « nuance » n'est pas propre au réel) ; un verdict du juge est faux ;
+- **B4** une phrase de la Discussion est fausse ;
+- **I4** CLIP et DINOv2 recadrent au centre : ils ne voient pas le bord du fichier ;
+- Spearman mal calculé (0,79 et 0,64), CLIP ne reconnaît pas l'écran, « CLIP réagit à la
+  couleur » contredit (la « couleur seule » était aussi un flou), témoin non apparié en netteté,
+  chiffres du réel sans script, pas d'intervalles, Wang et al. 2026 non cité.
+Je l'accepte presque entièrement. Plan de révision : étape E10b de [`PLAN.md`](PLAN.md). Les
+résultats de Claude écrits plus haut dans ce journal sont **suspendus** jusqu'aux relectures
+à l'aveugle.
