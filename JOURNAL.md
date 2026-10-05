@@ -307,3 +307,42 @@ lectures `data/annotations/e4b_readings.jsonl`.
   La rephotographie seule ne fait presque rien.
 - Le médium lu bouge modérément (vers « estampe », 91 → 116-127 pour CLIP) : la trame n'est pas
   un fabricant de médium aussi fort que le mur ou le livre.
+
+## 2026-10-06 — E6 : le réel (fait)
+
+Corpus [`data/real/manifest.jsonl`](data/real/manifest.jsonl) : **171 vraies reproductions de 22
+œuvres** (10 peintures, 5 sculptures, 4 estampes, 1 dessin, 2 photographies ; 5 à 9 images par
+œuvre, dont au moins une « propre »), prises sur Wikimedia Commons et annotées une à une
+(support, chaîne de couches, part de l'image occupée par l'œuvre). Supports : en salle 47,
+propre 40, livre 21, encadrée en gros plan 20, produit dérivé imprimé 20 (timbres, affiches,
+panneaux), rephotographie 15, écran 4, autre 4. Contrôle à l'œil :
+[planche](figures/E6-real-check.jpg), justes. Notes : [`notes/E6-corpus.md`](notes/E6-corpus.md).
+Scripts [`e6_embed.py`](scripts/e6_embed.py), [`e6_analyse.py`](scripts/e6_analyse.py),
+[`e6_readings.py`](scripts/e6_readings.py) ; résultats [`results/E6/real.json`](results/E6/real.json).
+
+**Encodeurs** (l'image propre de l'œuvre est-elle parmi les 5 plus proches des 170 autres ?
+hasard ≈ 4 %) : encadrée en gros plan 95-100 % (le cadre est inerte, comme en synthèse) ; **en
+salle 30-40 %, et ses voisins sont les photos de salle d'autres œuvres (37-50 %)** ; livre
+52-76 % ; dérivés imprimés 60-70 %. Par couches : 0-1 → 86 %, 4+ → 21-38 %, et « même support »
+monte de 10-17 % à 39-51 %. **Mais la surface explique l'essentiel** : régression
+log10(rang) ~ couches + log10(surface), bootstrap sur les œuvres : surface −0,56 à −0,69
+(IC excluant 0 pour les trois) ; couches +0,10 à +0,17, IC excluant 0 pour SigLIP seulement.
+Avec 22 œuvres et des couches corrélées à la petitesse, l'effet propre des couches pour les
+encodeurs n'est **pas établi** sur le réel.
+
+**Claude sur le réel.**
+- **Il ne croit plus au montage** : « couches ajoutées numériquement » 0-10 % selon le support
+  (contre 100 % sur nos images fabriquées). Il distingue le réel du synthétique ; la limite
+  signalée en E5 est levée pour les conclusions qui tiennent ici.
+- **Il compte toujours les couches** : Spearman 0,59, 80 % à une couche près, erreur 0,84 contre
+  1,18 pour la règle triviale. H3 tient sur le réel.
+- **Le support (ou la scène) prend la place du sujet avec les couches** : 0-1 couche 0/25 ;
+  2 couches 1/44 ; 3 couches 12/46 ; 4+ couches 23/34. **À surface égale** : œuvre moyenne
+  (15-50 % de l'image) 1/9 à ≤ 2 couches contre 11/30 à ≥ 3 ; grande œuvre 0/59 contre 2/14.
+  Petits effectifs, mais même sens que le témoin synthétique d'E5. **H4 tient sur le réel.**
+- **Nuance que le synthétique ne montrait pas** : sur les vraies photos, Claude *nomme*
+  presque toujours l'œuvre, mais la rétrograde au rang de décor : « Des visiteurs se pressent
+  dans une salle de musée devant La Nuit étoilée de Van Gogh » ; « Couverture du livre *A
+  Mathematician's Lament*, qui reproduit la gravure Melencolia I » ; « Capture d'écran d'un
+  écran de verrouillage d'iPhone » (la Grande Vague en fond d'écran). Ce n'est pas une perte :
+  c'est **une inversion de hiérarchie** — l'œuvre passe de sujet à complément de lieu.

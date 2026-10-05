@@ -95,7 +95,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       échantillon (≤ 300 appels, `claude -p`, abonnement). Stabilité des descriptions du sujet
       (comparer la description de l'original à celles des couches : recouvrement des entités
       nommées, jugement par un second appel). `notes/E5.md`.
-- [ ] **E6 — Réel.** Corpus de couches réelles : ≥ 15 œuvres célèbres avec ≥ 5 reproductions
+- [x] **E6 — Réel.** Corpus de couches réelles : ≥ 15 œuvres célèbres avec ≥ 5 reproductions
       réelles chacune (Wikimedia Commons, catégories des œuvres ; ≥ 2 s entre requêtes,
       `Special:FilePath`), les éditions d'Holbein de caypollard, et si possible des pages de
       livres d'art numérisés. Annoter à la main (par lecture d'image) la chaîne de couches de

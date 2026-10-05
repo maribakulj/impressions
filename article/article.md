@@ -37,34 +37,153 @@ annotées, 48 seulement ne montrent aucune couche autour de l'œuvre (section 4.
 
 ## 2. Ce qu'on sait déjà
 
-[Condenser `notes/litterature.md` en ~1 500 mots, en quatre paragraphes :]
+Deux littératures parlent du support des images. Elles ne se lisent presque jamais. L'histoire et
+la théorie de l'art tiennent le cadre et la reproduction pour des lieux de sens. La vision par
+ordinateur les tient pour des obstacles. Cette section les résume l'une après l'autre, puis dit ce
+qui manque entre les deux.
 
-**Le cadre.** Simmel (1902) : le cadre ferme l'œuvre et la sépare du monde. Ortega y Gasset (1921) :
-le cadre comme isolant entre réel et fiction. Schapiro (1969) : le champ lisse et la bordure sont
-des signes, apparus tard dans l'histoire. Derrida (1978) : le parergon, ni dedans ni dehors. Marin
-(1982, 1988) et Stoichita (1993) : les figures du cadre et la métapeinture.
+### 2.1 Le cadre
 
-**L'emboîtement.** Goffman (1974) décrit des « laminations » : un cadre d'expérience peut être
-transformé, puis transformé encore, et chaque transformation ajoute une couche que l'on peut
-compter. Bateson (1955/1956) : le cadre comme message sur le message. Genette (1987) : le paratexte,
-cadre du livre. Bolter et Grusin (1999) : chaque média en remédie un autre, entre transparence
-(immédiateté) et exhibition du médium (hypermédiateté).
+Le texte fondateur est un court essai de Simmel (1902). Pour lui, le cadre ferme l'œuvre sur
+elle-même et la coupe de son entourage. Il trace une frontière qui isole. Ortega y Gasset (1921)
+reprend l'idée avec une image : le tableau est une « île imaginaire », et le cadre la sépare de la
+mer du réel. Sans cadre, dit-il, l'image se mêle au mur. Ces deux textes donnent le premier sens du
+mot : une limite qui sépare l'image de ce qui n'est pas elle.
 
-**La reproduction.** Wölfflin sur la manière de photographier la sculpture ; Benjamin sur l'œuvre
-à l'époque de sa reproduction ; Malraux et le musée imaginaire, où la photographie unifie les
-échelles et les médiums ; Latour et Lowe sur la « migration de l'aura » ; Steyerl sur l'image
-pauvre qui se dégrade en circulant.
+Schapiro (1969) historicise cette limite. Le champ préparé, avec sa surface lisse, ses bords
+réguliers et son cadre, est une invention tardive, pas une donnée naturelle. Schapiro traite le
+champ et le « véhicule », c'est-à-dire le support matériel, comme des signes à part entière. C'est
+ce qui nous autorise à demander ce que signifie un support, et pas seulement ce qu'il cache.
 
-**La machine.** Le support comme bruit (Torralba et Efros 2011 ; PACS ; DomainNet ; ImageNet-R ;
-ImageNet-C). Le support encodé malgré tout : Ramos et al. (ICCV 2025) montrent que CLIP et DINO
-gardent la trace du JPEG, du redimensionnement et de l'appareil, et que ces traces peuvent changer
-la lecture sémantique — mais ce sont des traces quasi invisibles, pas des supports. Le fond
-décide parfois de la classe (Xiao et al., ICLR 2021) ; la texture l'emporte sur la forme (Geirhos
-et al., ICLR 2019) ; un mot écrit dans l'image commande CLIP (Goh et al. 2021). Les modèles
-vision-langage lisent mal les relations spatiales (Kamath et al., EMNLP 2023).
+Derrida (1978) déplace la question. Le cadre est un *parergon* : ni dedans ni dehors de l'œuvre,
+il travaille à la limite. La question « le cadre fait-il partie de l'image ? » n'a donc pas de
+réponse simple. Elle n'en a pas davantage pour une machine. Marin (1982, 1988) décrit les
+opérations du cadre : clôture, autonomie, mise en présence. Son vocabulaire permet de classer des
+couches selon ce qu'elles *font*, et non selon ce qu'elles *sont*. Stoichita (1993) fait l'histoire
+de la métapeinture : cabinets d'amateurs, trompe-l'œil, cadres peints, tableaux qui montrent des
+tableaux. Ces images d'images sont les ancêtres directs de notre matériau. Le recueil dirigé par
+Duro (1996) rassemble enfin la discussion savante sur les bords de l'œuvre, du côté de l'histoire
+de l'art comme de la philosophie.
 
-**Le creux.** À notre connaissance, personne n'a fait passer une même œuvre dans une chaîne
-contrôlée de supports emboîtés pour demander ce que l'image *est*.
+### 2.2 L'emboîtement
+
+Ces auteurs pensent surtout un cadre unique. Notre question porte sur des cadres emboîtés : une
+image dans une page, la page dans une photographie, la photographie dans un écran. D'autres
+traditions ont pensé cet empilement.
+
+Bateson (1955) invente le cadre au sens psychologique. Un message comme « ceci est un jeu » dit
+comment lire les autres messages. C'est un message sur le message. Une bordure dorée est un
+méta-message de ce type : elle dit « ceci est une image ». Goffman (1974) prolonge l'idée en
+sociologie. Un cadre d'expérience peut être transformé, puis transformé encore : un geste devient
+jeu, le jeu devient répétition, la répétition devient citation. Chaque transformation ajoute une
+couche. Goffman appelle cet empilement des « laminations ». Les couches se comptent, et l'on peut
+demander combien d'entre elles un observateur perçoit. C'est exactement la structure des poupées
+russes de notre titre : chaque poupée en contient une autre, et l'on n'atteint la dernière qu'en
+ouvrant toutes les précédentes. Nos chaînes de supports sont des laminations matérielles.
+
+Genette (1987) décrit le même phénomène pour le livre. Le paratexte (titre, préface, couverture,
+légende) entoure le texte et en commande la lecture. Notre couche « page de livre » ajoute une
+légende : c'est du paratexte au sens de Genette. McLuhan (1964) avait donné la formule la plus
+connue de l'emboîtement : le contenu d'un média est toujours un autre média. Bolter et Grusin
+(1999) l'ont précisée sous le nom de remédiation. Chaque média en reprend un autre selon deux
+logiques. L'immédiateté cherche à faire oublier le média. L'hypermédiateté, au contraire, l'exhibe.
+Nos couches vont de l'une à l'autre : un passe-partout se fait discret, un écran photographié avec
+son moiré se montre. La question est de savoir laquelle des deux logiques la machine perçoit.
+
+### 2.3 La reproduction
+
+Pour une machine, il n'existe pas d'œuvre « en elle-même ». Il n'existe que des reproductions.
+Une longue littérature montre que la reproduction n'a jamais été neutre.
+
+Wölfflin (1896, 1897, 1915) se plaignait déjà que les photographes trahissent les statues par le
+mauvais angle et la mauvaise lumière. La première couche, la photographie, décide déjà de l'œuvre
+que l'on verra. Benjamin (1936) soutient que la reproduction détache l'œuvre de son « ici et
+maintenant », qu'il nomme son aura. Malraux (1947) observe que le livre d'art met côte à côte, au
+même format, des objets de tailles et de matières différentes. La photographie y crée des « arts
+fictifs ». Une galerie d'images pour un modèle comme CLIP est un musée imaginaire au sens de
+Malraux : tout y a la même taille et la même matière, celle du fichier.
+
+Latour et Lowe (2011) proposent de voir une œuvre comme une trajectoire de copies, bonnes ou
+mauvaises. L'aura peut migrer vers une copie soignée. Une couche n'est donc pas bruit ou signal en
+soi : elle peut enrichir la trajectoire ou l'appauvrir. Steyerl (2009) défend l'image pauvre,
+compressée, recadrée, rephotographiée. Ce n'est pas une image ratée : sa pauvreté raconte sa
+circulation. C'est la version critique de l'idée que le support porte du sens.
+
+Les études sur les photothèques d'histoire de l'art donnent à cette idée un terrain concret
+(Caraffa 2011 ; Caraffa et Serena 2015). Chaque tirage y a un carton, des annotations, un tampon.
+Ces objets ont leur propre histoire. Ce sont exactement les couches que nous trouvons déjà autour
+des œuvres dans les images de musée (section 4.1).
+
+### 2.4 La machine et le support
+
+La vision par ordinateur part d'une position opposée. Quand une même chose apparaît peinte,
+dessinée ou photographiée, elle parle de changement de domaine. Le but est un modèle invariant,
+qui reconnaisse la chose quel que soit son support. Le support y est un bruit.
+
+Le point de départ est un constat de Torralba et Efros (2011). Un classifieur sait dire de quel
+jeu de données vient une image. La manière de faire l'image est donc visible par la machine. La
+réponse du domaine a été de construire des bancs d'essai pour neutraliser cet effet. PACS réunit
+photo, peinture, dessin animé et croquis d'un même sujet (Li et al. 2017). DomainNet étend la
+logique à six domaines et 345 classes (Peng et al. 2019). ImageNet-R rassemble peintures,
+sculptures, broderies et tatouages d'objets ordinaires (Hendrycks et al. 2021). ImageNet-Sketch
+fait de même avec des croquis (Wang et al. 2019). ImageNet-C applique flou, bruit et compression
+par programme (Hendrycks et Dietterich 2019). Dans tous les cas, le mode de représentation est un
+décalage à surmonter.
+
+Plusieurs travaux montrent pourtant que les modèles encodent le support malgré tout. Le plus
+proche de notre idée est celui de Ramos et al. (2025). Sur 47 encodeurs, dont CLIP et DINO, le
+niveau de compression JPEG, l'accentuation, le redimensionnement et même le modèle d'appareil sont
+lisibles dans les représentations. Ces traces peuvent renverser les prédictions sur le contenu.
+Mais il s'agit de traces numériques presque invisibles, pas de supports physiques emboîtés. Xiao
+et al. (2021) montrent que le fond seul suffit souvent à classer une image. Un fond choisi exprès
+renverse la décision dans jusqu’à environ 88 % des cas. Leur titre pose notre alternative, « bruit ou
+signal », mais pour le fond et non pour le support.
+
+Geirhos et al. (2019) ont montré que les réseaux entraînés sur ImageNet décident davantage d'après
+la texture que d'après la forme. Ce résultat compte directement pour nous. Une trame d'imprimerie
+ou un moiré d'écran sont des textures ajoutées à l'image. Ils peuvent donc peser lourd dans ce que
+la machine croit voir, en particulier dans le médium qu'elle attribue à l'œuvre (section 4.4). Goh
+et al. (2021) ont décrit les « attaques typographiques » : une étiquette « iPod » collée sur une
+pomme fait dire « iPod » à CLIP. Les légendes de nos pages de livre et les cartels de nos murs sont
+de ce type ; il faut les contrôler. Kamath et al. (2023), enfin, montrent que les modèles
+vision-langage confondent gauche et droite, dessus et dessous. Il y a donc de bonnes raisons de
+douter qu'ils sachent dire ce qui est dans quoi.
+
+La reconnaissance d'œuvres d'art suit la même ligne d'invariance. Le jeu de données du Met
+entraîne sur des photographies de studio et teste sur des photographies de visiteurs, avec cadres,
+reflets et angles obliques (Ypsilantis et al. 2021). Ces couches y sont un décalage à surmonter.
+SynGallery rend des peintures du Met avec cadres, reflets, éclairage de salle et vues obliques
+(Bartkowiak et al. 2026). Le matériau est très proche du nôtre. Le but est opposé : apprendre au
+modèle à ignorer ces couches.
+
+### 2.5 Critique de la vision machine
+
+Un dernier ensemble de travaux, venu des humanités, refuse de voir la vision machine comme un
+regard neutre. Offert et Bell (2021) parlent de « biais perceptif » : la manière dont un modèle se
+représente le monde visuel est un biais en soi, indépendamment des données. Ils proposent aussi la
+notion de « méta-image technique », très proche de nos images d'images. MacKenzie et Munster (2019)
+soutiennent que la machine ne voit pas une image, mais un ensemble d'images. Les plus proches
+voisins d'une image dans une galerie, que nous mesurons, sont une forme de ce voir par ensembles.
+
+Zylinska (2023) décrit la photographie comme un processus partagé entre l'œil humain et la
+machine. Wasielewski (2023) montre que l'apprentissage automatique fait revenir un formalisme à la
+Wölfflin. Mesurer des distances entre images n'est pas un geste théoriquement neutre. Impett (2024)
+demande que l'histoire de l'art numérique devienne une critique de l'intelligence artificielle
+elle-même. Notre projet s'inscrit dans cette ligne : il interroge les modèles à partir d'une notion
+d'historien, le cadre. Impett et Offert (2024) notent enfin que les grands modèles encodent un canon
+d'images non photographiques tel que médié par internet, c'est-à-dire par des reproductions. C'est
+directement notre sujet.
+
+**Le creux.** Les trois familles proches s'arrêtent chacune en chemin. La robustesse traite le
+mode de représentation, le fond et le contexte comme un biais à neutraliser. La reconnaissance
+d'œuvres cherche l'invariance aux cadres et aux médiums. Ramos et al. (2025) montrent que le
+support est encodé et peut l'emporter sur le sujet, mais pour des traces quasi invisibles. Du côté
+des humanités, la théorie du cadre n'a, à notre connaissance, jamais été mise à l'épreuve sur des
+modèles de vision ; la seule mesure empirique trouvée de l'idée que « le cadre isole » porte sur
+des statistiques d'image, sans modèle (Redies et Groß 2013). À notre connaissance, aucun travail
+ne fait passer une même œuvre par une chaîne contrôlée de supports emboîtés pour demander à des
+modèles ce qu'est l'image : la chose représentée, l'œuvre, ou le support. Notre recherche a été
+large mais n'est pas exhaustive. C'est ce creux que l'article tente de remplir.
 
 ## 3. Protocole
 
