@@ -66,8 +66,8 @@ _last = 0.0
 
 # subcategories holding other artists' works, not the work itself
 SUBCAT_EXCLUDE = re.compile(r"cop(y|ies)|after |parod|pastiche|named|style|derivative|replica|"
-                            r"cosplay|meme|graffiti|in art\b|inspired|homage|hommage|tattoo|"
-                            r"caricature|lego|by |costume|uploaded|wikidata|text|logo", re.I)
+                            r"cosplay|meme|graffiti|in art\b|inspired|homage|hommage|tattoo|tile|"
+                            r"caricature|lego|costume|uploaded|wikidata|text|logo", re.I)
 
 
 def get(client: httpx.Client, url: str, params: dict | None = None) -> httpx.Response:
@@ -227,7 +227,7 @@ HINTS = re.compile(r"louvre|museum|musée|museo|gallery|galer|visitor|crowd|tour
                    r"phone|replica|frame|cadre|exhib|in situ|reproduction|print|selfie|display|"
                    r"vitrine|showcase|hall|saal|sala|in the|at the", re.I)
 EXCLUDE = re.compile(r"parod|pastiche|graffiti|cosplay|lego|meme|caricature|detail|ausschnitt|"
-                     r"dettaglio|détail|x-ray|infrared|cake|tattoo|copy by|copie|kopie", re.I)
+                     r"dettaglio|détail|x-ray|infrared|cake|tattoo|tile|copy by|copie|kopie", re.I)
 
 
 def pick_candidates(rows: list[dict], n: int) -> list[dict]:

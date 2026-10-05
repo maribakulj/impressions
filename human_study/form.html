@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ce que montre une image</title>
+<style>
+:root{--bg:#faf8f4;--ink:#222;--muted:#666;--line:#ddd;--accent:#7a4b1e}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1b19;--ink:#eee;--muted:#aaa;--line:#444;--accent:#e0a868}}
+body{background:var(--bg);color:var(--ink);font:17px/1.5 Georgia,serif;margin:0;padding:16px}
+main{max-width:760px;margin:auto}img{max-width:100%;max-height:60vh;display:block;margin:12px auto;border:1px solid var(--line)}
+label{display:block;margin-top:14px;font-weight:bold}textarea,select,input{width:100%;font:inherit;padding:6px;box-sizing:border-box;background:transparent;color:var(--ink);border:1px solid var(--line)}
+button{margin-top:18px;font:inherit;padding:8px 18px;background:var(--accent);color:#fff;border:0;cursor:pointer}
+.muted{color:var(--muted);font-size:15px}
+</style></head><body><main>
+<h1>Ce que montre une image</h1>
+<div id="intro">
+<p>Vous allez voir 8 images, une à la fois. Pour chacune, répondez simplement à quatre questions. Il n'y a pas de bonne ou de mauvaise réponse : nous voulons savoir ce que <em>vous</em> voyez. Comptez 10 minutes.</p>
+<p class="muted">Aucune donnée personnelle n'est demandée. À la fin, un fichier de réponses se télécharge : envoyez-le à la personne qui vous a transmis ce lien.</p>
+<label>Liste (donnée par l'enquêteur) <select id="list"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+<button onclick="start()">Commencer</button></div>
+<div id="q" hidden>
+<p class="muted" id="count"></p><img id="img" alt="image à décrire">
+<label>1. Que représente cette image ? (une phrase)<textarea id="subject" rows="2"></textarea></label>
+<label>2. Qu'est-ce que vous regardez, physiquement ? Quel objet, quel support ?<textarea id="support" rows="2"></textarea></label>
+<label>3. Combien de couches (cadres, supports, écrans, pages…) voyez-vous entre le bord de l'image et l'œuvre elle-même ?
+<select id="layers"><option value="">—</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8 ou plus</option></select></label>
+<label>4. L'œuvre elle-même est plutôt…
+<select id="kind"><option value="">—</option><option>une peinture</option><option>une estampe (gravure)</option><option>un dessin</option><option>une sculpture</option><option>une photographie</option><option>autre / je ne sais pas</option></select></label>
+<button onclick="next()">Suivant</button></div>
+<div id="end" hidden><p>Merci ! Le fichier de réponses vient d'être téléchargé.</p></div>
+</main><script>
+const LISTS = {
+ "1": [
+  "images/img23.jpg",
+  "images/img73.jpg",
+  "images/img64.jpg",
+  "images/img00.jpg",
+  "images/img50.jpg",
+  "images/img41.jpg",
+  "images/img14.jpg",
+  "images/img32.jpg"
+ ],
+ "2": [
+  "images/img24.jpg",
+  "images/img51.jpg",
+  "images/img01.jpg",
+  "images/img33.jpg",
+  "images/img42.jpg",
+  "images/img60.jpg",
+  "images/img10.jpg",
+  "images/img74.jpg"
+ ],
+ "3": [
+  "images/img70.jpg",
+  "images/img11.jpg",
+  "images/img34.jpg",
+  "images/img20.jpg",
+  "images/img43.jpg",
+  "images/img61.jpg",
+  "images/img02.jpg",
+  "images/img52.jpg"
+ ],
+ "4": [
+  "images/img21.jpg",
+  "images/img53.jpg",
+  "images/img71.jpg",
+  "images/img44.jpg",
+  "images/img03.jpg",
+  "images/img62.jpg",
+  "images/img12.jpg",
+  "images/img30.jpg"
+ ],
+ "5": [
+  "images/img40.jpg",
+  "images/img31.jpg",
+  "images/img63.jpg",
+  "images/img22.jpg",
+  "images/img72.jpg",
+  "images/img54.jpg",
+  "images/img04.jpg",
+  "images/img13.jpg"
+ ]
+};
+let items=[], i=0, list="1", answers=[];
+function start(){list=document.getElementById('list').value;items=LISTS[list];document.getElementById('intro').hidden=true;document.getElementById('q').hidden=false;show();}
+function show(){document.getElementById('count').textContent=`Image ${i+1} sur ${items.length}`;document.getElementById('img').src=items[i];for(const f of ['subject','support','layers','kind'])document.getElementById(f).value='';window.scrollTo(0,0);}
+function next(){answers.push({list,image:items[i],subject:subject.value,support:support.value,layers:layers.value,kind:kind.value,time:new Date().toISOString()});
+ i++; if(i<items.length){show();return;}
+ const keys=Object.keys(answers[0]);const esc=v=>'"'+String(v).replace(/"/g,'""')+'"';
+ const csv=[keys.join(',')].concat(answers.map(a=>keys.map(k=>esc(a[k])).join(','))).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`reponses-liste${list}-${Date.now()}.csv`;a.click();
+ document.getElementById('q').hidden=true;document.getElementById('end').hidden=false;}
+</script></body></html>
