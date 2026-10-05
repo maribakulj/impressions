@@ -58,3 +58,29 @@ d'images de `data/works.jsonl` sont désormais relatifs au dépôt caypollard (p
 personnel).
 
 Suite : E3, annoter les couches déjà présentes dans les originaux, puis pilote regardé sur 3 œuvres.
+
+## 2026-10-05 — E8 fait en avance (pendant que l'encodage attend la file)
+
+Revue vérifiée par un sous-agent : [`notes/litterature.md`](notes/litterature.md) (en français)
+et [`references.bib`](references.bib), 85 références, chacune avec la page ouverte en `url`.
+Corrections : l'essai d'Ortega paraît d'abord dans *El Sol* (5 avril 1921) ; « Digital Art History
+as Critical AI » est d'Impett seul. Non confirmés et signalés : date/pages de Bateson (1955 ou
+1956), pages de Marin 1988, pages de Latour et Lowe, numéro de *Der Tag* pour Simmel.
+
+**Travaux les plus proches** (je les ai rouverts moi-même) :
+- Ramos et al., [« What does CLIP know about your camera? »](https://arxiv.org/abs/2508.10637),
+  ICCV 2025 : les encodeurs gardent la trace du JPEG, du redimensionnement, de l'appareil, et
+  cela peut changer leur lecture sémantique. Mais ce sont des traces numériques quasi invisibles,
+  pas des cadres physiques. → notre contrôle `jpeg_resample` est exactement leur terrain ; nos
+  couches visibles sont l'autre moitié.
+- Bartkowiak et al., [SynGallery](https://arxiv.org/abs/2607.18907), arXiv juillet 2026 : des
+  peintures rendues avec cadres, reflets, vues obliques de salle — très proche de nos couches —
+  mais pour apprendre au modèle à les **ignorer**. C'est la position que notre thèse renverse.
+- Xiao et al., « Noise or Signal » (ICLR 2021) ; Goh et al. 2021 (attaques typographiques) ;
+  bordures apprises (Bahng et al., Zolna et al.).
+
+**Le creux** : à notre connaissance, personne ne fait passer une même œuvre dans une chaîne
+contrôlée de supports emboîtés pour demander ce que l'image *est* (objet, œuvre ou support).
+
+État des calculs : annotation des couches existantes en cours (≈ 240/300), encodage du pool CLIP
+≈ 9 000/18 405 (lent : la file est partagée avec axel).

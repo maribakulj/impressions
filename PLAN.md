@@ -93,7 +93,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       trompe.
 - [ ] **E7 — H5 préparé.** Paquet pour une petite enquête humaine (≤ 40 images, questions :
       « que représente l'image ? », « combien de couches ? ») + protocole d'analyse. Non exécuté.
-- [ ] **E8 — Revue de littérature vérifiée.** Chaque référence ouverte en ligne (page
+- [x] **E8 — Revue de littérature vérifiée.** Chaque référence ouverte en ligne (page
       d'éditeur, DOI, catalogue) : Goffman *Frame Analysis* (laminations), Bateson 1955,
       Bolter & Grusin *Remediation*, Genette *Seuils*, Wölfflin sur la photographie de sculpture,
       Malraux, Benjamin, Latour & Lowe « Migration of the Aura », Steyerl « Poor Image »,
