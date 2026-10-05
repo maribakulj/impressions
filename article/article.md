@@ -329,16 +329,58 @@ SigLIP. Avec 22 œuvres, l'effet propre des couches sur les encodeurs n'est pas 
 
 ## 5. Discussion
 
-[À ÉCRIRE. Fil : le cadre *enveloppe* — la machine lit le bord le plus extérieur, et quand les
-couches s'accumulent le support remplace le sujet, ce qui n'est pas un effet de taille ; la
-trame *imprègne* — elle ne sépare rien mais change le médium lu (si E4b le confirme). Ce que cela
-dit de la théorie du cadre ; ce que cela dit des modèles entraînés sur le web, où les images de
-livres et d'écrans abondent ; limites (couches synthétiques reconnues comme telles par Claude ;
-une seule chaîne profonde ; enquête humaine non menée).]
+**Le cadre le plus extérieur décide.** Pour une machine, le seul cadre certain est le bord du
+fichier. Un cadre doré *à l'intérieur* de ce bord ne change rien : l'œuvre est retrouvée, son
+sujet est nommé, en synthèse comme sur de vraies photos en gros plan. Ce n'est pas une objection à
+la théorie du cadre, c'en est une confirmation déplacée : Simmel et Derrida décrivent la limite
+qui sépare l'œuvre du monde ; pour le modèle, cette limite est celle de l'image qu'il reçoit, et
+tout ce qui est en deçà — cadre, mur, page — est déjà du monde.
+
+**Quand les couches s'accumulent, le support prend la place du sujet.** Ce n'est pas seulement
+que l'œuvre devient trop petite : à surface égale, l'œuvre seule sur un fond neutre est décrite
+comme une vignette illisible, l'œuvre prise dans des supports est décrite *comme* ces supports. Le
+cadre isole, et ce qu'il isole devient ce dont on parle. Les laminations de Goffman deviennent
+ici quelque chose qu'on peut compter : Claude compte les couches presque juste, sur la synthèse
+comme sur le réel, et c'est précisément lorsqu'il en compte trois ou plus que la hiérarchie
+s'inverse.
+
+**Sur le réel, l'œuvre n'est pas perdue mais rétrogradée.** Les descriptions de vraies photos
+nomment l'œuvre et la placent en complément de lieu : la Nuit étoilée devient l'endroit devant
+lequel des visiteurs se pressent. La reproduction, chez Malraux, rendait toutes les œuvres
+comparables en les arrachant à leur lieu ; la photographie de visiteur fait l'inverse, elle rend
+l'œuvre à un lieu, et la machine suit la photographie.
+
+**La trame imprègne au lieu d'envelopper.** Elle ne sépare rien, mais à gros grain elle devient
+le sujet ; et chaque modèle y réagit par une autre voie (DINOv2 par la texture, CLIP par la
+couleur). Les supports agissent donc de deux façons distinctes : par le bord et par la surface.
+La première est celle de la théorie du cadre ; la seconde est celle de la reproduction
+photomécanique, que Benjamin et Malraux décrivaient sans pouvoir la mesurer.
+
+**Conséquences pratiques.** Les modèles apprennent sur des images du web, pleines de photos de
+salles, de livres et d'écrans. Ce qu'ils appellent « peinture » est en partie « chose accrochée
+au mur », ce qu'ils appellent « estampe » en partie « page imprimée ». Qui les utilise pour
+chercher dans des collections ou des archives de reproductions doit savoir que l'enveloppe la
+plus extérieure pèse sur ce qui est retrouvé et sur ce qui est nommé.
 
 ## 6. Limites
 
-[À ÉCRIRE.]
+- **Couches fabriquées.** Nos neuf couches sont des simulations ; Claude les reconnaît comme
+  telles. Les conclusions retenues sont celles qui tiennent sur 171 vraies reproductions.
+- **Taille et couches liées sur le réel.** Sur les vraies photos, plus il y a de couches, plus
+  l'œuvre est petite. Pour Claude, l'effet des couches demeure à surface égale, mais sur de petits
+  effectifs ; pour les encodeurs, il n'est pas établi (22 œuvres).
+- **Un juge automatique.** Le classement « même / partiel / support / autre » est fait par un
+  modèle ; relu à la main sur un échantillon, il est juste, mais « support » range aussi des
+  descriptions qui nomment l'œuvre en la plaçant dans un lieu.
+- **Couches déjà présentes annotées par le même modèle.** Le nombre « vrai » de couches de l'image
+  de musée vient d'une annotation de Claude : la mesure du comptage n'est pas indépendante sur la
+  synthèse (elle l'est sur le réel, annoté séparément).
+- **Une seule chaîne profonde**, un seul ordre des couches ; d'autres ordres pourraient agir
+  autrement.
+- **Pas d'humains.** L'enquête qui comparerait des personnes et des machines sur les mêmes images
+  est prête (`human_study/`) mais n'a pas été menée.
+- **Trois encodeurs de taille moyenne et un modèle vision-langage.** D'autres modèles, plus grands
+  ou entraînés autrement, peuvent différer.
 
 ## Références
 
