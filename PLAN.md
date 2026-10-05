@@ -80,6 +80,16 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       niveau 2-3) et « même type d'objet » ; un indice « support » = les voisins sont-ils des
       images transformées de même couche (ajouter à la galerie les versions transformées d'autres
       œuvres). Bootstrap. Résultats `results/E4/`, figures, `notes/E4.md`.
+- [ ] **E4b — La trame : enveloppe ou imprégnation ?** Le cadre *enveloppe* (le bord le plus
+      extérieur décide) ; la trame *imprègne* toute la surface (texture → médium lu ; lien :
+      Geirhos et al. 2019, biais de texture). Biais possibles du premier résultat : dominante de
+      couleur (CMJ sans noir → violet/jaune, « doré »), trame et rephotographie confondues,
+      taille des points contre la réduction à 224 px, petit effectif (30 œuvres). Variantes sur les
+      300 œuvres : couleur seule (même dominante, sans points) ; points seuls (CMJN propre, sans
+      dominante) ; 3 finesses de trame (journal, magazine, livre d'art) ; trame sans rephoto ;
+      rephoto sans trame. Mesures : type lu (zéro-coup, Claude sur un sous-échantillon), rang de
+      l'œuvre, sujet. Puis vraies trames dans E6 (pages de livres numérisés). Si l'effet est la
+      couleur : biais de fabrication, le dire.
 - [ ] **E5 — H3 et H4.** Comptage de couches : CLIP/SigLIP en zéro-coup (prompts « a photo of a
       book page showing a painting of … », etc.) ; Claude en lecture d'image sur un sous-
       échantillon (≤ 300 appels, `claude -p`, abonnement). Stabilité des descriptions du sujet
@@ -115,11 +125,13 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
 
 « Utiliser de la puissance de calcul pour montrer qu'un cadre rapproche une estampe de la
 peinture, ça a un intérêt ? » — Non. L'article se construit autour de ce qui n'était **pas**
-prévisible et qui tient sur le réel (E6) : le cadre est inerte pour la machine alors que la
-théorie le met au centre ; le *lieu* (mur, livre posé, écran) fait basculer ; le support
-*remplace* le sujet (contrôlé par la surface) ; la trame trompe sur le médium. Les résultats
+prévisible et qui tient sur le réel (E6) : le support *remplace* le sujet (contrôlé par la surface) ; la trame trompe sur le médium.  Les résultats
 attendus (cadre → « peinture », livre → « estampe ») tiennent en une phrase chacun, sans figure.
 Si les résultats contre-intuitifs ne tiennent pas sur le réel, le dire, ne pas gonfler le reste.
+Précision de Marcel : que le cadre doré intérieur pèse peu est **attendu** — pour la machine le
+seul cadre opérant est le bord du fichier ; la peinture photographiée dans une salle est un
+élément de la photo. Ce n'est pas « contre la théorie », c'est la thèse : le cadre le plus
+extérieur décide. Ne pas le présenter comme une surprise.
 
 ## Règles de la boucle
 

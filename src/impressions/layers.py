@@ -459,3 +459,53 @@ def area_matched(im: Image.Image, stage_size: tuple[int, int], area_fraction: fl
     out = Image.new("RGB", (W, H), (grey, grey, grey))
     out.paste(fg, ((W - fg.width) // 2, (H - fg.height) // 2))
     return out
+
+
+# --------------------------------------------------------------------------- E4b: the screen
+
+INKS = {  # process inks on paper, as RGB reflectance multipliers
+    "c": np.array([0.0, 0.68, 0.94]), "m": np.array([0.93, 0.0, 0.55]),
+    "y": np.array([1.0, 0.95, 0.0]), "k": np.array([0.08, 0.08, 0.08]),
+}
+
+
+def halftone_cmyk(im: Image.Image, rng: random.Random, cell: float = 5.0) -> Image.Image:
+    """A proper four-colour screen: grey-component replacement into black, classic screen
+    angles, neutral paper, inks multiplied. Unlike ``halftone_print`` (CMY only, which leaves a
+    strong violet/yellow cast), the average colour stays close to the original."""
+    im = _cap(_rgb(im))
+    W, H = im.size
+    rgb = np.asarray(im, np.float32) / 255
+    k = 1 - rgb.max(2)
+    cmy = (1 - rgb - k[..., None]) / (1 - k[..., None] + 1e-6)
+    planes = {"c": cmy[..., 0], "m": cmy[..., 1], "y": cmy[..., 2], "k": k}
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    paper = np.array([0.97, 0.96, 0.93], np.float32)
+    out = np.ones((H, W, 3), np.float32) * paper
+    for name, angle in zip("cmyk", (15, 75, 0, 45)):
+        a = np.deg2rad(angle)
+        u = (xx * np.cos(a) + yy * np.sin(a)) / cell
+        v = (-xx * np.sin(a) + yy * np.cos(a)) / cell
+        dist = np.sqrt((u - np.round(u)) ** 2 + (v - np.round(v)) ** 2)
+        cov = np.asarray(Image.fromarray((np.clip(planes[name], 0, 1) * 255).astype(np.uint8))
+                         .filter(ImageFilter.BoxBlur(max(1, cell / 2))), np.float32) / 255
+        dots = dist < np.sqrt(cov / np.pi)
+        out = np.where(dots[..., None], out * INKS[name], out)
+    return Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8))
+
+
+def colour_only(layer: Callable, cell: float = 5.0) -> Callable:
+    """The average colour a screen produces, without its dots: the screened image blurred at
+    the scale of one cell. Separates 'the colour shifted' from 'the surface became dots'."""
+    def apply(im: Image.Image, rng: random.Random) -> Image.Image:
+        screened = layer(im, rng)
+        return screened.filter(ImageFilter.GaussianBlur(cell * 0.9))
+    return apply
+
+
+LAYERS.update({
+    "cmyk_fine": lambda im, rng: halftone_cmyk(im, rng, 3.0),
+    "cmyk_medium": lambda im, rng: halftone_cmyk(im, rng, 5.0),
+    "cmyk_coarse": lambda im, rng: halftone_cmyk(im, rng, 8.0),
+    "cmy_colour_only": colour_only(halftone_print, 5.0),
+})

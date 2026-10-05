@@ -12,4 +12,11 @@ CHAINS: dict[str, list[str]] = {
     # controls: as much reduction / pixel damage as a frame, but no frame
     "ctrl_shrink": ["shrink_neutral"],
     "ctrl_jpeg": ["jpeg_resample"],
+    # E4b: what in the 'print' layer does the work — the colour, the dots, the rephotograph?
+    "ht_cmy": ["halftone_print"],
+    "ht_cmy_colour": ["cmy_colour_only"],
+    "ht_cmyk_fine": ["cmyk_fine"],
+    "ht_cmyk_medium": ["cmyk_medium"],
+    "ht_cmyk_coarse": ["cmyk_coarse"],
+    "rephoto_only": ["rephotograph"],
 }
