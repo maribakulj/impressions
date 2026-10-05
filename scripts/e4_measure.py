@@ -51,11 +51,7 @@ def main(model: str) -> None:
     V /= np.linalg.norm(V, axis=1, keepdims=True) + 1e-8
     orig = {w: V[i] for i, (w, c) in enumerate(zip(W, C)) if c == "orig"}
     pool_subj = np.array([subject(r) for r in gal.rows])
-    pool_kind = np.array([pool[i].get("kind", "other") if "kind" in pool[i] else "other"
-                          for i in gal.ids])
-    from impressions.corpus import TYPES
-    pool_kind = np.array([next((TYPES[t] for t in r.get("type", []) if t in TYPES), "other")
-                          for r in gal.rows])
+    pool_kind = np.array([r["kind"] for r in gal.rows])
     pool_dup = np.array([r["near_duplicate_group"] for r in gal.rows])
     # outermost layer of each stage
     last = np.array(["orig" if c == "orig" else CHAINS[c][k - 1] for c, k in zip(C, K)])
