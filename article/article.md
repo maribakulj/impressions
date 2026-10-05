@@ -192,7 +192,18 @@ directement notre sujet.
 **Le creux.** Les trois familles proches s'arrêtent chacune en chemin. La robustesse traite le
 mode de représentation, le fond et le contexte comme un biais à neutraliser. La reconnaissance
 d'œuvres cherche l'invariance aux cadres et aux médiums. Ramos et al. (2025) montrent que le
-support est encodé et peut l'emporter sur le sujet, mais pour des traces quasi invisibles. Du côté
+support est encodé et peut l'emporter sur le sujet, mais pour des traces quasi invisibles.
+Wang, Larson et Zhao (2026) montrent que le cadrage photographique — le sujet seul ou en
+situation — change les descriptions d'un modèle vision-langage : c'est le plus proche de notre
+question, mais leur « cadre » est celui de la prise de vue, pas une suite de supports physiques
+emboîtés. Une bordure de pixels optimisés suffit à détourner un classifieur ou CLIP (Elsayed et al.
+2019 ; Zolna et al. 2019 ; Bahng et al. 2022), un cercle rouge dessiné dirige son attention
+(Shtedritski et al. 2023), un mot écrit dans l'image commande sa lecture (Goh et al. 2021 ;
+Materzyńska et al. 2022) : le bord et l'inscription agissent, mais ce sont des marques ajoutées,
+non des supports. La criminalistique sait depuis quinze ans reconnaître une photo d'écran ou de
+tirage (Cao et Kot 2010 ; Gao et al. 2010) : le support se voit, sans qu'on demande ce qu'il fait
+au sens. Enfin, Lang et Ommer (2018) retrouvent des œuvres dans des vues d'exposition, en traitant
+la salle comme ce qu'il faut traverser. Du côté
 des humanités, la théorie du cadre n'a, à notre connaissance, jamais été mise à l'épreuve sur des
 modèles de vision ; la seule mesure empirique trouvée de l'idée que « le cadre isole » porte sur
 des statistiques d'image, sans modèle (Redies et Groß 2013). À notre connaissance, aucun travail
@@ -204,8 +215,10 @@ large mais n'est pas exhaustive. C'est ce creux que l'article tente de remplir.
 
 ### 3.1 Les œuvres
 
-300 œuvres tirées d'un pool de 18 405 images de collections muséales (Rijksmuseum, Met et sept
-autres, via Wikidata et Wikimedia Commons ; construit dans le projet frère *caypollard*) : 60
+300 œuvres tirées d'un pool de 18 405 images de collections muséales (huit collections, via Wikidata et Wikimedia Commons ; construit dans le projet frère
+*caypollard*). 242 des 300 œuvres viennent du Metropolitan Museum (81 %) : les conventions
+photographiques d'un seul musée dominent l'échantillon. Le préfixe `rijksmuseum:` des identifiants
+est un héritage du pipeline de caypollard, pas la collection d'origine : 60
 peintures, 60 estampes, 60 dessins, 60 sculptures, 60 photographies ; une par groupe de
 quasi-doublons ; tirage tournant sur les divisions Iconclass ; côté court ≥ 600 px. Le pool entier
 sert de galerie de recherche (les 18 405 images).
@@ -224,7 +237,7 @@ papiers) a été corrigé à cette étape.
 ### 3.3 Les contrôles
 
 - **Même surface sans support.** À deux couches, l'œuvre ne couvre plus que ~13 % de l'image ; à
-  six, 0,3 %. Pour séparer « encadrée » de « devenue petite », chaque étape a un témoin : l'œuvre
+  six, 0,2 %. Pour séparer « encadrée » de « devenue petite », chaque étape a un témoin : l'œuvre
   seule, centrée sur un gris uni, couvrant exactement la même part de la même toile. La surface
   réelle de l'œuvre à chaque étape est mesurée en rejouant la chaîne sur une image blanche puis
   noire avec la même graine.
@@ -254,8 +267,8 @@ papiers) a été corrigé à cette étape.
 Avant d'ajouter la moindre couche, nous avons demandé à Claude de relever celles que les
 images de musée portent déjà (vérifié à l'œil sur un échantillon de 15). Sur 300 images, 48
 seulement montrent l'œuvre sans rien autour. Surtout, les musées ne traitent pas les types de
-la même façon : la peinture est presque toujours rognée au bord de la toile (0,72 couche en
-moyenne ; le cadre n'apparaît que dans 12 % des cas), alors que l'estampe et la photographie
+la même façon : la peinture est le plus souvent rognée au bord de la toile (35 sur 60 sans aucune couche ;
+0,72 couche en moyenne ; le cadre n'apparaît que dans 12 % des cas), alors que l'estampe et la photographie
 sont montrées avec leur feuille, leurs marges, leur carton et leurs inscriptions (2,25 et
 2,18 couches ; bords de feuille visibles dans 98 % et 80 % des cas). La sculpture est détourée
 sur un fond de studio (93 %). Le type d'objet est donc lisible dans les marges avant de l'être
@@ -296,7 +309,7 @@ l'écran, le sujet survit dans une majorité de cas. À quatre couches, 14 descr
 parlent du support plutôt que du sujet ; à six couches, 27 sur 30 : « un écran d'ordinateur
 affiche une page web de collection en ligne montrant la photo d'un livre ouvert… ».
 
-Le témoin tranche. À six couches, l'œuvre ne couvre que 0,3 % de l'image. Montrée seule, à la
+Le témoin tranche. À six couches, l'œuvre ne couvre que 0,2 % de l'image. Montrée seule, à la
 même taille, au centre d'un gris uni, elle n'est pas reconnue non plus — mais Claude décrit
 alors honnêtement « une minuscule peinture sombre au centre d'un grand fond gris » : 0 fois sur
 30 il ne parle d'un support. **La perte du sujet est un effet de taille ; son remplacement par le
@@ -374,10 +387,7 @@ tout ce qui est en deçà — cadre, mur, page — est déjà du monde.
 **Quand les couches s'accumulent, le support prend la place du sujet.** Ce n'est pas seulement
 que l'œuvre devient trop petite : à surface égale, l'œuvre seule sur un fond neutre est décrite
 comme une vignette illisible, l'œuvre prise dans des supports est décrite *comme* ces supports. Le
-cadre isole, et ce qu'il isole devient ce dont on parle. Les laminations de Goffman deviennent
-ici quelque chose qu'on peut compter : Claude compte les couches presque juste, sur la synthèse
-comme sur le réel, et c'est précisément lorsqu'il en compte trois ou plus que la hiérarchie
-s'inverse.
+cadre isole, et ce qu'il isole devient ce dont on parle.
 
 **Sur le réel, l'œuvre n'est pas perdue mais rétrogradée.** Les descriptions de vraies photos
 nomment l'œuvre et la placent en complément de lieu : la Nuit étoilée devient l'endroit devant
@@ -386,8 +396,7 @@ comparables en les arrachant à leur lieu ; la photographie de visiteur fait l'i
 l'œuvre à un lieu, et la machine suit la photographie.
 
 **La trame imprègne au lieu d'envelopper.** Elle ne sépare rien, mais à gros grain elle devient
-le sujet ; et chaque modèle y réagit par une autre voie (DINOv2 par la texture, CLIP par la
-couleur). Les supports agissent donc de deux façons distinctes : par le bord et par la surface.
+le sujet ; et chaque modèle y réagit par une autre voie (DINOv2, en particulier, est sensible aux points). Les supports agissent donc de deux façons distinctes : par le bord et par la surface.
 La première est celle de la théorie du cadre ; la seconde est celle de la reproduction
 photomécanique, que Benjamin et Malraux décrivaient sans pouvoir la mesurer.
 
@@ -404,9 +413,10 @@ plus extérieure pèse sur ce qui est retrouvé et sur ce qui est nommé.
 - **Taille et couches liées sur le réel.** Sur les vraies photos, plus il y a de couches, plus
   l'œuvre est petite. Pour Claude, l'effet des couches demeure à surface égale, mais sur de petits
   effectifs ; pour les encodeurs, il n'est pas établi (22 œuvres).
-- **Un juge automatique.** Le classement « même / partiel / support / autre » est fait par un
-  modèle ; relu à la main sur un échantillon, il est juste, mais « support » range aussi des
-  descriptions qui nomment l'œuvre en la plaçant dans un lieu.
+- **Un juge automatique, aucune validation humaine.** Les jugements sont faits par un modèle
+  (Opus, différent du lecteur Sonnet, à l'aveugle) ; aucun codage humain n'en mesure l'accord.
+  Toute la chaîne — annotation des couches, lecture, jugement — passe par des modèles de la même
+  famille.
 - **Couches déjà présentes annotées par le même modèle.** Le nombre « vrai » de couches de l'image
   de musée vient d'une annotation de Claude : la mesure du comptage n'est pas indépendante sur la
   synthèse (elle l'est sur le réel, annoté séparément).
