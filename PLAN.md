@@ -151,3 +151,6 @@ extérieur décide. Ne pas le présenter comme une surprise.
    français simple, avec des chemins de fichiers cliquables.
 8. Une étape bloquée (accès, droits, besoin humain) : le noter, passer à la suivante, ne pas
    tourner en rond. Si tout est bloqué : arrêter la boucle et l'écrire.
+9. **Rythme (Marcel, 06/10/2026)** : pause de 60 s au plus entre deux réveils. Quand un calcul
+   tourne, avancer sur autre chose (rédaction, analyse, figures, étape suivante) au lieu
+   d'attendre ; lancer des sous-agents en parallèle si utile (sans dépasser 2 calculs lourds).
