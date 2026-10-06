@@ -155,6 +155,23 @@ def main() -> None:
         out["real"]["synthetic_flag"] = float(np.mean([bool(r["supports"].get("synthetic")) for _, r in rr]))
     except (TypeError, ValueError):
         pass
+    # --- second judgment: is the work recognised in the answer to 'which artwork?'
+    art = {}
+    for l in open("data/annotations/blind_judged_artwork.jsonl"):
+        art.update(json.loads(l)["verdicts"])
+    by = defaultdict(lambda: defaultdict(list))
+    for item, v in art.items():
+        parts = item.split("|")
+        kind, work = parts[0], parts[1]
+        key = f"{'|'.join(parts[2:-1])}|{parts[-1]}" if kind == "syn" else None
+        if kind == "real":
+            a = manifest[parts[2]]
+            n = a["n_layers"]
+            key = "layers " + ("0-1" if n <= 1 else str(n) if n < 4 else "4+")
+        by[(kind, key)][work].append(float(bool(v.get("named"))))
+    out["artwork_recognised"] = {f"{k}|{key}": {"share": grouped_boot(g),
+                                                "n": sum(len(x) for x in g.values())}
+                                 for (k, key), g in sorted(by.items())}
     Path("results/E10b").mkdir(parents=True, exist_ok=True)
     json.dump(out, open("results/E10b/blind.json", "w"), indent=1, ensure_ascii=False)
     print(json.dumps(out, indent=1, ensure_ascii=False)[:6000])

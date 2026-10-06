@@ -440,3 +440,27 @@ couleur (floutée) 0,84 / 0,82 / 0,99 ; trame CMJN moyenne 0,97 / 0,95 / 0,96 ; 
 de la trame vient du gros grain ; la couleur gêne un peu les modèles à légendes, pas DINOv2 ; le
 reste est petit et non monotone (période des points 0,7-1,9 px après réduction à 224 : repliement).
 À réduire à un paragraphe dans l'article.
+
+## 2026-10-06 — Révision : l'œuvre est-elle reconnue ? (jugement à l'aveugle, Opus)
+
+Second jugement : la réponse de Claude à « quelle œuvre est reproduite, et que représente-t-elle ? »
+désigne-t-elle le sujet de l'œuvre ? ([`scripts/blind_judge_artwork.py`](scripts/blind_judge_artwork.py),
+`data/annotations/blind_judged_artwork.jsonl`, `results/E10b/blind.json` ; IC 95 % groupés par œuvre)
+
+| condition | reconnue |
+| --- | --- |
+| synthèse : cadre, mur, livre, écran (k ≤ 2), témoins du livre | 100 % |
+| profondeur 3 | 90 % [80 ; 100] |
+| profondeur 4 | 53 % [37 ; 70] |
+| **profondeur 6** | **17 % [3 ; 30]** |
+| témoin même surface (k=6) | 27 % [13 ; 43] |
+| témoin même dégradation (k=6) | 3 % [0 ; 10] |
+| témoin encombrement (k=6) | 7 % [0 ; 17] |
+| réel, 0-1 / 2 / 3 / 4+ couches | 100 / 100 / 98 / 100 % |
+
+**Pour Claude, reconnaître l'œuvre est une affaire de pixels, pas de cadres.** À six couches, les
+supports ne font pas plus mal que l'œuvre seule réduite et dégradée de la même façon (17 % contre
+3 %, plutôt mieux). Sur de vraies reproductions d'œuvres célèbres, il la reconnaît presque
+toujours, quel que soit le nombre de couches. Contraste avec les encodeurs (E6 v2) : eux perdent
+l'œuvre avec les couches au-delà de la surface — un vecteur résume toute l'image, l'entourage y
+dilue l'œuvre ; un modèle qui décrit peut la repérer où qu'elle soit.
