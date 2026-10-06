@@ -13,11 +13,11 @@ ordinateur traite ces supports comme un bruit à ignorer. Nous avons fait passer
 puis vérifié sur 171 vraies reproductions de 22 œuvres. Trois encodeurs (CLIP, SigLIP, DINOv2) et
 un modèle descriptif (Claude, lu à l'aveugle et jugé par un autre modèle) ont été interrogés. Un
 cadre doré seul ne change rien. Un support qui *contient* des images — livre, écran, salle — fait
-autre chose : le modèle descriptif reconnaît l'œuvre (100 %), mais elle cesse d'être ce que
+autre chose : le modèle descriptif identifie le sujet de l'œuvre (100 %), mais elle cesse d'être ce que
 l'image représente (0 % au livre photographié, contre 90 à 93 % pour les témoins de même surface
 ou de même dégradation et 50 % pour l'œuvre seulement entourée). L'œuvre devient ce que le support
 montre. Sur de vraies reproductions, cette rétrogradation croît avec le nombre de couches à
-surface égale, alors que la reconnaissance reste presque totale ; les encodeurs, eux, perdent
+surface égale, alors que l'identification du sujet de l'œuvre reste presque totale ; les encodeurs, eux, perdent
 l'œuvre avec les couches au-delà de sa surface. Les machines ne traitent pas le support comme un
 bruit : elles en font, selon le cas, ce qui dilue l'œuvre ou ce qui la contient.
 
@@ -270,8 +270,8 @@ points sans dominante à trois finesses, la rephotographie seule.
 
 - *Retrouver l'œuvre* (encodeurs) : rang de l'image de musée de l'œuvre parmi les 18 405 ; écart
   au témoin en log10 du rang.
-- *Reconnaître l'œuvre* (Claude) : la réponse à « quelle œuvre est reproduite ? » désigne-t-elle
-  le sujet de l'œuvre ?
+- *Identifier l'œuvre* (Claude) : la réponse à « quelle œuvre est reproduite, et que
+  représente-t-elle ? » désigne-t-elle le sujet de l'œuvre ? (le titre n'est pas exigé)
 - *La place de l'œuvre dans la description* (Claude) : le sujet de l'œuvre est-il nommé ? est-il
   le sujet principal de la phrase ?
 - Sur le réel : régressions (log10 du rang ; probabilité que l'œuvre ne soit pas le sujet
@@ -288,13 +288,13 @@ rognée au bord de la toile (35 sur 60 sans aucune couche) ; l'estampe et la pho
 montrées avec leur feuille, leurs marges, leur carton, leurs inscriptions (2,25 et 2,18 couches en
 moyenne) ; la sculpture est détourée sur un fond de studio (93 %). Le type d'objet se lit dans les
 marges avant de se lire dans l'œuvre. La « couche zéro » n'existe pas : nos mesures partent de
-l'image telle que le musée la donne. (Annotation faite par Claude, contrôlée à l'œil par nous sur
-15 images ; voir `notes/verifications.md`.)
+l'image telle que le musée la donne. (Annotation faite par Claude, contrôlée à l'œil par l'agent de la
+boucle — Claude encore, pas un humain — sur 15 images ; voir `notes/verifications.md`.)
 
 ### 4.2 Le cadre seul ne fait rien
 
-Un cadre doré autour de l'œuvre ne change ni ce que les encodeurs retrouvent (l'œuvre reste au
-premier rang pour 99 à 100 % des œuvres), ni ce que Claude décrit (le sujet de l'œuvre est le
+Un cadre doré autour de l'œuvre ne change ni ce que les encodeurs retrouvent (l'œuvre reste dans
+les dix premiers pour 99 à 100 % des œuvres), ni ce que Claude décrit (le sujet de l'œuvre est le
 sujet principal de 30 descriptions sur 30). C'est attendu : pour une machine, le seul cadre
 certain est le bord de l'image, et un cadre *dans* l'image n'est qu'un motif de plus autour de
 l'œuvre. Le médium lu suit d'ailleurs l'enveloppe la plus extérieure, comme on pouvait s'y
@@ -306,7 +306,8 @@ photographié, « une estampe » ; les témoins de même surface gardent la rép
 Le résultat principal porte sur ce que le modèle descriptif fait de l'œuvre quand un support la
 contient (figure 1). Prenons l'œuvre imprimée dans un livre ouvert photographié sur une table
 (deux couches ; l'œuvre couvre environ 12 % de l'image). À la question « quelle œuvre est
-reproduite ? », Claude la reconnaît dans 30 cas sur 30. Mais à la question « que représente cette
+reproduite, et que représente-t-elle ? », Claude en identifie le sujet dans 30 cas sur 30 (sans
+forcément savoir de quelle œuvre il s'agit : ce n'est pas une identification du titre). Mais à la question « que représente cette
 image ? », le sujet de l'œuvre n'est le sujet principal de sa phrase dans **aucun** cas : il écrit
 « un livre ouvert intitulé *Histoire de l'art*, avec… la reproduction d'un tableau… ». Même chose
 à l'écran (0 sur 30) ; au mur, 9 sur 30.
@@ -319,19 +320,20 @@ Ce n'est donc ni la taille, ni la dégradation, et pas seulement l'entourage : c
 fait de l'œuvre un complément. Le support devient ce que l'image représente ; l'œuvre devient ce
 que le support montre.
 
-À six couches, tout s'éteint, témoins compris : l'œuvre ne couvre que 0,2 % de l'image, Claude ne
-la reconnaît plus dans 83 % des cas (même dégradation : 97 %). Cette profondeur mesure un plancher
+À six couches, tout s'éteint, témoins compris : l'œuvre ne couvre que 0,2 % de l'image, Claude n'en
+identifie plus le sujet dans 83 % des cas (même dégradation : 97 %). Cette profondeur mesure un plancher
 de résolution, pas un effet des supports, et nous n'en tirons rien.
 
 ### 4.4 Sur de vraies reproductions
 
-Sur 149 vraies reproductions de 22 œuvres célèbres (photos de salle, pages de livres, timbres,
-affiches, écrans ; figure 3), Claude reconnaît l'œuvre presque toujours, quel que soit le nombre
-de couches (98 à 100 %). Mais elle cesse d'être le sujet principal à mesure que les couches
-s'accumulent : 100 % à zéro ou une couche, 75 % à deux, 28 % à trois, 6 % à quatre et plus. Dans
-une régression logistique groupée par œuvre, l'effet du nombre de couches tient à surface d'œuvre
-égale et à type de support égal (coefficient +1,15 [0,52 ; 2,07] ; surface −3,34 [−6,08 ; −2,10] ;
-photo de salle +0,38 [−1,30 ; 2,59]). Les descriptions disent la même chose que la synthèse :
+Sur 131 vraies reproductions de 22 œuvres célèbres (photos de salle, pages de livres, timbres,
+affiches, écrans ; figure 3 ; les images de musée « propres » servent de référence et sont
+exclues), Claude identifie le sujet de l'œuvre presque toujours, quel que soit le nombre de
+couches (98 à 100 %). Mais l'œuvre cesse d'être le sujet principal à mesure que les couches
+s'accumulent : 75 % à deux couches, 28 % à trois, 6 % à quatre et plus. Dans une régression
+logistique groupée par œuvre, l'effet du nombre de couches tient à surface d'œuvre égale
+(+1,03 [0,14 ; 2,04] ; surface −3,34 [−6,06 ; −2,15]), mais de justesse ; il est porté surtout
+par les photos de salle : sans elles (84 images), il n'est plus établi (+0,82 [−0,07 ; 1,80]). Les descriptions disent la même chose que la synthèse :
 « des visiteurs se pressent dans une salle de musée devant *La Nuit étoilée* de Van Gogh ».
 
 Les encodeurs perdent aussi l'œuvre avec les couches, au-delà de sa surface : dans une régression
@@ -368,14 +370,14 @@ retenues sont celles qui tiennent sur le réel.
 **Ce que le support montre.** La théorie du cadre dit que le cadre isole l'œuvre et la désigne.
 Nos résultats déplacent cette idée. Pour une machine, un cadre intérieur ne fait rien : il n'est
 qu'un motif autour de l'œuvre. Ce qui agit, c'est le support qui *contient* des images — le livre,
-l'écran, la salle. Le modèle descriptif reconnaît l'œuvre, mais la phrase change de sujet : ce que
+l'écran, la salle. Le modèle descriptif identifie l'œuvre, mais la phrase change de sujet : ce que
 l'image représente devient le support, et l'œuvre devient ce que le support montre. Un entourage
 qui ne contient pas l'œuvre ne produit cet effet qu'à moitié ; la taille et la dégradation, pas du
 tout. La rétrogradation est syntaxique avant d'être perceptive.
 
 **Deux machines, deux rapports au support.** L'encodeur résume l'image entière en un vecteur :
 l'entourage y dilue l'œuvre, et chaque couche coûte au-delà de la surface. Le modèle qui décrit
-sépare au contraire reconnaître et décrire : il retrouve l'œuvre tant que les pixels le
+sépare au contraire identifier et décrire : il identifie l'œuvre tant que les pixels le
 permettent, quel que soit le nombre de couches, mais il la range sous le support. Ni l'un ni
 l'autre ne traite le support comme un bruit à ignorer, ce que supposent les travaux sur
 l'invariance.
@@ -383,7 +385,7 @@ l'invariance.
 **Conséquence pratique.** Dans des archives de reproductions (photos de salle, livres numérisés,
 captures d'écran), une recherche par encodeur retrouvera moins bien les œuvres à mesure que les
 couches s'empilent, et une description automatique les nommera comme ce que montrent des
-supports. Il faut décrire *et* reconnaître séparément.
+supports. Il faut décrire *et* identifier séparément.
 
 **Ce qui reste attendu**, et que nous ne développons pas : le cadre intérieur est inerte ; le
 médium lu suit l'enveloppe ; une œuvre trop petite n'est plus reconnue.
@@ -401,7 +403,8 @@ médium lu suit l'enveloppe ; une œuvre trop petite n'est plus reconnue.
   l'œuvre ; une seule chaîne profonde, un seul ordre des couches.
 - **Gabarits répétés** : nos couches synthétiques réutilisent les mêmes décors ; elles se
   ressemblent par fabrication, et nous n'avons pas utilisé de mesure qui en dépende.
-- **Trois encodeurs de taille moyenne.** D'autres modèles peuvent différer.
+- **Trois encodeurs de taille moyenne.** D'autres modèles peuvent différer. Même complétée en
+  carré, l'image est encore recadrée de 12,5 % par DINOv2 (environ 6 % sur chaque bord).
 - **Pas d'humains.** L'enquête qui comparerait des personnes et des machines sur les mêmes images
   est prête (`human_study/`) mais n'a pas été menée ; c'est sans doute là que se trouve la suite :
   savoir si les humains, eux, rétrogradent l'œuvre.

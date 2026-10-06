@@ -5,7 +5,7 @@ HEAVY = ~/outils-seg/lourd.sh
 
 .PHONY: all works layers pool stages screens real measures claude figures test
 
-all: measures figures
+all: measures blind figures
 
 works:            ## E1 — the 300 works
 	$(PY) scripts/select_works.py
@@ -37,3 +37,8 @@ figures:
 	$(PY) scripts/fig_real.py
 test:
 	uv run pytest -q
+blind:            ## E10b/E10c — blind readings (opaque names), Opus judgments, analysis
+	PYTHONPATH=src $(PY) scripts/blind_readings.py 2
+	PYTHONPATH=src $(PY) scripts/blind_judge_artwork.py
+	PYTHONPATH=src $(PY) scripts/blind_round2.py
+	PYTHONPATH=src $(PY) scripts/blind_analyse.py

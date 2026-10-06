@@ -27,7 +27,7 @@ ax.grid(axis="y", color="#e5e5e5", lw=0.6)
 for s in ("top", "right"):
     ax.spines[s].set_visible(False)
 ax.legend(frameon=False, fontsize=8, loc="lower left")
-ax.set_title("149 vraies reproductions de 22 œuvres (lectures à l'aveugle)", fontsize=10.5,
+ax.set_title("131 vraies reproductions de 22 œuvres (lectures à l'aveugle)", fontsize=10.5,
              loc="left")
 fig.tight_layout()
 fig.savefig("article/figures/fig-reel.png")

@@ -120,6 +120,8 @@ def main() -> None:
             continue
         f = item.split("|")[2]
         a = manifest[f]
+        if a["support"] == "clean":  # review 2: clean museum images are not reproductions
+            continue
         rows.append({"work": a["work"], "layers": a["n_layers"],
                      "area": max(a["work_area"], 0.005), "in_situ": a["support"] == "in_situ",
                      "named": bool(v.get("named")), "main": v.get("role") == "main",
@@ -138,6 +140,22 @@ def main() -> None:
     out["real"]["logit_not_main"] = {
         name: [float(point[i]), *np.percentile(boots[:, i], [2.5, 97.5]).tolist()]
         for i, name in enumerate(["intercept", "layers", "log10_area", "in_situ"])}
+    # the same without the gallery photographs (review 2: is the effect only there?)
+    rows_ns = [r for r in rows if not r["in_situ"]]
+    Xn = lambda rs: X(rs)[:, :3]
+    pt = logit_fit(Xn(rows_ns), y(rows_ns))
+    bs = []
+    works_ns = sorted({r["work"] for r in rows_ns})
+    for _ in range(2000):
+        pick = rng.choice(works_ns, len(works_ns))
+        rs = [r for w in pick for r in rows_ns if r["work"] == w]
+        bs.append(logit_fit(Xn(rs), y(rs)))
+    bs = np.array(bs)
+    out["real"]["logit_not_main_without_gallery_photos"] = {
+        "n": len(rows_ns),
+        **{name: [float(pt[i]), *np.percentile(bs[:, i], [2.5, 97.5]).tolist()]
+           for i, name in enumerate(["intercept", "layers", "log10_area"])}}
+    out["real"]["n_reproductions"] = len(rows)
     for lab, sel in [("0-1", lambda r: r["layers"] <= 1), ("2", lambda r: r["layers"] == 2),
                      ("3", lambda r: r["layers"] == 3), ("4+", lambda r: r["layers"] >= 4)]:
         rs = [r for r in rows if sel(r)]
