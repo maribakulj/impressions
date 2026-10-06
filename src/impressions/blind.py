@@ -96,6 +96,8 @@ def read(key: str, src: Path, cache: Cache, which: str, model: str = "sonnet") -
             return
         except Exception as e:  # noqa: BLE001
             last = str(e)
+            if "limit" in last.lower():
+                raise SystemExit(f"usage limit reached, stopping cleanly: {last[:120]}")
     cache.add(ck, {"item": key, "which": which, "error": last[:200]})
 
 

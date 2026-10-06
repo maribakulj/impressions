@@ -78,6 +78,12 @@ def main(threads: int = 4) -> None:
     for r in real:
         k, p = f"real|{r['work']}|{r['file']}|0", Path("data/real/images") / r["file"]
         jobs += [(k, p, "subject"), (k, p, "supports")]
+    # most important first (subject everywhere, then layers on the real set, then layers on the
+    # synthetic set, then the screens), so that a usage limit cuts the least useful part
+    def priority(j):
+        k, _, which = j
+        return (k.startswith("scr|"), which != "subject", not k.startswith("real|"))
+    jobs.sort(key=priority)
     todo = [j for j in jobs if f"{j[0]}#{j[2]}" not in READS]
     print(len(jobs), "readings,", len(todo), "to do", flush=True)
     with ThreadPoolExecutor(threads) as ex:
