@@ -522,3 +522,26 @@ tout »). Fait : dépôt GitHub renommé [github.com/maribakulj/punctured-sky](h
 précédentes de ce journal gardent l'ancien nom. **Reste à faire dès la fin du réencodage en cours** :
 déplacer le dossier `~/impressions` → `~/punctured-sky` et reconstruire l'environnement
 (`uv sync`) — le faire maintenant ferait planter le calcul qui tourne dans ce dossier.
+
+## 2026-10-06 — Seconde relecture adverse et seconde manche
+
+[`notes/relecture-2.md`](notes/relecture-2.md) : révision **mineure à moyenne**. L'aveugle est réel
+(le lecteur n'ouvre que l'image demandée) ; presque tous les chiffres se recalculent. Restent :
+- **bloquant** : le témoin « entourée » (l'œuvre collée sur un autre tableau) n'isole pas le
+  fait d'être *contenue* — le livre diffère aussi par le texte lisible, la scène photographiée et
+  la position décentrée ; la « salle » n'est pas soutenue (mur 9/30 contre entourée 15/30) ;
+- **bloquant** : sur le réel, les 149 « reproductions » incluaient 18 images propres ; sans elles
+  (131), couches +1,03 [0,14 ; 2,04] ; sans les photos de salle (84), +0,82 [−0,07 ; 1,80] — non
+  établi. « À type de support égal » était faux. **Corrigé dans l'article.**
+- importants : au livre, l'œuvre est *absente* de 20 descriptions sur 30 (pas un complément) ;
+  sujet et œuvre demandés dans le même appel ; « reconnaît » = « décrit le sujet » (71/120 disent
+  ne pas savoir quelle œuvre) → **« identifie le sujet »** ; « contrôlée par nous » → par l'agent ;
+  « premier rang » → « dix premiers » ; doublons dans `map.jsonl` (verrou ajouté) ; Makefile
+  (cibles `blind` ajoutées) ; DINOv2 recadre encore 12,5 % (limite ajoutée).
+
+**Seconde manche lancée** pour le premier point bloquant (`scripts/blind_round2.py`, planche
+[`figures/E10c-controls.jpg`](figures/E10c-controls.jpg)) : mêmes 30 œuvres, sujet demandé **seul**
+dans son appel ; conditions : livre ; livre **sans aucun texte** (même géométrie) ; mêmes pixels
+dégradés à la même place sur gris ; **mêmes pixels à la même place sur un autre tableau** ; témoins
+centrés ; mur ; écran. Contrastes prévus : texte (livre − livre sans texte) ; être entourée
+(sur tableau − sur gris) ; **être contenue** (livre sans texte − sur tableau).
