@@ -1,4 +1,4 @@
-# Ce que le support montre : cadres emboîtés et lecture des images par les machines
+# La machine n'a pas de parergon : cadres emboîtés et lecture des images
 
 *Projet *punctured sky*, octobre 2026 — https://github.com/maribakulj/punctured-sky. Chaque chiffre
 renvoie à un fichier de `results/` ou `data/annotations/` ; `make all` reproduit les mesures.*
@@ -8,18 +8,17 @@ renvoie à un fichier de `results/` ou `data/annotations/` ; `make all` reprodui
 Une œuvre nous parvient emboîtée dans des supports : cadre, mur, photographie, page de livre,
 écran. La théorie du cadre soutient que le cadre isole l'œuvre et la désigne ; la vision par
 ordinateur traite ces supports comme un bruit à ignorer. Nous avons fait passer 300 œuvres de musée
-à travers des chaînes de supports fabriqués, avec pour chaque étape trois témoins de même surface
-(l'œuvre seule ; l'œuvre avec la même dégradation de pixels ; l'œuvre entourée sans être contenue),
-puis vérifié sur 171 vraies reproductions de 22 œuvres. Trois encodeurs (CLIP, SigLIP, DINOv2) et
-un modèle descriptif (Claude, lu à l'aveugle et jugé par un autre modèle) ont été interrogés. Un
-cadre doré seul ne change rien. Un support qui *contient* des images — livre, écran, salle — fait
-autre chose : le modèle descriptif identifie le sujet de l'œuvre (100 %), mais elle cesse d'être ce que
-l'image représente (0 % au livre photographié, contre 90 à 93 % pour les témoins de même surface
-ou de même dégradation et 50 % pour l'œuvre seulement entourée). L'œuvre devient ce que le support
-montre. Sur de vraies reproductions, cette rétrogradation croît avec le nombre de couches à
-surface égale, alors que l'identification du sujet de l'œuvre reste presque totale ; les encodeurs, eux, perdent
-l'œuvre avec les couches au-delà de sa surface. Les machines ne traitent pas le support comme un
-bruit : elles en font, selon le cas, ce qui dilue l'œuvre ou ce qui la contient.
+à travers des chaînes de supports fabriqués, en comparant chaque étape à des témoins de même
+surface (l'œuvre seule ; les mêmes pixels dégradés à la même place, sur du gris ou sur un autre
+tableau), puis vérifié sur 131 vraies reproductions de 22 œuvres. Trois encodeurs (CLIP, SigLIP,
+DINOv2) et un modèle descriptif (Claude, lu à l'aveugle, jugé par un autre modèle) ont été
+interrogés. Aucun des deux types de machine ne traite le support comme un cadre. Un cadre doré ne
+change rien. Dans un livre photographié ou sur un écran, le modèle descriptif identifie encore le
+sujet de l'œuvre, mais n'en fait plus le sujet de sa phrase (0 sur 30) — exactement comme lorsque
+les mêmes pixels, à la même place, sont posés sur un autre tableau (0 sur 30), alors que sur du
+gris ils restent le sujet (30 sur 30). Ce qui décide, c'est la saillance de l'œuvre dans l'image,
+non la nature de ce qui l'entoure ; les encodeurs, de même, perdent l'œuvre avec tout entourage,
+support ou non. Pour la machine, le support n'enveloppe pas le sens : il fait partie de la scène.
 
 ## 1. La question
 
@@ -247,6 +246,9 @@ la chaîne sur une image blanche puis noire avec la même graine) :
 - **encombrement** : l'œuvre, à la même surface, posée sans cadre sur le détail d'un autre
   tableau (le centre seulement, pour qu'il ne montre lui-même ni cadre ni montage) — quelque chose
   l'entoure, mais pas un support qui la contient.
+- **mêmes pixels sur un autre tableau** : l'étape elle-même, dont tous les pixels qui ne sont pas
+  l'œuvre sont remplacés par le détail d'un autre tableau — même place, même dégradation, même
+  entourage riche, mais aucun support ; et le **livre photographié sans aucun texte**.
 
 La trame est décomposée à part (section 4.5) : sa dominante de couleur seule, le flou seul, des
 points sans dominante à trois finesses, la rephotographie seule.
@@ -261,7 +263,7 @@ points sans dominante à trois finesses, la rephotographie seule.
   lecture), interrogé **à l'aveugle** : chaque image est copiée sous un nom opaque ; le sujet
   (« que représente cette image ? » et « quelle œuvre est reproduite, et que
   représente-t-elle ? ») et les supports (chaîne, nombre de couches) sont demandés dans deux
-  appels séparés, sans exemple.
+  appels séparés, sans exemple ; dans une seconde manche, la question du sujet est posée seule.
 - **Un juge** d'un autre modèle (Claude Opus), lui aussi à l'aveugle (identifiants opaques, ordre
   mélangé), qui dit pour chaque description si le sujet de l'œuvre y est nommé, et s'il est le
   sujet *principal* de la phrase ou seulement un complément (« un livre qui reproduit… »).
@@ -301,28 +303,37 @@ l'œuvre. Le médium lu suit d'ailleurs l'enveloppe la plus extérieure, comme o
 attendre : accrochée au mur, presque toute œuvre devient « une peinture » pour CLIP ; dans un livre
 photographié, « une estampe » ; les témoins de même surface gardent la répartition d'origine.
 
-### 4.3 Reconnue, mais rétrogradée
+### 4.3 Ce qui fait passer l'œuvre au second plan
 
-Le résultat principal porte sur ce que le modèle descriptif fait de l'œuvre quand un support la
-contient (figure 1). Prenons l'œuvre imprimée dans un livre ouvert photographié sur une table
-(deux couches ; l'œuvre couvre environ 12 % de l'image). À la question « quelle œuvre est
-reproduite, et que représente-t-elle ? », Claude en identifie le sujet dans 30 cas sur 30 (sans
-forcément savoir de quelle œuvre il s'agit : ce n'est pas une identification du titre). Mais à la question « que représente cette
-image ? », le sujet de l'œuvre n'est le sujet principal de sa phrase dans **aucun** cas : il écrit
-« un livre ouvert intitulé *Histoire de l'art*, avec… la reproduction d'un tableau… ». Même chose
-à l'écran (0 sur 30) ; au mur, 9 sur 30.
+Nous avons posé au modèle descriptif une seule question, dans un appel à part : « que représente
+cette image ? ». Un juge, à l'aveugle, dit si le sujet de l'œuvre est le sujet principal de la
+réponse ou seulement un complément (figure 1).
 
-Les trois témoins, à surface égale, excluent les explications simples. L'œuvre seule sur du gris
-est le sujet principal dans 93 % des cas [83 ; 100] ; avec exactement la même dégradation de
-pixels, 90 % [77 ; 100] ; posée sur un autre tableau qui l'entoure sans la contenir, 50 % [33 ; 67].
-Ce n'est donc ni la taille, ni la dégradation, et pas seulement l'entourage : c'est le fait d'être
-**contenue par un support qui montre des images** — un livre, un écran, une salle de musée — qui
-fait de l'œuvre un complément. Le support devient ce que l'image représente ; l'œuvre devient ce
-que le support montre.
+Seule, centrée, à la surface qu'elle occupe dans le livre photographié, l'œuvre est le sujet
+principal dans 30 cas sur 30. Encadrée et accrochée au mur, dans 29 sur 30. Dans le livre
+photographié ou dans une page web affichée sur un écran, dans **aucun** : « un livre ouvert
+intitulé *Histoire de l'art*, avec… la reproduction d'un tableau ». Une première manche, où la
+question du sujet était posée dans le même appel que « quelle œuvre est reproduite ? », donnait le
+même résultat au livre et à l'écran.
 
-À six couches, tout s'éteint, témoins compris : l'œuvre ne couvre que 0,2 % de l'image, Claude n'en
-identifie plus le sujet dans 83 % des cas (même dégradation : 97 %). Cette profondeur mesure un plancher
-de résolution, pas un effet des supports, et nous n'en tirons rien.
+Faut-il en conclure que le support qui *contient* l'œuvre la rétrograde ? Une seconde manche
+répond non. Nous avons gardé exactement les pixels de l'œuvre tels qu'ils sont dans le livre
+photographié — même place, même taille, même perspective, même flou — et remplacé tout le reste,
+soit par du gris, soit par le détail d'un autre tableau. Sur du gris, l'œuvre reste le sujet
+principal dans 30 cas sur 30 ; sur un autre tableau, dans **0 sur 30**, autant que dans le livre.
+Le livre sans aucun texte la laisse sujet principal dans 6 cas sur 30 : il rétrograde plutôt
+*moins* qu'un tableau (+0,20 [0,07 ; 0,33]) ; le texte lisible ajoute un peu (−0,20 [−0,33 ;
+−0,07]). L'œuvre centrée sur un autre tableau reste sujet principal dans la moitié des cas (47 %).
+
+Ce qui fait passer l'œuvre au second plan n'est donc ni le support ni le fait d'être contenue, mais
+sa **saillance** : un petit élément décentré dans une image dont le reste se décrit lui-même —
+livre, écran ou n'importe quel tableau — devient un complément. Le modèle identifie toujours le
+sujet de l'œuvre (98 à 100 %) ; il change seulement de quoi il parle.
+
+Deux réserves. Le format de la question pèse : au mur, l'œuvre était sujet principal dans 30 % des
+cas quand on demandait aussi « quelle œuvre ? », dans 97 % quand on ne demandait que le sujet. Et à
+six couches, quand l'œuvre ne couvre plus que 0,2 % de l'image, tout s'éteint, témoins compris :
+c'est un plancher de résolution, dont nous ne tirons rien.
 
 ### 4.4 Sur de vraies reproductions
 
@@ -367,25 +378,26 @@ retenues sont celles qui tiennent sur le réel.
 
 ## 5. Discussion
 
-**Ce que le support montre.** La théorie du cadre dit que le cadre isole l'œuvre et la désigne.
-Nos résultats déplacent cette idée. Pour une machine, un cadre intérieur ne fait rien : il n'est
-qu'un motif autour de l'œuvre. Ce qui agit, c'est le support qui *contient* des images — le livre,
-l'écran, la salle. Le modèle descriptif identifie l'œuvre, mais la phrase change de sujet : ce que
-l'image représente devient le support, et l'œuvre devient ce que le support montre. Un entourage
-qui ne contient pas l'œuvre ne produit cet effet qu'à moitié ; la taille et la dégradation, pas du
-tout. La rétrogradation est syntaxique avant d'être perceptive.
+**La machine n'a pas de parergon.** La théorie du cadre décrit une limite qui isole l'œuvre et la
+désigne. Nos deux machines n'en ont pas. Un cadre doré ne change rien à ce qu'elles retrouvent ni à
+ce qu'elles disent : il n'est qu'un motif autour de l'œuvre. Un livre, un écran, une salle ne font
+pas plus qu'un autre tableau posé autour d'elle : ils ne contiennent pas l'œuvre, ils l'entourent.
+Le modèle descriptif organise sa phrase selon ce qui domine l'image ; l'encodeur résume l'image
+entière en un vecteur où tout entourage dilue l'œuvre. Ni l'un ni l'autre ne traite le support
+comme un bruit à ignorer, ce que supposent les travaux sur l'invariance, mais ni l'un ni l'autre
+ne le traite comme un cadre : il fait partie de la scène.
 
-**Deux machines, deux rapports au support.** L'encodeur résume l'image entière en un vecteur :
-l'entourage y dilue l'œuvre, et chaque couche coûte au-delà de la surface. Le modèle qui décrit
-sépare au contraire identifier et décrire : il identifie l'œuvre tant que les pixels le
-permettent, quel que soit le nombre de couches, mais il la range sous le support. Ni l'un ni
-l'autre ne traite le support comme un bruit à ignorer, ce que supposent les travaux sur
-l'invariance.
+**Ce que cela dit de l'intuition de départ.** L'idée que le cadre « enveloppe une partie du sens »
+est vraie de la peinture et du regard humain que décrit la théorie ; nos mesures disent qu'elle ne
+l'est pas, telle quelle, pour ces machines. Ce n'est pas un résultat négatif sans intérêt : il dit
+que la fonction du cadre — séparer, désigner — est précisément ce qui manque à la lecture
+automatique des images, et qu'elle devra être apportée de l'extérieur (détection de l'œuvre,
+recadrage) pour qu'une machine lise une reproduction comme une reproduction.
 
 **Conséquence pratique.** Dans des archives de reproductions (photos de salle, livres numérisés,
-captures d'écran), une recherche par encodeur retrouvera moins bien les œuvres à mesure que les
-couches s'empilent, et une description automatique les nommera comme ce que montrent des
-supports. Il faut décrire *et* identifier séparément.
+captures d'écran), une recherche par encodeur retrouvera moins bien les œuvres à mesure qu'elles
+se perdent dans la scène, et une description automatique les nommera comme des détails. Il faut
+localiser l'œuvre avant de la décrire ou de la chercher.
 
 **Ce qui reste attendu**, et que nous ne développons pas : le cadre intérieur est inerte ; le
 médium lu suit l'enveloppe ; une œuvre trop petite n'est plus reconnue.
