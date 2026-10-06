@@ -8,32 +8,32 @@ what a computer-vision model takes the image to *be* — and at which layer the 
 outweigh the object. Computer vision usually treats a change of support as noise to be made
 invariant ("domain shift"); the hypothesis here is that the frame carries part of the meaning.
 
-*Status: results in, article being written and reviewed; driven by an autonomous research loop. The plan, hypotheses and
+*Status: revised after two adversarial reviews; final encoder measures running. Driven by an autonomous research loop. The plan, hypotheses and
 refutation criteria are in [`PLAN.md`](PLAN.md); the running log is in [`JOURNAL.md`](JOURNAL.md)
 (both in French).*
 
 ## Findings so far
 
 *(Full account, in French, in [`article/article.md`](article/article.md) and
-[`JOURNAL.md`](JOURNAL.md).)*
+[`JOURNAL.md`](JOURNAL.md). Revised twice after adversarial reviews: [`notes/relecture.md`](notes/relecture.md),
+[`notes/relecture-2.md`](notes/relecture-2.md).)*
+
+**The machine has no parergon.** Neither the embedding models (CLIP, SigLIP, DINOv2) nor the
+describing model (Claude, read blind and judged by another model) treat a frame or a support as a
+frame — something that isolates and designates the work.
 
 1. **Museums already deliver nested images.** Of 300 museum images, only 48 show the work with
-   nothing around it; prints and photographs come with their sheet, mount and inscriptions,
-   paintings are cropped to the canvas. Object type is readable in the margins.
-2. **The outermost frame decides; an inner gilt frame does nothing.** Retrieval and Claude's
-   description are unchanged by a frame alone, on synthetic layers and on real close-up photos.
-3. **As layers pile up, the support takes the place of the subject — and not because the work
-   got small.** At six layers Claude describes the support in 27 of 30 cases; the same work
-   alone at the same size, on grey: 0 of 30. On 171 real reproductions of 22 famous works, the
-   same pattern holds at matched size, and Claude names the work but demotes it to a setting
-   ("visitors crowd in a gallery in front of The Starry Night").
-4. **The halftone screen works by impregnation, not envelopment.** Its dots (not its colour)
-   make Claude lose the subject, and a coarse screen becomes the subject; DINOv2 reacts to the
-   dots (texture), CLIP to the colour.
-5. **The medium read follows the envelope** (on a wall → "a painting", in a book → "a print"),
-   controlled for size. Expected; stated, not stressed.
-6. On real images, for the embedding models, most of the loss is explained by the size of the
-   work in the image; an effect of the layers themselves is not established (22 works).
+   nothing around it; prints and photographs come with their sheet, mount and inscriptions.
+2. **A gilt frame changes nothing**, for retrieval or description.
+3. **What demotes the work is salience, not the support.** In a photographed book or on a screen,
+   the describing model still identifies the work's subject, but stops making it the subject of
+   its sentence (0/30). The very same degraded pixels, at the same place, on grey: 30/30; on
+   another painting, with no support at all: 0/30. A book without text: 6/30.
+4. **On 131 real reproductions** of 22 famous works, demotion grows with the number of layers at
+   equal area (mostly in gallery photographs), while the work's subject is identified ~100 % of the time.
+5. **Encoders lose the work with any surrounding**, support or not; on real images each layer
+   costs retrieval beyond area for all three models once images are no longer centre-cropped.
+6. **The halftone screen** matters mainly through coarse dots; expected texture effects.
 
 ## What is here
 
