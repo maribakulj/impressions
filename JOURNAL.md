@@ -545,3 +545,36 @@ dans son appel ; conditions : livre ; livre **sans aucun texte** (même géomét
 dégradés à la même place sur gris ; **mêmes pixels à la même place sur un autre tableau** ; témoins
 centrés ; mur ; écran. Contrastes prévus : texte (livre − livre sans texte) ; être entourée
 (sur tableau − sur gris) ; **être contenue** (livre sans texte − sur tableau).
+
+## 2026-10-06 — Seconde manche : ce n'est pas le contenant, c'est la saillance
+
+[`results/E10c/round2.json`](results/E10c/round2.json) (30 œuvres, sujet demandé **seul** dans
+son appel, lectures et jugements à l'aveugle ; 2 lectures perdues pendant une coupure réseau
+refaites). Part des descriptions où le sujet de l'œuvre est le sujet **principal** :
+
+| condition | principal | nommé |
+| --- | --- | --- |
+| mêmes pixels dégradés, même place, sur gris (`degr`) | **100 %** | 100 % |
+| œuvre seule centrée, même surface (`match`) | 100 % | 100 % |
+| œuvre accrochée au mur, encadrée (`wall`) | 97 % | 100 % |
+| œuvre centrée sur un autre tableau (`clut`) | 47 % [30 ; 63] | 100 % |
+| livre photographié **sans texte** | 20 % [7 ; 37] | 100 % |
+| livre photographié (avec texte) | **0 %** | 100 % |
+| page web → écran | 0 % | 93 % |
+| **mêmes pixels dégradés, même place, sur un autre tableau** (`degclut`) | **0 %** | 97 % |
+
+Contrastes (IC 95 % par œuvre) : texte lisible (livre − livre sans texte) **−0,20 [−0,33 ; −0,07]** ;
+être entourée (degclut − degr) **−1,00** ; « être contenue » (livre sans texte − degclut)
+**+0,20 [+0,07 ; +0,33]** — le livre *rétrograde moins* qu'un simple tableau autour.
+
+**La thèse « un support qui contient rétrograde l'œuvre » est réfutée.** Ce qui fait passer
+l'œuvre au rang de complément, c'est d'être un petit élément décentré dans une image dont le reste
+se décrit lui-même — livre, page web ou n'importe quel autre tableau. Les mêmes pixels, à la même
+place, sur du gris, restent le sujet à 100 %. Le texte lisible du livre ajoute un peu (20 points).
+L'œuvre encadrée au mur, plus grande et centrée, reste le sujet (97 %). C'est une affaire de
+**saillance** (figure / fond), pas de support : la machine n'a pas de parergon.
+
+**Sensibilité à la question** : au mur, sujet principal 30 % quand sujet et œuvre étaient demandés
+dans le même appel (manche 1), 97 % quand le sujet est demandé seul (manche 2). Le livre et l'écran
+restent à 0 % dans les deux. Les chiffres de la manche 1 sur le mur sont donc un artefact de
+format ; la manche 2 fait foi.

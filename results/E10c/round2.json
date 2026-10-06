@@ -1,0 +1,114 @@
+{
+ "conditions": {
+  "book": {
+   "n": 30,
+   "main": 0.0,
+   "main_ci": [
+    0.0,
+    0.0
+   ],
+   "named": 1.0
+  },
+  "book_notext": {
+   "n": 30,
+   "main": 0.2,
+   "main_ci": [
+    0.06666666666666667,
+    0.36666666666666664
+   ],
+   "named": 1.0
+  },
+  "clut": {
+   "n": 30,
+   "main": 0.4666666666666667,
+   "main_ci": [
+    0.3,
+    0.6333333333333333
+   ],
+   "named": 1.0
+  },
+  "degclut": {
+   "n": 30,
+   "main": 0.0,
+   "main_ci": [
+    0.0,
+    0.0
+   ],
+   "named": 0.9666666666666667
+  },
+  "degr": {
+   "n": 30,
+   "main": 1.0,
+   "main_ci": [
+    1.0,
+    1.0
+   ],
+   "named": 1.0
+  },
+  "match": {
+   "n": 30,
+   "main": 1.0,
+   "main_ci": [
+    1.0,
+    1.0
+   ],
+   "named": 1.0
+  },
+  "wall": {
+   "n": 30,
+   "main": 0.9666666666666667,
+   "main_ci": [
+    0.9,
+    1.0
+   ],
+   "named": 1.0
+  },
+  "web": {
+   "n": 30,
+   "main": 0.0,
+   "main_ci": [
+    0.0,
+    0.0
+   ],
+   "named": 0.9333333333333333
+  }
+ },
+ "contrasts": {
+  "book - book_notext": {
+   "what": "texte lisible",
+   "diff_main": -0.2,
+   "ci": [
+    -0.3333333333333333,
+    -0.06666666666666667
+   ],
+   "n": 30
+  },
+  "degclut - degr": {
+   "what": "être entourée (mêmes pixels, même place)",
+   "diff_main": -1.0,
+   "ci": [
+    -1.0,
+    -1.0
+   ],
+   "n": 30
+  },
+  "book_notext - degclut": {
+   "what": "être contenue par un support (même place, mêmes pixels, sans texte)",
+   "diff_main": 0.2,
+   "ci": [
+    0.06666666666666667,
+    0.3333333333333333
+   ],
+   "n": 30
+  },
+  "book - degr": {
+   "what": "tout ce que le livre ajoute",
+   "diff_main": -1.0,
+   "ci": [
+    -1.0,
+    -1.0
+   ],
+   "n": 30
+  }
+ }
+}
