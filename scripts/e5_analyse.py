@@ -9,7 +9,7 @@ from pathlib import Path
 
 import numpy as np
 
-from impressions.chains import CHAINS
+from punctured_sky.chains import CHAINS
 
 KIND_FR = {"painting": "peinture", "print": "estampe", "drawing": "dessin",
            "sculpture": "sculpture", "photograph": "photographie"}

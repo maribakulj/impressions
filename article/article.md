@@ -1,6 +1,6 @@
 # Ce que le support montre : cadres emboîtés et lecture des images par les machines
 
-*Projet `impressions`, octobre 2026 — https://github.com/maribakulj/impressions. Chaque chiffre
+*Projet *punctured sky*, octobre 2026 — https://github.com/maribakulj/punctured-sky. Chaque chiffre
 renvoie à un fichier de `results/` ou `data/annotations/` ; `make all` reproduit les mesures.*
 
 ## Résumé

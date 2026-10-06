@@ -512,3 +512,13 @@ grosse 23 %. Ce sont les points, pas la couleur ni le flou, qui font perdre le s
 fait rien ; un *support qui contient des images* (livre, écran, salle) fait de l'œuvre un
 complément — reconnue, mais rétrogradée — au-delà de la taille, de la dégradation et du simple
 entourage. Pour les encodeurs, l'entourage dilue l'œuvre au-delà de la surface (réel v2).
+
+## 2026-10-06 — Le projet s'appelle désormais *punctured sky*
+
+Demande de Marcel (« ce projet doit s'appeler punctured sky, impression c'est débile, renomme moi
+tout »). Fait : dépôt GitHub renommé [github.com/maribakulj/punctured-sky](https://github.com/maribakulj/punctured-sky)
+(l'ancienne adresse redirige) ; paquet Python `impressions` → `punctured_sky` ; variable
+`IMPRESSIONS_CACHE` → `PUNCTURED_SKY_CACHE` ; README, PLAN, article. 6 tests verts. Les entrées
+précédentes de ce journal gardent l'ancien nom. **Reste à faire dès la fin du réencodage en cours** :
+déplacer le dossier `~/impressions` → `~/punctured-sky` et reconstruire l'environnement
+(`uv sync`) — le faire maintenant ferait planter le calcul qui tourne dans ce dossier.

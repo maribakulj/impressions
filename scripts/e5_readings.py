@@ -18,10 +18,10 @@ from pathlib import Path
 
 from PIL import Image
 
-from impressions.chains import CHAINS
-from impressions.claude_vision import Cache, ask_json
-from impressions.corpus import load_works
-from impressions.layers import apply_chain, area_matched, content_mask
+from punctured_sky.chains import CHAINS
+from punctured_sky.claude_vision import Cache, ask_json
+from punctured_sky.corpus import load_works
+from punctured_sky.layers import apply_chain, area_matched, content_mask
 
 STAGES = [("orig", 0), ("frame", 1), ("wall", 2), ("book", 2), ("web", 2), ("print", 2),
           ("deep", 4), ("deep", 6), ("match|deep", 6)]

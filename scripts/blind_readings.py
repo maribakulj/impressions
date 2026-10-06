@@ -18,11 +18,11 @@ from pathlib import Path
 
 from PIL import Image
 
-from impressions.blind import judge, read
-from impressions.chains import CHAINS
-from impressions.claude_vision import Cache
-from impressions.corpus import load_works
-from impressions.layers import apply_chain
+from punctured_sky.blind import judge, read
+from punctured_sky.chains import CHAINS
+from punctured_sky.claude_vision import Cache
+from punctured_sky.corpus import load_works
+from punctured_sky.layers import apply_chain
 
 spec = importlib.util.spec_from_file_location("st", "scripts/e4_embed_stages.py")
 st = importlib.util.module_from_spec(spec)

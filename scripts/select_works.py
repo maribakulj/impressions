@@ -11,8 +11,8 @@ from pathlib import Path
 
 from PIL import Image
 
-from impressions.corpus import load_pool
-from impressions.sheets import contact_sheet
+from punctured_sky.corpus import load_pool
+from punctured_sky.sheets import contact_sheet
 
 PER_TYPE = 60
 KINDS = ["painting", "print", "drawing", "sculpture", "photograph"]

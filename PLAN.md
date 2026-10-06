@@ -1,7 +1,7 @@
-# impressions — plan de recherche (piloté par une boucle autonome)
+# punctured sky — plan de recherche (piloté par une boucle autonome)
 
-Nom : *Nouvelles Impressions d'Afrique* de Roussel, poème à parenthèses emboîtées jusqu'à cinq
-niveaux — des poupées russes de cadres. Et « impression » : ce qu'on imprime, ce qu'on perçoit.
+Nom : *punctured sky* (choisi par Marcel le 06/10/2026 ; le projet s'est appelé « impressions »
+jusque-là — le journal garde l'ancien nom).
 
 ## Question
 
@@ -62,7 +62,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       estampe, dessin, sculpture, photographie), sujets Iconclass variés, image ≥ 600 px.
       Galerie de recherche : tout le pool museums-v0.2 (18 405) + emblèmes si utile.
       Écrire `data/works.jsonl`. Regarder une planche de 25 œuvres.
-- [x] **E2 — Les couches.** `src/impressions/layers.py` : fonctions composables, déterministes
+- [x] **E2 — Les couches.** `src/punctured_sky/layers.py` : fonctions composables, déterministes
       (graine) : `crop_tight`, `museum_photo` (œuvre dans un mur, petite perspective),
       `gilt_frame` (cadre doré procédural), `mat_border` (passe-partout), `book_page` (marges,
       légende en vraie typographie, papier), `book_photo` (page en perspective sur une table,
@@ -138,7 +138,8 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
          pendant (m9) ; reformuler la thèse selon les nouveaux résultats ; citer Wang, Larson &
          Zhao 2026 et les familles manquantes (I8) ; mineurs m1-m4, m8, m10, m12 ; Limites I5, I9.
       7. Seconde relecture adverse sur la version révisée.
-      8. **Décider de la forme** (Marcel, 06/10 : « t'es sûr que l'article est pertinent ? ») :
+      8. **Après le réencodage** : `mv ~/impressions ~/punctured-sky`, `uv sync`, tests, mémoire.
+      9. **Décider de la forme** (Marcel, 06/10 : « t'es sûr que l'article est pertinent ? ») :
          article court « la machine n'a pas de parergon » si les témoins le confirment, sinon
          rapport de résultats honnête. Ne pas gonfler les résultats attendus.
 - [ ] **E11 — Publication.** Publier l'article comme document (Claude Docs) ; mettre à jour le
@@ -169,7 +170,7 @@ extérieur décide. Ne pas le présenter comme une surprise.
    présenter un échec de construction comme une réfutation de l'idée.
 5. Ne pas reprendre une conclusion de caypollard sans la revérifier.
 6. Commit à chaque morceau vérifié et push sur `main` du dépôt public
-   github.com/maribakulj/impressions (demandé par Marcel le 05/10/2026). Ne jamais écrire dans
+   github.com/maribakulj/punctured-sky (demandé par Marcel le 05/10/2026). Ne jamais écrire dans
    `~/caypollard`. Ne jamais pousser d'image sous droits ni de clé.
 7. Journal : une entrée datée par réveil dans `JOURNAL.md` (fait / vu / chiffres / suite), en
    français simple, avec des chemins de fichiers cliquables.

@@ -3,11 +3,11 @@
 
 import json
 
-from impressions import CACHE
+from punctured_sky import CACHE
 import numpy as np
 from PIL import Image
 
-from impressions.encoders import Encoder
+from punctured_sky.encoders import Encoder
 
 rows = [json.loads(l) for l in open("data/real/manifest.jsonl")]
 for m in ["clip", "siglip", "dinov2"]:

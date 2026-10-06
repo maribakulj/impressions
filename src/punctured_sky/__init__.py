@@ -5,4 +5,4 @@ from pathlib import Path
 
 # Encodings live under data/cache/<version>. v1 = the first run (centre-cropped by CLIP and
 # DINOv2); v2 = images completed to a square before encoding (review I4). Default: v2.
-CACHE = Path("data/cache") / os.environ.get("IMPRESSIONS_CACHE", "v2")
+CACHE = Path("data/cache") / os.environ.get("PUNCTURED_SKY_CACHE", "v2")

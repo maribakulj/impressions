@@ -10,9 +10,9 @@ from pathlib import Path
 
 from PIL import Image
 
-from impressions.corpus import load_works
-from impressions.layers import LAYERS
-from impressions.sheets import contact_sheet
+from punctured_sky.corpus import load_works
+from punctured_sky.layers import LAYERS
+from punctured_sky.sheets import contact_sheet
 
 
 def main() -> None:

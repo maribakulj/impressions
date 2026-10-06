@@ -10,8 +10,8 @@ from __future__ import annotations
 import sys
 from concurrent.futures import ThreadPoolExecutor
 
-from impressions.claude_vision import Cache, ask_json
-from impressions.corpus import load_works
+from punctured_sky.claude_vision import Cache, ask_json
+from punctured_sky.corpus import load_works
 
 PROMPT = """Cette image est la reproduction numérique d'un objet de musée. Je ne te demande PAS
 ce qu'elle représente. Je te demande quelles « couches » entourent l'objet dans cette image,

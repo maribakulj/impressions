@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from impressions import CACHE
+from punctured_sky import CACHE
 import numpy as np
 
-from impressions.corpus import load_pool
+from punctured_sky.corpus import load_pool
 
 
 class Gallery:

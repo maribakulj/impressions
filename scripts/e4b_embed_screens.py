@@ -11,14 +11,14 @@ import time
 import zlib
 from pathlib import Path
 
-from impressions import CACHE
+from punctured_sky import CACHE
 import numpy as np
 from PIL import Image
 
-from impressions.chains import CHAINS, SCREEN_CHAINS
-from impressions.corpus import load_works
-from impressions.encoders import Encoder
-from impressions.layers import apply_chain
+from punctured_sky.chains import CHAINS, SCREEN_CHAINS
+from punctured_sky.corpus import load_works
+from punctured_sky.encoders import Encoder
+from punctured_sky.layers import apply_chain
 
 VARIANTS = SCREEN_CHAINS
 

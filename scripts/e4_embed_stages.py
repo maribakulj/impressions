@@ -11,14 +11,14 @@ import sys
 import time
 import zlib
 
-from impressions import CACHE
+from punctured_sky import CACHE
 import numpy as np
 from PIL import Image
 
-from impressions.chains import E4_CHAINS as CHAINS
-from impressions.corpus import load_works
-from impressions.encoders import Encoder
-from impressions.layers import (apply_chain, area_matched, clutter_matched, content_mask,
+from punctured_sky.chains import E4_CHAINS as CHAINS
+from punctured_sky.corpus import load_works
+from punctured_sky.encoders import Encoder
+from punctured_sky.layers import (apply_chain, area_matched, clutter_matched, content_mask,
                                  degraded_matched)
 
 
@@ -28,7 +28,7 @@ _BACKGROUNDS: list[str] = []
 def backgrounds() -> list[str]:
     """Busy pictures that are not supports, for the clutter control: pool paintings."""
     if not _BACKGROUNDS:
-        from impressions.corpus import load_pool
+        from punctured_sky.corpus import load_pool
 
         _BACKGROUNDS.extend(sorted(r["image_abspath"] for r in load_pool()
                                    if r["kind"] == "painting"))

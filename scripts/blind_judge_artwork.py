@@ -6,8 +6,8 @@ from __future__ import annotations
 
 import json
 
-from impressions.blind import judge
-from impressions.claude_vision import Cache
+from punctured_sky.blind import judge
+from punctured_sky.claude_vision import Cache
 
 READS = Cache("data/annotations/blind_readings.jsonl")
 OUT = Cache("data/annotations/blind_judged_artwork.jsonl")

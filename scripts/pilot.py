@@ -11,12 +11,12 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-from impressions.chains import CHAINS
-from impressions.claude_vision import Cache, ask
-from impressions.corpus import load_works
-from impressions.encoders import Encoder
-from impressions.gallery import Gallery
-from impressions.layers import apply_chain
+from punctured_sky.chains import CHAINS
+from punctured_sky.claude_vision import Cache, ask
+from punctured_sky.corpus import load_works
+from punctured_sky.encoders import Encoder
+from punctured_sky.gallery import Gallery
+from punctured_sky.layers import apply_chain
 
 PROMPT = ("En une phrase, que représente cette image ? Puis, en une phrase, qu'est-ce que tu "
           "regardes physiquement (quel objet, quel support) ? Réponds en deux lignes : "
@@ -77,7 +77,7 @@ def main() -> None:
 
 def render(rows: list[dict]) -> None:
     """One sheet per work: a row per stage = stage, then 3 neighbours for CLIP and DINOv2."""
-    from impressions.corpus import CAYPOLLARD, load_pool
+    from punctured_sky.corpus import CAYPOLLARD, load_pool
 
     pool = {r["id"]: r for r in load_pool()}
     font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 12)

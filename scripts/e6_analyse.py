@@ -15,10 +15,10 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from impressions import CACHE
+from punctured_sky import CACHE
 import numpy as np
 
-from impressions.encoders import Encoder
+from punctured_sky.encoders import Encoder
 
 KINDS = {"painting": "a painting", "print": "a print, an engraving", "drawing": "a drawing",
          "sculpture": "a sculpture", "photograph": "an old photograph"}

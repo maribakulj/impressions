@@ -17,7 +17,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from impressions.claude_vision import Cache
+from punctured_sky.claude_vision import Cache
 
 BLIND_DIR = Path("data/blind/img")
 MAP = Path("data/blind/map.jsonl")

@@ -3,7 +3,7 @@ import random
 import numpy as np
 from PIL import Image
 
-from impressions.layers import LAYERS, MAX, apply_chain
+from punctured_sky.layers import LAYERS, MAX, apply_chain
 
 
 def _image(w=500, h=380):
@@ -43,7 +43,7 @@ def test_frame_surrounds_the_picture():
 
 
 def test_content_mask_follows_the_work():
-    from impressions.layers import content_mask
+    from punctured_sky.layers import content_mask
 
     masks = content_mask((400, 300), ["gilt_frame", "museum_wall", "book_page"], seed=2)
     fractions = [m.mean() for m in masks]
@@ -53,7 +53,7 @@ def test_content_mask_follows_the_work():
 
 
 def test_area_matched_has_the_stage_size_and_area():
-    from impressions.layers import area_matched
+    from punctured_sky.layers import area_matched
 
     out = area_matched(_image(), (960, 720), 0.05)
     assert out.size == (960, 720)

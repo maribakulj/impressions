@@ -11,12 +11,12 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from impressions import CACHE
+from punctured_sky import CACHE
 import numpy as np
 
-from impressions.corpus import load_works
-from impressions.encoders import Encoder
-from impressions.gallery import Gallery
+from punctured_sky.corpus import load_works
+from punctured_sky.encoders import Encoder
+from punctured_sky.gallery import Gallery
 
 KINDS = {"painting": "a painting", "print": "a print, an engraving", "drawing": "a drawing",
          "sculpture": "a sculpture", "photograph": "an old photograph"}

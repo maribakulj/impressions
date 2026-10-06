@@ -20,12 +20,12 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-from impressions import CACHE
+from punctured_sky import CACHE
 import numpy as np
 
-from impressions.chains import E4_CHAINS as CHAINS
-from impressions.corpus import load_pool, load_works
-from impressions.gallery import Gallery
+from punctured_sky.chains import E4_CHAINS as CHAINS
+from punctured_sky.corpus import load_pool, load_works
+from punctured_sky.gallery import Gallery
 
 
 def subject(row) -> str:

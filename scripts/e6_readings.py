@@ -11,7 +11,7 @@ from pathlib import Path
 
 import importlib.util
 
-from impressions.claude_vision import Cache, ask_json
+from punctured_sky.claude_vision import Cache, ask_json
 
 spec = importlib.util.spec_from_file_location("e5", "scripts/e5_readings.py")
 e5 = importlib.util.module_from_spec(spec)

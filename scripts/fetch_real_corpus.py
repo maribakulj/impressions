@@ -30,7 +30,7 @@ from pathlib import Path
 
 import httpx
 
-UA = "impressions-research/0.1 (github.com/maribakulj/impressions)"
+UA = "punctured-sky-research/0.1 (github.com/maribakulj/punctured-sky)"
 API = "https://commons.wikimedia.org/w/api.php"
 ROOT = Path(__file__).resolve().parents[1] / "data" / "real"
 CAND = ROOT / "candidates"

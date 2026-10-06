@@ -7,12 +7,12 @@ import sys
 import time
 from pathlib import Path
 
-from impressions import CACHE
+from punctured_sky import CACHE
 import numpy as np
 from PIL import Image
 
-from impressions.corpus import load_pool
-from impressions.encoders import Encoder
+from punctured_sky.corpus import load_pool
+from punctured_sky.encoders import Encoder
 
 CHUNK = 1024
 
