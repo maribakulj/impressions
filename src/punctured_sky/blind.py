@@ -27,6 +27,9 @@ SUBJECT = """Regarde cette image et réponds uniquement par un objet JSON :
  "artwork": "si une œuvre d'art est reproduite ou visible dans l'image : laquelle (titre et auteur si tu les reconnais, sinon une description courte) et ce qu'elle représente ; sinon \\"aucune\\"",
  "work_kind": "le type de cette œuvre : peinture, estampe, dessin, sculpture, photographie, objet, autre, ou aucune"}"""
 
+SUBJECT_ONLY = """Regarde cette image et réponds uniquement par un objet JSON :
+{"subject": "en une phrase, ce que représente cette image"}"""
+
 SUPPORTS = """Regarde cette image et réponds uniquement par un objet JSON :
 {"chain": "la liste ordonnée, de l'extérieur vers l'intérieur, des supports, cadres, écrans, pages, objets ou lieux qui s'interposent entre le bord de l'image et l'œuvre d'art la plus intérieure",
  "n_layers": "le nombre entier de ces couches (0 si l'œuvre occupe toute l'image)",
@@ -48,8 +51,19 @@ DESCRIPTIONS :
 {items}"""
 
 
+import threading
+
+_LOCK = threading.Lock()
+
+
 def opaque(key: str, src: Path) -> Path:
-    """Copy src under an opaque name (once per key) and return the copy's path."""
+    """Copy src under an opaque name (once per key) and return the copy's path. Locked: two
+    threads used to create two copies of the same key (review 2)."""
+    with _LOCK:
+        return _opaque(key, src)
+
+
+def _opaque(key: str, src: Path) -> Path:
     BLIND_DIR.mkdir(parents=True, exist_ok=True)
     known = {}
     if MAP.exists():
@@ -87,7 +101,7 @@ def read(key: str, src: Path, cache: Cache, which: str, model: str = "sonnet") -
     if ck in cache:
         return
     img = opaque(key, src)
-    prompt = SUBJECT if which == "subject" else SUPPORTS
+    prompt = {"subject": SUBJECT, "subject_only": SUBJECT_ONLY, "supports": SUPPORTS}[which]
     last = ""
     for _ in range(3):
         try:

@@ -13,6 +13,8 @@ CHAINS: dict[str, list[str]] = {
     "ctrl_shrink": ["shrink_neutral"],
     "ctrl_jpeg": ["jpeg_resample"],
     "ht_blur_only": ["blur_only"],
+    # review 2: the book without any readable text
+    "book_notext": ["book_page_notext", "book_photo_notext"],
     # E4b: what in the 'print' layer does the work — the colour, the dots, the rephotograph?
     "ht_cmy": ["halftone_print"],
     "ht_cmy_colour": ["cmy_colour_only"],
@@ -25,6 +27,6 @@ CHAINS: dict[str, list[str]] = {
 
 # E4 measures only these (frozen: review m5) — the screen variants are measured in E4b.
 E4_CHAINS = {k: v for k, v in CHAINS.items()
-             if not k.startswith(("ht_", "rephoto_only"))}
+             if not k.startswith(("ht_", "rephoto_only", "book_notext"))}
 SCREEN_CHAINS = ["ht_cmy", "ht_cmy_colour", "ht_blur_only", "ht_cmyk_fine", "ht_cmyk_medium",
                  "ht_cmyk_coarse", "rephoto_only"]

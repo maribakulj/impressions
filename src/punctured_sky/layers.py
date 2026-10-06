@@ -223,7 +223,8 @@ def museum_wall(im: Image.Image, rng: random.Random) -> Image.Image:
     return out
 
 
-def book_page(im: Image.Image, rng: random.Random, caption: str | None = None) -> Image.Image:
+def book_page(im: Image.Image, rng: random.Random, caption: str | None = None,
+              text: bool = True) -> Image.Image:
     """A plate in a printed book: paper, margins, plate number, a caption that does not name
     the subject, a running head and a folio."""
     im = _cap(_rgb(im))
@@ -236,6 +237,8 @@ def book_page(im: Image.Image, rng: random.Random, caption: str | None = None) -
     page.paste(fg, (x, top))
     d.rectangle([x - 1, top - 1, x + fg.width, top + fg.height], outline=(60, 55, 50), width=1)
     n = rng.randint(3, 180)
+    if not text:  # review 2: is it the readable text that makes the book the subject?
+        return page
     head = _font(SERIF_IT, 17)
     d.text((W // 2, 52), "HISTOIRE DE L'ART", fill=(60, 55, 50), font=_font(SERIF, 15),
            anchor="mm")
@@ -257,10 +260,10 @@ def book_page(im: Image.Image, rng: random.Random, caption: str | None = None) -
     return page
 
 
-def book_photo(im: Image.Image, rng: random.Random) -> Image.Image:
+def book_photo(im: Image.Image, rng: random.Random, text: bool = True) -> Image.Image:
     """The page photographed lying in an open book on a table: second page of text, gutter
     shadow, page curl, wood, perspective."""
-    page = _rgb(im) if im.height > im.width else book_page(im, rng)
+    page = _rgb(im) if im.height > im.width else book_page(im, rng, text=text)
     page = _fit(page, (420, 600))
     W, H = 960, 720
     wood = np.ones((H, W, 3), np.float32) * np.array([120, 82, 52], np.float32)
@@ -270,7 +273,7 @@ def book_photo(im: Image.Image, rng: random.Random) -> Image.Image:
     left = _paper(page.size, rng)
     d = ImageDraw.Draw(left)
     body, y = _font(SERIF, 12), 50
-    for k in range(32):
+    for k in range(32 if text else 0):
         d.line([40, y, page.width - 40 - (rng.randint(0, 120) if k % 7 == 6 else 0), y],
                fill=(110, 104, 98), width=4)
         y += 16
@@ -557,3 +560,24 @@ def blur_only(cell: float = 5.0) -> Callable:
 
 
 LAYERS["blur_only"] = blur_only(5.0)
+
+
+def degraded_on_clutter(stage: Image.Image, mask: np.ndarray, background: Image.Image) -> Image.Image:
+    """Control 'same pixels, same place, not contained' (review 2): the stage with every
+    non-work pixel replaced by a busy painting instead of grey. Same degradation and position
+    as in the chain; what surrounds the work is a picture, not a support that contains it."""
+    W, H = stage.size
+    bg = _rgb(background).copy()
+    bw, bh = bg.size
+    bg = bg.crop((round(bw * 0.2), round(bh * 0.2), round(bw * 0.8), round(bh * 0.8)))
+    scale = max(W / bg.width, H / bg.height)
+    bg = bg.resize((round(bg.width * scale) + 1, round(bg.height * scale) + 1), Image.LANCZOS)
+    bg = bg.crop(((bg.width - W) // 2, (bg.height - H) // 2, (bg.width - W) // 2 + W,
+                  (bg.height - H) // 2 + H))
+    arr = np.asarray(bg, np.uint8).copy()
+    arr[mask] = np.asarray(_rgb(stage), np.uint8)[mask]
+    return Image.fromarray(arr)
+
+
+LAYERS["book_page_notext"] = lambda im, rng: book_page(im, rng, text=False)
+LAYERS["book_photo_notext"] = lambda im, rng: book_photo(im, rng, text=False)
