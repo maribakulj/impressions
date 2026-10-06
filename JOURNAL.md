@@ -464,3 +464,51 @@ supports ne font pas plus mal que l'œuvre seule réduite et dégradée de la m�
 toujours, quel que soit le nombre de couches. Contraste avec les encodeurs (E6 v2) : eux perdent
 l'œuvre avec les couches au-delà de la surface — un vecteur résume toute l'image, l'entourage y
 dilue l'œuvre ; un modèle qui décrit peut la repérer où qu'elle soit.
+
+## 2026-10-06 — Révision : le sujet, à l'aveugle (juge Opus, 52 groupes)
+
+`results/E10b/blind.json` ; lectures Sonnet à l'aveugle (noms opaques, sujet et couches dans deux
+appels séparés, aucune exemple), jugement Opus à l'aveugle (identifiants opaques mélangés). IC
+95 % groupés par œuvre.
+
+**Synthèse, 30 œuvres** — part des descriptions où le sujet de l'œuvre est nommé / est le sujet
+*principal* de la phrase (et non un complément : « un livre qui reproduit… ») :
+
+| condition | nommé | principal |
+| --- | --- | --- |
+| cadre doré | 100 % | 100 % |
+| mur (k=2) | 63 % | 30 % [13 ; 47] |
+| livre photographié (k=2) | 33 % | **0 %** |
+| écran (k=2) | 33 % | **0 %** |
+| témoin même surface (livre k=2) | 93 % | 93 % |
+| témoin même dégradation (livre k=2) | 90 % | 90 % |
+| témoin encombrement, fond non-support (livre k=2) | 70 % | **50 %** [33 ; 67] |
+| profondeur 3 / 4 / 6 | 17 / 7 / 3 % | 0 % |
+| témoins à k=6 (surface / dégradation / encombrement) | 37 / 7 / 7 % | 37 / 3 / 0 % |
+
+Et pourtant l'œuvre est **reconnue à 100 %** au livre et à l'écran (question « quelle œuvre ? »,
+entrée précédente). **Le support fait de l'œuvre un complément** : Claude sait ce qu'elle est mais
+écrit « un livre ouvert qui reproduit un tableau… ». Ce n'est ni la taille (93 %), ni la
+dégradation (90 %), ni un simple entourage (fond encombré : 50 %) — c'est le fait d'être *contenue*
+par un support qui montre des images. Le cadre doré seul ne le fait pas (100 %). À 6 couches tout
+s'éteint, témoins compris (plancher de résolution) : on ne conclut rien à cette profondeur.
+
+**Réel, 149 reproductions** — sujet principal : 0-1 couche 100 % ; 2 : 75 % ; 3 : 28 % ; 4+ : 6 %.
+Logistique (pas sujet principal) ~ couches + log10 surface + photo de salle, bootstrap groupé par
+œuvre : **couches +1,15 [0,52 ; 2,07]** ; surface −3,34 [−6,08 ; −2,10] ; salle +0,38 [−1,30 ;
+2,59]. L'effet des couches tient à surface et type de support égaux. Reconnaissance de l'œuvre :
+~100 % à toute profondeur. Claude ne voit plus de montage sur le réel (3,5 %), toujours sur la
+synthèse (~100 %).
+
+**Comptage des couches (H3)** — synthèse : Spearman 0,85 (rangs moyens), erreur 0,85, mais la
+règle qui connaît la condition fait 0,73 et ρ intra-condition est faible (0,1-0,7) : Claude
+distingue les conditions, pas les couches déjà présentes. Réel : Spearman 0,68, 80 % à une couche
+près, erreur 0,92 contre 1,18. H3 : **partielle**.
+
+**Trames** (sujet principal) : flou seul 87 %, couleur seule 77 %, CMJ 50 %, CMJN moyenne 40 %,
+grosse 23 %. Ce sont les points, pas la couleur ni le flou, qui font perdre le sujet.
+
+**Thèse qui se dessine** (à confirmer par les témoins des encodeurs, E4 v2) : le cadre seul ne
+fait rien ; un *support qui contient des images* (livre, écran, salle) fait de l'œuvre un
+complément — reconnue, mais rétrogradée — au-delà de la taille, de la dégradation et du simple
+entourage. Pour les encodeurs, l'entourage dilue l'œuvre au-delà de la surface (réel v2).
