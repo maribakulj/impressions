@@ -45,6 +45,10 @@ def e5_works():
 
 
 def build_synthetic(w) -> list[tuple[str, Path]]:
+    paths = {(n, k): SRC / f"{w['id'].split(':')[1]}__{n.replace('|', '-')}__{k}.jpg"
+             for n, k in SYN}
+    if all(p.exists() for p in paths.values()):  # do not rebuild 67 stages for nothing
+        return [(f"syn|{w['id']}|{n}|{k}", p) for (n, k), p in paths.items()]
     out, want = [], set(SYN)
     for name, k, area, im in st.stages_of(w):
         if (name, k) in want:
