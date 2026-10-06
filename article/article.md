@@ -1,4 +1,4 @@
-# Poupées russes : ce que les cadres emboîtés font à la lecture d'une image par la machine
+# Ce que le support montre : cadres emboîtés et lecture des images par les machines
 
 *Projet `impressions`, octobre 2026 — https://github.com/maribakulj/impressions. Chaque chiffre
 renvoie à un fichier de `results/` ou `data/annotations/` ; `make all` reproduit les mesures.*
@@ -6,21 +6,20 @@ renvoie à un fichier de `results/` ou `data/annotations/` ; `make all` reprodui
 ## Résumé
 
 Une œuvre nous parvient emboîtée dans des supports : cadre, mur, photographie, page de livre,
-écran. La vision par ordinateur traite ces supports comme un bruit à ignorer ; la théorie du cadre
-soutient qu'ils enveloppent une part du sens. Nous avons fait passer 300 œuvres de musée à travers
-des chaînes contrôlées de supports fabriqués, avec pour chaque étape un témoin où l'œuvre seule
-occupe la même surface, puis vérifié les résultats sur 171 vraies reproductions de 22 œuvres
-célèbres. Trois encodeurs (CLIP, SigLIP, DINOv2) et un modèle vision-langage (Claude) ont été
-interrogés. Le cadre intérieur ne change rien : pour la machine, seul compte le bord le plus
-extérieur, celui de l'image. Quand l'œuvre devient un objet dans une scène, elle se perd bien
-au-delà de ce qu'explique sa petite taille : à deux couches, son rang de recherche est 3 à 15 fois
-moins bon que celui du témoin. Au-delà, le support prend la place du sujet : à six couches, Claude
-décrit le support dans 27 cas sur 30, contre 0 pour l'œuvre seule aussi petite ; sur de vraies
-photos, il nomme l'œuvre mais la rétrograde en décor (« des visiteurs se pressent devant La Nuit
-étoilée »), et cet effet persiste à surface égale. La trame d'impression agit autrement : elle
-n'enveloppe pas, elle imprègne ; ses points font perdre le sujet et, à gros grain, deviennent le
-sujet. Les supports agissent donc de deux façons, par le bord et par la surface. Sur le réel, pour
-les encodeurs, la part propre des couches face à la taille n'est établie que pour SigLIP.
+écran. La théorie du cadre soutient que le cadre isole l'œuvre et la désigne ; la vision par
+ordinateur traite ces supports comme un bruit à ignorer. Nous avons fait passer 300 œuvres de musée
+à travers des chaînes de supports fabriqués, avec pour chaque étape trois témoins de même surface
+(l'œuvre seule ; l'œuvre avec la même dégradation de pixels ; l'œuvre entourée sans être contenue),
+puis vérifié sur 171 vraies reproductions de 22 œuvres. Trois encodeurs (CLIP, SigLIP, DINOv2) et
+un modèle descriptif (Claude, lu à l'aveugle et jugé par un autre modèle) ont été interrogés. Un
+cadre doré seul ne change rien. Un support qui *contient* des images — livre, écran, salle — fait
+autre chose : le modèle descriptif reconnaît l'œuvre (100 %), mais elle cesse d'être ce que
+l'image représente (0 % au livre photographié, contre 90 à 93 % pour les témoins de même surface
+ou de même dégradation et 50 % pour l'œuvre seulement entourée). L'œuvre devient ce que le support
+montre. Sur de vraies reproductions, cette rétrogradation croît avec le nombre de couches à
+surface égale, alors que la reconnaissance reste presque totale ; les encodeurs, eux, perdent
+l'œuvre avec les couches au-delà de sa surface. Les machines ne traitent pas le support comme un
+bruit : elles en font, selon le cas, ce qui dilue l'œuvre ou ce qui la contient.
 
 ## 1. La question
 
@@ -234,201 +233,178 @@ photographié ; page web → écran ; trame → rephoto) et en une chaîne profo
 sur des planches avant toute mesure ; un défaut de fabrication (taches « camouflage » sur les
 papiers) a été corrigé à cette étape.
 
-### 3.3 Les contrôles
+### 3.3 Les témoins
 
-- **Même surface sans support.** À deux couches, l'œuvre ne couvre plus que ~13 % de l'image ; à
-  six, 0,2 %. Pour séparer « encadrée » de « devenue petite », chaque étape a un témoin : l'œuvre
-  seule, centrée sur un gris uni, couvrant exactement la même part de la même toile. La surface
-  réelle de l'œuvre à chaque étape est mesurée en rejouant la chaîne sur une image blanche puis
-  noire avec la même graine.
-- **Dégâts de pixels sans cadre** (rééchantillonnage + JPEG), terrain de Ramos et al.
-- **Trame décomposée** (section 4.4) : couleur seule, points seuls à trois finesses,
-  rephotographie seule.
-- **Trois modèles** : CLIP ViT-B/32 et SigLIP base, entraînés avec des légendes (ils ont vu « a
-  photo of a painting… ») ; DINOv2 base, entraîné sur des images seules.
-- **Un modèle vision-langage** (Claude Sonnet) qui décrit, compte et nomme.
-- **Le réel** : de vraies reproductions des mêmes œuvres (section 4.5).
+À deux couches, l'œuvre ne couvre plus que 12 à 15 % de l'image ; à six, 0,2 %. Toute perte
+pourrait donc venir de la taille, de la dégradation des pixels ou du simple fait d'être entourée.
+Chaque étape a trois témoins, qui gardent exactement la même surface d'œuvre (mesurée en rejouant
+la chaîne sur une image blanche puis noire avec la même graine) :
 
-### 3.4 Les mesures
+- **même surface** : l'œuvre seule, nette, centrée sur un gris uni ;
+- **même dégradation** : l'étape elle-même, dont tous les pixels qui ne sont pas l'œuvre sont
+  remplacés par du gris — même position, mêmes rééchantillonnages, flous, perspectives et moirés,
+  sans aucun support ;
+- **encombrement** : l'œuvre, à la même surface, posée sans cadre sur le détail d'un autre
+  tableau (le centre seulement, pour qu'il ne montre lui-même ni cadre ni montage) — quelque chose
+  l'entoure, mais pas un support qui la contient.
 
-- *Retrouver l'œuvre* : rang de l'image de musée de l'œuvre parmi les 18 405, pour chaque étape.
-- *Ce que la machine range avec l'image* : part des 10 plus proches voisins de même sujet
-  (Iconclass) et de même type d'objet ; dans une galerie mêlée d'images transformées, part des
-  voisins qui partagent le même support extérieur.
-- *Ce que la machine dit* : en zéro-coup, quel support extérieur et quel type d'œuvre (CLIP,
-  SigLIP) ; pour Claude, le sujet, la chaîne de supports, le nombre de couches, le type d'œuvre ;
-  un second appel juge si le sujet nommé est celui de l'original (même / partiel / support / autre).
-- Intervalles de confiance à 95 % par rééchantillonnage des œuvres (2 000 tirages).
+La trame est décomposée à part (section 4.5) : sa dominante de couleur seule, le flou seul, des
+points sans dominante à trois finesses, la rephotographie seule.
+
+### 3.4 Les machines
+
+- **Trois encodeurs** qui résument une image en un vecteur : CLIP ViT-B/32 et SigLIP base,
+  entraînés avec des légendes ; DINOv2 base, entraîné sur des images seules. Chaque image est
+  complétée en carré avant l'encodage : sans cela, CLIP et DINOv2 recadrent au centre et ne voient
+  pas le bord de l'image.
+- **Un modèle qui décrit** : Claude Sonnet (`claude-sonnet-5-5`, identifiant enregistré à chaque
+  lecture), interrogé **à l'aveugle** : chaque image est copiée sous un nom opaque ; le sujet
+  (« que représente cette image ? » et « quelle œuvre est reproduite, et que
+  représente-t-elle ? ») et les supports (chaîne, nombre de couches) sont demandés dans deux
+  appels séparés, sans exemple.
+- **Un juge** d'un autre modèle (Claude Opus), lui aussi à l'aveugle (identifiants opaques, ordre
+  mélangé), qui dit pour chaque description si le sujet de l'œuvre y est nommé, et s'il est le
+  sujet *principal* de la phrase ou seulement un complément (« un livre qui reproduit… »).
+
+### 3.5 Les mesures
+
+- *Retrouver l'œuvre* (encodeurs) : rang de l'image de musée de l'œuvre parmi les 18 405 ; écart
+  au témoin en log10 du rang.
+- *Reconnaître l'œuvre* (Claude) : la réponse à « quelle œuvre est reproduite ? » désigne-t-elle
+  le sujet de l'œuvre ?
+- *La place de l'œuvre dans la description* (Claude) : le sujet de l'œuvre est-il nommé ? est-il
+  le sujet principal de la phrase ?
+- Sur le réel : régressions (log10 du rang ; probabilité que l'œuvre ne soit pas le sujet
+  principal) sur le nombre de couches annoté, la surface de l'œuvre et le type de support.
+- Intervalles de confiance à 95 % par rééchantillonnage groupé par œuvre (2 000 tirages).
 
 ## 4. Résultats
 
 ### 4.1 Le musée livre déjà des poupées russes
 
-Avant d'ajouter la moindre couche, nous avons demandé à Claude de relever celles que les
-images de musée portent déjà (vérifié à l'œil sur un échantillon de 15). Sur 300 images, 48
-seulement montrent l'œuvre sans rien autour. Surtout, les musées ne traitent pas les types de
-la même façon : la peinture est le plus souvent rognée au bord de la toile (35 sur 60 sans aucune couche ;
-0,72 couche en moyenne ; le cadre n'apparaît que dans 12 % des cas), alors que l'estampe et la photographie
-sont montrées avec leur feuille, leurs marges, leur carton et leurs inscriptions (2,25 et
-2,18 couches ; bords de feuille visibles dans 98 % et 80 % des cas). La sculpture est détourée
-sur un fond de studio (93 %). Le type d'objet est donc lisible dans les marges avant de l'être
-dans l'œuvre. Pour une machine qui apprend sur ces images, « estampe » veut dire en partie
-« feuille avec des bords ». La couche zéro n'existe pas : toutes nos mesures partent de l'image
-telle que le musée la donne.
+Avant d'ajouter la moindre couche, nous avons relevé celles que les images de musée portent déjà.
+Sur 300 images, 48 seulement montrent l'œuvre sans rien autour. La peinture est le plus souvent
+rognée au bord de la toile (35 sur 60 sans aucune couche) ; l'estampe et la photographie sont
+montrées avec leur feuille, leurs marges, leur carton, leurs inscriptions (2,25 et 2,18 couches en
+moyenne) ; la sculpture est détourée sur un fond de studio (93 %). Le type d'objet se lit dans les
+marges avant de se lire dans l'œuvre. La « couche zéro » n'existe pas : nos mesures partent de
+l'image telle que le musée la donne. (Annotation faite par Claude, contrôlée à l'œil par nous sur
+15 images ; voir `notes/verifications.md`.)
 
-### 4.2 Retrouver l'œuvre à travers les couches
+### 4.2 Le cadre seul ne fait rien
 
-Pour chacune des 300 œuvres et chaque étape, nous cherchons l'image de musée de l'œuvre parmi
-les 18 405 du pool (figure 2, `article/figures/fig-retrouver.png`). Avec le cadre doré seul,
-l'œuvre est retrouvée dans les dix premiers pour 99 à 100 % des œuvres, avec les trois modèles :
-le cadre intérieur ne compte pas. Dès que l'œuvre devient un objet dans une scène — accrochée au
-mur, imprimée dans un livre photographié, affichée dans une page web — elle se perd : dans les
-dix premiers pour 12 % des œuvres avec CLIP au mur, 19 % avec SigLIP dans le livre.
+Un cadre doré autour de l'œuvre ne change ni ce que les encodeurs retrouvent (l'œuvre reste au
+premier rang pour 99 à 100 % des œuvres), ni ce que Claude décrit (le sujet de l'œuvre est le
+sujet principal de 30 descriptions sur 30). C'est attendu : pour une machine, le seul cadre
+certain est le bord de l'image, et un cadre *dans* l'image n'est qu'un motif de plus autour de
+l'œuvre. Le médium lu suit d'ailleurs l'enveloppe la plus extérieure, comme on pouvait s'y
+attendre : accrochée au mur, presque toute œuvre devient « une peinture » pour CLIP ; dans un livre
+photographié, « une estampe » ; les témoins de même surface gardent la répartition d'origine.
 
-Le témoin de même surface répond à la question de la taille. À deux couches, l'œuvre seule,
-aussi petite, sur un fond gris, est bien mieux retrouvée que l'œuvre prise dans son support. Le
-rang de l'œuvre dans le livre photographié est 12 à 15 fois moins bon que celui de son témoin
-(différence de log10 du rang : +1,08 à +1,19 selon le modèle, intervalle à 95 % entièrement
-positif, l'œuvre est moins bien retrouvée que son témoin pour 78 à 89 % des œuvres) ; au mur, 3
-à 6 fois (+0,53 à +0,77). Sur la synthèse, les couches agissent donc au-delà de la taille. À
-partir de trois couches, l'œuvre ne couvre plus que 4 % de l'image ou moins, et couches comme
-témoins tombent au plancher : on ne peut plus départager.
+### 4.3 Reconnue, mais rétrogradée
 
-Une mesure prévue a dû être écartée. Dans une galerie mêlant les images transformées de toutes
-les œuvres, les voisins d'une image sont presque tous des images de même support (98 à 100 %) —
-mais les témoins aussi se regroupent entre eux. Nos couches réutilisent les mêmes gabarits (même
-table, même mur, même navigateur) : elles se ressemblent par fabrication. Sur cette question,
-seul le réel fait foi (section 4.5).
+Le résultat principal porte sur ce que le modèle descriptif fait de l'œuvre quand un support la
+contient (figure 1). Prenons l'œuvre imprimée dans un livre ouvert photographié sur une table
+(deux couches ; l'œuvre couvre environ 12 % de l'image). À la question « quelle œuvre est
+reproduite ? », Claude la reconnaît dans 30 cas sur 30. Mais à la question « que représente cette
+image ? », le sujet de l'œuvre n'est le sujet principal de sa phrase dans **aucun** cas : il écrit
+« un livre ouvert intitulé *Histoire de l'art*, avec… la reproduction d'un tableau… ». Même chose
+à l'écran (0 sur 30) ; au mur, 9 sur 30.
 
-### 4.3 Le support prend la place du sujet
+Les trois témoins, à surface égale, excluent les explications simples. L'œuvre seule sur du gris
+est le sujet principal dans 93 % des cas [83 ; 100] ; avec exactement la même dégradation de
+pixels, 90 % [77 ; 100] ; posée sur un autre tableau qui l'entoure sans la contenir, 50 % [33 ; 67].
+Ce n'est donc ni la taille, ni la dégradation, et pas seulement l'entourage : c'est le fait d'être
+**contenue par un support qui montre des images** — un livre, un écran, une salle de musée — qui
+fait de l'œuvre un complément. Le support devient ce que l'image représente ; l'œuvre devient ce
+que le support montre.
 
-Claude a lu 30 œuvres (6 par type) à neuf étapes ; un second appel juge si le sujet qu'il nomme
-est celui de l'original (figure 1, `article/figures/fig-sujet-support.png`). Le cadre doré seul ne
-change rien : 30 descriptions sur 30 restent les mêmes. Au mur, dans le livre photographié, à
-l'écran, le sujet survit dans une majorité de cas. À quatre couches, 14 descriptions sur 30
-parlent du support plutôt que du sujet ; à six couches, 27 sur 30 : « un écran d'ordinateur
-affiche une page web de collection en ligne montrant la photo d'un livre ouvert… ».
+À six couches, tout s'éteint, témoins compris : l'œuvre ne couvre que 0,2 % de l'image, Claude ne
+la reconnaît plus dans 83 % des cas (même dégradation : 97 %). Cette profondeur mesure un plancher
+de résolution, pas un effet des supports, et nous n'en tirons rien.
 
-Le témoin tranche. À six couches, l'œuvre ne couvre que 0,2 % de l'image. Montrée seule, à la
-même taille, au centre d'un gris uni, elle n'est pas reconnue non plus — mais Claude décrit
-alors honnêtement « une minuscule peinture sombre au centre d'un grand fond gris » : 0 fois sur
-30 il ne parle d'un support. **La perte du sujet est un effet de taille ; son remplacement par le
-support est un effet des couches.**
+### 4.4 Sur de vraies reproductions
 
-Claude compte d'ailleurs ces couches : rang de Spearman 0,75 entre couches dites et couches
-réelles, 76 % des réponses à une couche près, erreur moyenne 0,95 contre 1,44 pour une règle
-triviale. Les encodeurs reconnaissent moins bien le support extérieur en zéro-coup (précision
-équilibrée sur dix classes : SigLIP 53 %, CLIP 24 %, hasard 10 %) ; ils reconnaissent la page web
-et l'écran, pas le livre photographié ni le passe-partout.
+Sur 149 vraies reproductions de 22 œuvres célèbres (photos de salle, pages de livres, timbres,
+affiches, écrans ; figure 3), Claude reconnaît l'œuvre presque toujours, quel que soit le nombre
+de couches (98 à 100 %). Mais elle cesse d'être le sujet principal à mesure que les couches
+s'accumulent : 100 % à zéro ou une couche, 75 % à deux, 28 % à trois, 6 % à quatre et plus. Dans
+une régression logistique groupée par œuvre, l'effet du nombre de couches tient à surface d'œuvre
+égale et à type de support égal (coefficient +1,15 [0,52 ; 2,07] ; surface −3,34 [−6,08 ; −2,10] ;
+photo de salle +0,38 [−1,30 ; 2,59]). Les descriptions disent la même chose que la synthèse :
+« des visiteurs se pressent dans une salle de musée devant *La Nuit étoilée* de Van Gogh ».
 
-Le médium lu suit l'enveloppe, comme on pouvait s'y attendre : au mur, CLIP lit « une
-peinture » pour 256 œuvres sur 300 (69 sur l'original), dans le livre photographié « une
-estampe » pour 232 ; les témoins de même surface gardent la répartition de l'original (90 et
-103). C'est le support, non la taille, qui fixe le médium — un fait attendu, que nous ne
-développons pas.
+Les encodeurs perdent aussi l'œuvre avec les couches, au-delà de sa surface : dans une régression
+du log10 du rang de l'image propre de l'œuvre, groupée par œuvre, chaque couche coûte +0,19
+[0,05 ; 0,32] (CLIP), +0,14 [0,02 ; 0,27] (SigLIP), +0,20 [0,08 ; 0,33] (DINOv2). Avant que les
+images soient complétées en carré, seul SigLIP montrait cet effet : le recadrage central de CLIP
+et DINOv2 en masquait une partie.
 
-### 4.4 La trame : envelopper ou imprégner
+[À COMPLÉTER — encodeurs sur la synthèse, contre les trois témoins (E4 v2).]
 
-Le cadre enveloppe : il agit par le bord. La trame d'impression n'entoure rien ; elle imprègne
-toute la surface. Un premier essai, avec une trame à trois encres sans noir, donnait des
-résultats spectaculaires (une Résurrection peinte lue comme « un haut-relief sculpté et doré »).
-Ils étaient en partie faux : cette trame jaunissait et violaçait l'image. Nous avons donc
-décomposé la couche : la même dominante de couleur sans points ; des points sans dominante (vraie
-quadrichromie) à trois finesses ; la rephotographie seule.
+### 4.5 La trame
 
-La couleur seule ne fait pas perdre le sujet à Claude (18 descriptions identiques sur 30, aucune
-autre) ; c'est elle, en revanche, qui produit le « relief doré ». Les points, eux, font perdre
-le sujet (trame moyenne : 1 description identique, 10 autres), et à gros grain **la trame devient
-le sujet** : « une image très tramée de… » (10 sur 30). C'est l'équivalent, par imprégnation, de ce
-que les couches emboîtées font par enveloppement.
+La trame d'impression n'entoure rien : elle couvre toute l'œuvre. Ce sont ses points, et surtout
+leur grosseur, qui comptent. Le flou seul et la dominante de couleur seule laissent l'œuvre sujet
+principal des descriptions (87 et 77 %) ; une trame en quadrichromie moyenne la fait tomber à
+40 %, une trame grosse à 23 %. Pour les encodeurs, seule la trame grosse fait vraiment perdre
+l'œuvre (SigLIP la retrouve dans les dix premiers pour 21 % des œuvres, DINOv2 pour 7 %), ce qui
+rejoint le poids de la texture décrit par Geirhos et al. (2019). Les effets des trames fines sont
+petits et non monotones : après réduction à 224 pixels, leurs points ne mesurent plus que 0,7 à
+1,9 pixel et se replient en moiré.
 
-Les encodeurs ne réagissent pas à la même composante. DINOv2, entraîné sur des images seules,
-réagit aux points (retrouvé dans les 10 premiers : 97 % avec la couleur seule, 54 % avec la trame
-moyenne, 4 % avec la grosse), ce qui rejoint le biais de texture décrit par Geirhos et al. (2019).
-CLIP réagit surtout à la couleur (60 % avec la dominante seule, 84 % avec la trame moyenne en
-couleurs justes). Tous perdent l'œuvre à gros grain (SigLIP 8 %). La rephotographie seule ne fait
-presque rien (90-99 %).
+### 4.6 Compter les couches
 
-### 4.5 Sur de vraies reproductions
-
-Nos couches sont fabriquées, et Claude le voit : il déclare « montées numériquement » toutes les
-images transformées. Nous avons donc réuni 171 vraies reproductions de 22 œuvres célèbres sur
-Wikimedia Commons (photos de visiteurs, pages de livres, timbres, affiches, écrans,
-rephotographies), annotées une à une : chaîne de couches et part de l'image occupée par l'œuvre.
-Sur ces images, Claude ne parle presque plus de montage (0 à 10 % selon le support).
-
-Il compte encore les couches (Spearman 0,59 ; 80 % à une couche près). Et le remplacement du sujet
-se retrouve (figure 3, `article/figures/fig-reel.png`) : 0 cas sur 25 à zéro ou une couche, 1 sur 44 à deux, 12 sur 46 à trois, 23 sur 34
-à quatre et plus. À surface égale, l'effet des couches demeure : pour une œuvre qui occupe entre
-15 et 50 % de l'image, 1 cas sur 9 à deux couches ou moins, 11 sur 30 à trois ou plus.
-
-Le réel ajoute une nuance que la synthèse ne montrait pas. Claude *nomme* presque toujours
-l'œuvre, mais il la rétrograde : « des visiteurs se pressent dans une salle de musée devant La
-Nuit étoilée de Van Gogh » ; « couverture du livre *A Mathematician's Lament*, qui reproduit la
-gravure Melencolia I » ; « capture d'écran d'un écran de verrouillage d'iPhone » (la Grande
-Vague en fond d'écran). L'œuvre ne disparaît pas : elle passe de sujet à complément de lieu.
-
-Pour les encodeurs, le réel confirme que le cadre en gros plan est inerte (l'image propre de
-l'œuvre est parmi les cinq plus proches dans 95 à 100 % des cas) et qu'en salle l'œuvre se perd
-(30 à 40 %), ses voisins devenant les photos de salle d'autres œuvres (37 à 50 %). Mais la surface
-explique l'essentiel : dans une régression du rang sur le nombre de couches et la surface, la
-surface pèse nettement pour les trois modèles, les couches n'ajoutent un effet net que pour
-SigLIP. Avec 22 œuvres, l'effet propre des couches sur les encodeurs n'est pas établi.
+À l'aveugle et sans exemple, Claude compte les couches dans le bon ordre (Spearman 0,85 sur la
+synthèse, 0,68 sur le réel, où 80 % des comptes sont justes à une couche près). Mais une règle qui
+connaîtrait seulement la condition fait aussi bien (erreur 0,73 contre 0,85), et à condition
+égale il suit mal les couches que l'image de musée portait déjà. Il distingue les situations
+plus qu'il ne compte. Il reconnaît enfin nos couches fabriquées comme des montages (presque 100 %)
+et les vraies photos comme vraies (3,5 % de « montage ») : c'est pourquoi les conclusions
+retenues sont celles qui tiennent sur le réel.
 
 ## 5. Discussion
 
-**Le cadre le plus extérieur décide.** Pour une machine, le seul cadre certain est le bord du
-fichier. Un cadre doré *à l'intérieur* de ce bord ne change rien : l'œuvre est retrouvée, son
-sujet est nommé, en synthèse comme sur de vraies photos en gros plan. Ce n'est pas une objection à
-la théorie du cadre, c'en est une confirmation déplacée : Simmel et Derrida décrivent la limite
-qui sépare l'œuvre du monde ; pour le modèle, cette limite est celle de l'image qu'il reçoit, et
-tout ce qui est en deçà — cadre, mur, page — est déjà du monde.
+**Ce que le support montre.** La théorie du cadre dit que le cadre isole l'œuvre et la désigne.
+Nos résultats déplacent cette idée. Pour une machine, un cadre intérieur ne fait rien : il n'est
+qu'un motif autour de l'œuvre. Ce qui agit, c'est le support qui *contient* des images — le livre,
+l'écran, la salle. Le modèle descriptif reconnaît l'œuvre, mais la phrase change de sujet : ce que
+l'image représente devient le support, et l'œuvre devient ce que le support montre. Un entourage
+qui ne contient pas l'œuvre ne produit cet effet qu'à moitié ; la taille et la dégradation, pas du
+tout. La rétrogradation est syntaxique avant d'être perceptive.
 
-**Quand les couches s'accumulent, le support prend la place du sujet.** Ce n'est pas seulement
-que l'œuvre devient trop petite : à surface égale, l'œuvre seule sur un fond neutre est décrite
-comme une vignette illisible, l'œuvre prise dans des supports est décrite *comme* ces supports. Le
-cadre isole, et ce qu'il isole devient ce dont on parle.
+**Deux machines, deux rapports au support.** L'encodeur résume l'image entière en un vecteur :
+l'entourage y dilue l'œuvre, et chaque couche coûte au-delà de la surface. Le modèle qui décrit
+sépare au contraire reconnaître et décrire : il retrouve l'œuvre tant que les pixels le
+permettent, quel que soit le nombre de couches, mais il la range sous le support. Ni l'un ni
+l'autre ne traite le support comme un bruit à ignorer, ce que supposent les travaux sur
+l'invariance.
 
-**Sur le réel, l'œuvre n'est pas perdue mais rétrogradée.** Les descriptions de vraies photos
-nomment l'œuvre et la placent en complément de lieu : la Nuit étoilée devient l'endroit devant
-lequel des visiteurs se pressent. La reproduction, chez Malraux, rendait toutes les œuvres
-comparables en les arrachant à leur lieu ; la photographie de visiteur fait l'inverse, elle rend
-l'œuvre à un lieu, et la machine suit la photographie.
+**Conséquence pratique.** Dans des archives de reproductions (photos de salle, livres numérisés,
+captures d'écran), une recherche par encodeur retrouvera moins bien les œuvres à mesure que les
+couches s'empilent, et une description automatique les nommera comme ce que montrent des
+supports. Il faut décrire *et* reconnaître séparément.
 
-**La trame imprègne au lieu d'envelopper.** Elle ne sépare rien, mais à gros grain elle devient
-le sujet ; et chaque modèle y réagit par une autre voie (DINOv2, en particulier, est sensible aux points). Les supports agissent donc de deux façons distinctes : par le bord et par la surface.
-La première est celle de la théorie du cadre ; la seconde est celle de la reproduction
-photomécanique, que Benjamin et Malraux décrivaient sans pouvoir la mesurer.
-
-**Conséquences pratiques.** Les modèles apprennent sur des images du web, pleines de photos de
-salles, de livres et d'écrans. Ce qu'ils appellent « peinture » est en partie « chose accrochée
-au mur », ce qu'ils appellent « estampe » en partie « page imprimée ». Qui les utilise pour
-chercher dans des collections ou des archives de reproductions doit savoir que l'enveloppe la
-plus extérieure pèse sur ce qui est retrouvé et sur ce qui est nommé.
+**Ce qui reste attendu**, et que nous ne développons pas : le cadre intérieur est inerte ; le
+médium lu suit l'enveloppe ; une œuvre trop petite n'est plus reconnue.
 
 ## 6. Limites
 
-- **Couches fabriquées.** Nos neuf couches sont des simulations ; Claude les reconnaît comme
-  telles. Les conclusions retenues sont celles qui tiennent sur 171 vraies reproductions.
-- **Taille et couches liées sur le réel.** Sur les vraies photos, plus il y a de couches, plus
-  l'œuvre est petite. Pour Claude, l'effet des couches demeure à surface égale, mais sur de petits
-  effectifs ; pour les encodeurs, il n'est pas établi (22 œuvres).
-- **Un juge automatique, aucune validation humaine.** Les jugements sont faits par un modèle
-  (Opus, différent du lecteur Sonnet, à l'aveugle) ; aucun codage humain n'en mesure l'accord.
-  Toute la chaîne — annotation des couches, lecture, jugement — passe par des modèles de la même
-  famille.
-- **Couches déjà présentes annotées par le même modèle.** Le nombre « vrai » de couches de l'image
-  de musée vient d'une annotation de Claude : la mesure du comptage n'est pas indépendante sur la
-  synthèse (elle l'est sur le réel, annoté séparément).
-- **Gabarits répétés.** Nos couches synthétiques réutilisent les mêmes décors ; elles se
-  regroupent entre elles par fabrication. La mesure « même support parmi les voisins » n'est
-  interprétable que sur le réel.
-- **Une seule chaîne profonde**, un seul ordre des couches ; d'autres ordres pourraient agir
-  autrement.
+- **Couches fabriquées et reconnues comme telles.** Claude voit nos couches comme des montages ;
+  les conclusions retenues sont confirmées sur 171 vraies reproductions, mais de 22 œuvres très
+  célèbres, que les modèles connaissent sans doute par cœur.
+- **Un seul modèle descriptif, une seule famille.** Lecteur (Sonnet), juge (Opus), annotation des
+  couches présentes : tout passe par Claude. Aucun codage humain ne valide le juge.
+- **L'annotation du réel** (couches, surface) a été faite par un agent Claude en connaissant les
+  hypothèses, sans aveugle.
+- **Un seul tirage par œuvre** : le décor (couleur du mur, largeur du cadre) est confondu avec
+  l'œuvre ; une seule chaîne profonde, un seul ordre des couches.
+- **Gabarits répétés** : nos couches synthétiques réutilisent les mêmes décors ; elles se
+  ressemblent par fabrication, et nous n'avons pas utilisé de mesure qui en dépende.
+- **Trois encodeurs de taille moyenne.** D'autres modèles peuvent différer.
 - **Pas d'humains.** L'enquête qui comparerait des personnes et des machines sur les mêmes images
-  est prête (`human_study/`) mais n'a pas été menée.
-- **Trois encodeurs de taille moyenne et un modèle vision-langage.** D'autres modèles, plus grands
-  ou entraînés autrement, peuvent différer.
+  est prête (`human_study/`) mais n'a pas été menée ; c'est sans doute là que se trouve la suite :
+  savoir si les humains, eux, rétrogradent l'œuvre.
 
 ## Références
 
