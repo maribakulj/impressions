@@ -138,6 +138,9 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
          pendant (m9) ; reformuler la thèse selon les nouveaux résultats ; citer Wang, Larson &
          Zhao 2026 et les familles manquantes (I8) ; mineurs m1-m4, m8, m10, m12 ; Limites I5, I9.
       7. Seconde relecture adverse sur la version révisée.
+      8. **Décider de la forme** (Marcel, 06/10 : « t'es sûr que l'article est pertinent ? ») :
+         article court « la machine n'a pas de parergon » si les témoins le confirment, sinon
+         rapport de résultats honnête. Ne pas gonfler les résultats attendus.
 - [ ] **E11 — Publication.** Publier l'article comme document (Claude Docs) ; mettre à jour le
       document « Arranger les images… » (lien en fin) ; résumé final dans `JOURNAL.md`.
       Arrêter la boucle.

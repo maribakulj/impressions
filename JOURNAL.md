@@ -399,3 +399,18 @@ l'article se vérifient. Mais :
 Je l'accepte presque entièrement. Plan de révision : étape E10b de [`PLAN.md`](PLAN.md). Les
 résultats de Claude écrits plus haut dans ce journal sont **suspendus** jusqu'aux relectures
 à l'aveugle.
+
+## 2026-10-06 — Pertinence de l'article (question de Marcel)
+
+Marcel : « t'es sûr que l'article est pertinent là ? » Réponse honnête : **non, pas en l'état.**
+Après la relecture, ce qui reste est surtout attendu (cadre intérieur inerte ; médium qui suit
+l'enveloppe), déjà connu (DINOv2 sensible aux points = biais de texture, Geirhos 2019) ou
+probablement trivial (« le support prend la place du sujet » : le témoin d'encombrement montre que
+l'entourage, quel qu'il soit, prend la place de l'œuvre minuscule). Le cadre théorique habillait
+des résultats qui n'en avaient pas besoin.
+**Réorientation proposée, en attente de Marcel** : une thèse étroite, en partie négative pour
+l'intuition de départ — *la machine n'a pas de parergon* : elle ne lit pas le cadre comme ce qui
+isole et désigne, elle aplatit les supports emboîtés en une scène où compte ce qui occupe le plus
+de place — si les témoins (même dégradation, encombrement) le confirment ; plus le protocole comme
+contribution de méthode. Format court (communication en humanités numériques). Si rien de net ne
+tient : un rapport honnête, pas un article.
