@@ -44,7 +44,9 @@ def main() -> None:
             order = np.argsort(-S[i])
             rank_of = np.empty(len(rows), int)
             rank_of[order] = np.arange(1, len(rows) + 1)
-            refs = np.where(clean & (work == r["work"]))[0]
+            # one canonical clean reference per work (review m7: the best of several refs
+            # favoured works with many clean images)
+            refs = np.where(clean & (work == r["work"]))[0][:1]
             top5 = order[:5]
             per.append({
                 "work": r["work"], "support": r["support"], "n_layers": r["n_layers"],
@@ -95,7 +97,7 @@ def main() -> None:
                 for s, v in kt.items()}
         out[model] = res
     Path("results/E6").mkdir(parents=True, exist_ok=True)
-    json.dump(out, open("results/E6/real.json", "w"), indent=1)
+    json.dump(out, open(f"results/E6/real-{CACHE.name}.json", "w"), indent=1)
     for m, res in out.items():
         print("##", m, "régression log10(rang) : couches", np.round(res["regression_log10_rank"]["n_layers"], 3),
               "log10(aire)", np.round(res["regression_log10_rank"]["log10_area"], 3))

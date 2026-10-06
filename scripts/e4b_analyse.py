@@ -32,9 +32,8 @@ def main() -> None:
     out = {}
     for model in ["clip", "siglip", "dinov2"]:
         gal = Gallery(model)
-        st = np.load(f"{CACHE}/stages-{model}.npz")
-        orig = {w: v for w, c, v in zip(st["work"], st["chain"], norm(st["vecs"].astype(np.float32)))
-                if c == "orig"}
+        # the original = the work's own pool image (same image, already encoded)
+        orig = {w: gal.vecs[gal.index[w]] for w in works}
         sc = np.load(f"{CACHE}/screens-{model}.npz")
         V = norm(sc["vecs"].astype(np.float32))
         tk = None
@@ -76,7 +75,7 @@ def main() -> None:
     out["screen_period_input_px"] = {"ht_cmyk_fine": 3 * 224 / 960, "ht_cmyk_medium": 5 * 224 / 960,
                                      "ht_cmyk_coarse": 8 * 224 / 960, "ht_cmy": 5 * 224 / 960}
     Path("results/E4b").mkdir(parents=True, exist_ok=True)
-    json.dump(out, open("results/E4b/screens.json", "w"), indent=1)
+    json.dump(out, open(f"results/E4b/screens-{CACHE.name}.json", "w"), indent=1)
 
 
 if __name__ == "__main__":

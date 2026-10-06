@@ -414,3 +414,29 @@ isole et désigne, elle aplatit les supports emboîtés en une scène où compte
 de place — si les témoins (même dégradation, encombrement) le confirment ; plus le protocole comme
 contribution de méthode. Format court (communication en humanités numériques). Si rien de net ne
 tient : un rapport honnête, pas un article.
+
+## 2026-10-06 — Révision : premiers résultats v2 (encodeurs sans recadrage)
+
+Pool, réel et trames réencodés avec l'image complétée en carré (CLIP et DINOv2 ne recadrent plus
+au centre). Les étapes d'E4 avec leurs trois témoins sont encore en cours (70/300).
+
+**E6 (réel), une seule image de référence par œuvre (m7)** — [`results/E6/real-v2.json`](results/E6/real-v2.json).
+Régression log10(rang) ~ couches + log10(surface), bootstrap groupé par œuvre :
+
+| modèle | couches | IC 95 % | log10 surface |
+| --- | --- | --- | --- |
+| CLIP | +0,19 | [0,05 ; 0,32] | −0,48 |
+| SigLIP | +0,14 | [0,02 ; 0,27] | −0,66 |
+| DINOv2 | +0,20 | [0,08 ; 0,33] | −0,59 |
+
+**À surface égale, chaque couche dégrade le rang pour les trois encodeurs, sur de vraies
+reproductions.** En v1 (recadrage central), seul SigLIP avait un intervalle excluant zéro : le
+recadrage masquait une partie de l'effet. Premier résultat de la révision qui renforce la thèse.
+
+**E4b v2** — [`results/E4b/screens-v2.json`](results/E4b/screens-v2.json) (part retrouvée dans les
+10 premiers ; CLIP / SigLIP / DINOv2) : flou seul 0,99 / 0,98 / 1,00 (sans effet) ; dominante de
+couleur (floutée) 0,84 / 0,82 / 0,99 ; trame CMJN moyenne 0,97 / 0,95 / 0,96 ; fine 0,74 / 0,76 /
+0,95 ; **grosse 0,72 / 0,21 / 0,07** ; rephoto seule 0,84 / 0,97 / 0,99. L'essentiel de l'effet
+de la trame vient du gros grain ; la couleur gêne un peu les modèles à légendes, pas DINOv2 ; le
+reste est petit et non monotone (période des points 0,7-1,9 px après réduction à 224 : repliement).
+À réduire à un paragraphe dans l'article.

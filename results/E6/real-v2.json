@@ -1,0 +1,433 @@
+{
+ "clip": {
+  "by_support": {
+   "framed": {
+    "n": 20,
+    "found_top5": 0.9,
+    "median_rank": 2.5,
+    "same_work5": 0.74,
+    "same_support5": 0.06
+   },
+   "in_situ": {
+    "n": 47,
+    "found_top5": 0.2127659574468085,
+    "median_rank": 29.0,
+    "same_work5": 0.3914893617021277,
+    "same_support5": 0.5319148936170212
+   },
+   "book": {
+    "n": 21,
+    "found_top5": 0.5238095238095238,
+    "median_rank": 5.0,
+    "same_work5": 0.419047619047619,
+    "same_support5": 0.2952380952380953
+   },
+   "print_derivative": {
+    "n": 20,
+    "found_top5": 0.4,
+    "median_rank": 7.0,
+    "same_work5": 0.5000000000000001,
+    "same_support5": 0.12
+   },
+   "rephoto": {
+    "n": 15,
+    "found_top5": 0.4,
+    "median_rank": 8.0,
+    "same_work5": 0.4133333333333333,
+    "same_support5": 0.34666666666666673
+   },
+   "screen": {
+    "n": 4,
+    "found_top5": 0.25,
+    "median_rank": 38.5,
+    "same_work5": 0.4,
+    "same_support5": 0.0
+   },
+   "other": {
+    "n": 4,
+    "found_top5": 0.5,
+    "median_rank": 4.0,
+    "same_work5": 0.65,
+    "same_support5": 0.0
+   }
+  },
+  "by_layers": {
+   "0-1": {
+    "n": 7,
+    "found_top5": 0.7142857142857143,
+    "median_rank": 2.0,
+    "same_work5": 0.6,
+    "same_support5": 0.2857142857142857
+   },
+   "2": {
+    "n": 44,
+    "found_top5": 0.6590909090909091,
+    "median_rank": 3.5,
+    "same_work5": 0.5545454545454546,
+    "same_support5": 0.16363636363636364
+   },
+   "3": {
+    "n": 46,
+    "found_top5": 0.391304347826087,
+    "median_rank": 9.5,
+    "same_work5": 0.4739130434782609,
+    "same_support5": 0.28695652173913044
+   },
+   "4+": {
+    "n": 34,
+    "found_top5": 0.11764705882352941,
+    "median_rank": 40.5,
+    "same_work5": 0.35294117647058826,
+    "same_support5": 0.5176470588235295
+   }
+  },
+  "regression_log10_rank": {
+   "n_layers": [
+    0.19219438945519185,
+    0.048006578202837616,
+    0.320687284523655
+   ],
+   "log10_area": [
+    -0.476219017198064,
+    -0.6572024475772276,
+    -0.3211220899924603
+   ]
+  },
+  "type_by_support": {
+   "clean": {
+    "ok": 0.875,
+    "read": {
+     "painting": 13,
+     "sculpture": 5,
+     "print": 13,
+     "drawing": 4,
+     "photograph": 5
+    }
+   },
+   "framed": {
+    "ok": 0.75,
+    "read": {
+     "painting": 16,
+     "print": 3,
+     "photograph": 1
+    }
+   },
+   "in_situ": {
+    "ok": 0.9361702127659575,
+    "read": {
+     "painting": 31,
+     "sculpture": 13,
+     "photograph": 2,
+     "print": 1
+    }
+   },
+   "book": {
+    "ok": 0.42857142857142855,
+    "read": {
+     "print": 11,
+     "painting": 2,
+     "drawing": 2,
+     "photograph": 2,
+     "sculpture": 4
+    }
+   },
+   "print_derivative": {
+    "ok": 0.5,
+    "read": {
+     "painting": 9,
+     "print": 8,
+     "sculpture": 2,
+     "drawing": 1
+    }
+   },
+   "rephoto": {
+    "ok": 0.5333333333333333,
+    "read": {
+     "painting": 1,
+     "photograph": 5,
+     "print": 3,
+     "sculpture": 6
+    }
+   },
+   "screen": {
+    "ok": 0.75,
+    "read": {
+     "painting": 4
+    }
+   },
+   "other": {
+    "ok": 0.75,
+    "read": {
+     "painting": 1,
+     "drawing": 1,
+     "photograph": 2
+    }
+   }
+  }
+ },
+ "siglip": {
+  "by_support": {
+   "framed": {
+    "n": 20,
+    "found_top5": 0.85,
+    "median_rank": 2.0,
+    "same_work5": 0.8800000000000001,
+    "same_support5": 0.030000000000000006
+   },
+   "in_situ": {
+    "n": 47,
+    "found_top5": 0.3191489361702128,
+    "median_rank": 18.0,
+    "same_work5": 0.5319148936170213,
+    "same_support5": 0.4170212765957446
+   },
+   "book": {
+    "n": 21,
+    "found_top5": 0.5238095238095238,
+    "median_rank": 4.0,
+    "same_work5": 0.5904761904761905,
+    "same_support5": 0.2
+   },
+   "print_derivative": {
+    "n": 20,
+    "found_top5": 0.7,
+    "median_rank": 3.0,
+    "same_work5": 0.7,
+    "same_support5": 0.05
+   },
+   "rephoto": {
+    "n": 15,
+    "found_top5": 0.7333333333333333,
+    "median_rank": 3.0,
+    "same_work5": 0.7466666666666667,
+    "same_support5": 0.08
+   },
+   "screen": {
+    "n": 4,
+    "found_top5": 0.5,
+    "median_rank": 16.0,
+    "same_work5": 0.7,
+    "same_support5": 0.0
+   },
+   "other": {
+    "n": 4,
+    "found_top5": 1.0,
+    "median_rank": 4.0,
+    "same_work5": 0.85,
+    "same_support5": 0.0
+   }
+  },
+  "by_layers": {
+   "0-1": {
+    "n": 7,
+    "found_top5": 1.0,
+    "median_rank": 3.0,
+    "same_work5": 0.7999999999999999,
+    "same_support5": 0.1142857142857143
+   },
+   "2": {
+    "n": 44,
+    "found_top5": 0.8181818181818182,
+    "median_rank": 2.5,
+    "same_work5": 0.809090909090909,
+    "same_support5": 0.07272727272727274
+   },
+   "3": {
+    "n": 46,
+    "found_top5": 0.5,
+    "median_rank": 5.5,
+    "same_work5": 0.6086956521739131,
+    "same_support5": 0.17391304347826086
+   },
+   "4+": {
+    "n": 34,
+    "found_top5": 0.23529411764705882,
+    "median_rank": 30.5,
+    "same_work5": 0.5058823529411764,
+    "same_support5": 0.4294117647058823
+   }
+  },
+  "regression_log10_rank": {
+   "n_layers": [
+    0.14437714067145382,
+    0.020238140853987986,
+    0.26806269206702726
+   ],
+   "log10_area": [
+    -0.6606295663762144,
+    -0.8427189173588508,
+    -0.4905964519087958
+   ]
+  },
+  "type_by_support": {
+   "clean": {
+    "ok": 0.875,
+    "read": {
+     "painting": 14,
+     "sculpture": 5,
+     "print": 14,
+     "drawing": 2,
+     "photograph": 5
+    }
+   },
+   "framed": {
+    "ok": 0.7,
+    "read": {
+     "painting": 13,
+     "print": 6,
+     "photograph": 1
+    }
+   },
+   "in_situ": {
+    "ok": 0.9148936170212766,
+    "read": {
+     "painting": 29,
+     "sculpture": 15,
+     "drawing": 1,
+     "photograph": 1,
+     "print": 1
+    }
+   },
+   "book": {
+    "ok": 0.5238095238095238,
+    "read": {
+     "print": 8,
+     "painting": 1,
+     "drawing": 2,
+     "photograph": 4,
+     "sculpture": 6
+    }
+   },
+   "print_derivative": {
+    "ok": 0.5,
+    "read": {
+     "print": 9,
+     "painting": 5,
+     "sculpture": 3,
+     "drawing": 3
+    }
+   },
+   "rephoto": {
+    "ok": 0.4666666666666667,
+    "read": {
+     "photograph": 4,
+     "print": 3,
+     "sculpture": 7,
+     "drawing": 1
+    }
+   },
+   "screen": {
+    "ok": 0.25,
+    "read": {
+     "photograph": 1,
+     "print": 1,
+     "painting": 1,
+     "drawing": 1
+    }
+   },
+   "other": {
+    "ok": 0.75,
+    "read": {
+     "painting": 1,
+     "drawing": 1,
+     "photograph": 2
+    }
+   }
+  }
+ },
+ "dinov2": {
+  "by_support": {
+   "framed": {
+    "n": 20,
+    "found_top5": 0.8,
+    "median_rank": 3.0,
+    "same_work5": 0.8399999999999999,
+    "same_support5": 0.08
+   },
+   "in_situ": {
+    "n": 47,
+    "found_top5": 0.2553191489361702,
+    "median_rank": 19.0,
+    "same_work5": 0.5361702127659576,
+    "same_support5": 0.425531914893617
+   },
+   "book": {
+    "n": 21,
+    "found_top5": 0.6666666666666666,
+    "median_rank": 4.0,
+    "same_work5": 0.6,
+    "same_support5": 0.18095238095238095
+   },
+   "print_derivative": {
+    "n": 20,
+    "found_top5": 0.6,
+    "median_rank": 4.0,
+    "same_work5": 0.59,
+    "same_support5": 0.16
+   },
+   "rephoto": {
+    "n": 15,
+    "found_top5": 0.8666666666666667,
+    "median_rank": 3.0,
+    "same_work5": 0.7333333333333335,
+    "same_support5": 0.13333333333333333
+   },
+   "screen": {
+    "n": 4,
+    "found_top5": 0.25,
+    "median_rank": 8.0,
+    "same_work5": 0.5,
+    "same_support5": 0.2
+   },
+   "other": {
+    "n": 4,
+    "found_top5": 1.0,
+    "median_rank": 2.5,
+    "same_work5": 0.95,
+    "same_support5": 0.0
+   }
+  },
+  "by_layers": {
+   "0-1": {
+    "n": 7,
+    "found_top5": 1.0,
+    "median_rank": 3.0,
+    "same_work5": 0.8,
+    "same_support5": 0.08571428571428573
+   },
+   "2": {
+    "n": 44,
+    "found_top5": 0.8409090909090909,
+    "median_rank": 3.0,
+    "same_work5": 0.7363636363636363,
+    "same_support5": 0.1272727272727273
+   },
+   "3": {
+    "n": 46,
+    "found_top5": 0.4782608695652174,
+    "median_rank": 6.5,
+    "same_work5": 0.6217391304347827,
+    "same_support5": 0.18695652173913047
+   },
+   "4+": {
+    "n": 34,
+    "found_top5": 0.17647058823529413,
+    "median_rank": 31.0,
+    "same_work5": 0.4882352941176471,
+    "same_support5": 0.4882352941176471
+   }
+  },
+  "regression_log10_rank": {
+   "n_layers": [
+    0.19855821791092756,
+    0.0745568204467179,
+    0.33245353433410474
+   ],
+   "log10_area": [
+    -0.5900591400936882,
+    -0.9033949351866417,
+    -0.3156583045826332
+   ]
+  }
+ }
+}

@@ -1,0 +1,358 @@
+{
+ "clip": {
+  "orig": {
+   "median_rank": 1.0,
+   "top10": 1.0,
+   "top10_ci": [
+    1.0,
+    1.0
+   ],
+   "drift": -2.3643175760904948e-08,
+   "kind_ok": 0.7766666666666666,
+   "kinds": {
+    "print": 101,
+    "painting": 72,
+    "sculpture": 62,
+    "drawing": 26,
+    "photograph": 39
+   }
+  },
+  "ht_cmy": {
+   "median_rank": 1.0,
+   "top10": 0.95,
+   "top10_ci": [
+    0.9266666666666666,
+    0.9733333333333334
+   ],
+   "drift": 0.10565926273663839,
+   "kind_ok": 0.6933333333333334,
+   "kinds": {
+    "print": 100,
+    "painting": 89,
+    "sculpture": 59,
+    "photograph": 36,
+    "drawing": 16
+   }
+  },
+  "ht_cmy_colour": {
+   "median_rank": 1.0,
+   "top10": 0.8366666666666667,
+   "top10_ci": [
+    0.79325,
+    0.8833333333333333
+   ],
+   "drift": 0.15677228768666585,
+   "kind_ok": 0.63,
+   "kinds": {
+    "print": 94,
+    "painting": 102,
+    "sculpture": 54,
+    "photograph": 42,
+    "drawing": 8
+   }
+  },
+  "ht_blur_only": {
+   "median_rank": 1.0,
+   "top10": 0.99,
+   "top10_ci": [
+    0.9766666666666667,
+    1.0
+   ],
+   "drift": 0.09294312576452891,
+   "kind_ok": 0.7333333333333333,
+   "kinds": {
+    "print": 96,
+    "painting": 83,
+    "sculpture": 60,
+    "photograph": 45,
+    "drawing": 16
+   }
+  },
+  "ht_cmyk_fine": {
+   "median_rank": 1.0,
+   "top10": 0.74,
+   "top10_ci": [
+    0.6866666666666666,
+    0.79
+   ],
+   "drift": 0.15880396048227946,
+   "kind_ok": 0.68,
+   "kinds": {
+    "print": 114,
+    "painting": 76,
+    "sculpture": 55,
+    "drawing": 25,
+    "photograph": 30
+   }
+  },
+  "ht_cmyk_medium": {
+   "median_rank": 1.0,
+   "top10": 0.9666666666666667,
+   "top10_ci": [
+    0.9466666666666667,
+    0.9866666666666667
+   ],
+   "drift": 0.09234052956104279,
+   "kind_ok": 0.6566666666666666,
+   "kinds": {
+    "print": 118,
+    "painting": 83,
+    "sculpture": 54,
+    "photograph": 33,
+    "drawing": 12
+   }
+  },
+  "ht_cmyk_coarse": {
+   "median_rank": 1.0,
+   "top10": 0.7166666666666667,
+   "top10_ci": [
+    0.66325,
+    0.7666666666666667
+   ],
+   "drift": 0.15811141510804494,
+   "kind_ok": 0.6366666666666667,
+   "kinds": {
+    "print": 116,
+    "painting": 86,
+    "sculpture": 52,
+    "photograph": 36,
+    "drawing": 10
+   }
+  },
+  "rephoto_only": {
+   "median_rank": 1.0,
+   "top10": 0.84,
+   "top10_ci": [
+    0.79325,
+    0.88
+   ],
+   "drift": 0.14493476152420043,
+   "kind_ok": 0.7466666666666667,
+   "kinds": {
+    "print": 98,
+    "painting": 73,
+    "drawing": 19,
+    "photograph": 54,
+    "sculpture": 56
+   }
+  }
+ },
+ "siglip": {
+  "orig": {
+   "median_rank": 1.0,
+   "top10": 1.0,
+   "top10_ci": [
+    1.0,
+    1.0
+   ],
+   "drift": -3.1193097432454426e-08,
+   "kind_ok": 0.7666666666666667,
+   "kinds": {
+    "print": 91,
+    "painting": 65,
+    "sculpture": 58,
+    "drawing": 41,
+    "photograph": 45
+   }
+  },
+  "ht_cmy": {
+   "median_rank": 1.0,
+   "top10": 0.94,
+   "top10_ci": [
+    0.91,
+    0.9666666666666667
+   ],
+   "drift": 0.13253766854604085,
+   "kind_ok": 0.7,
+   "kinds": {
+    "print": 105,
+    "painting": 71,
+    "sculpture": 51,
+    "photograph": 40,
+    "drawing": 33
+   }
+  },
+  "ht_cmy_colour": {
+   "median_rank": 1.0,
+   "top10": 0.8233333333333334,
+   "top10_ci": [
+    0.7833333333333333,
+    0.8666666666666667
+   ],
+   "drift": 0.18101116100947062,
+   "kind_ok": 0.6733333333333333,
+   "kinds": {
+    "print": 94,
+    "painting": 81,
+    "sculpture": 54,
+    "photograph": 35,
+    "drawing": 36
+   }
+  },
+  "ht_blur_only": {
+   "median_rank": 1.0,
+   "top10": 0.98,
+   "top10_ci": [
+    0.9633333333333334,
+    0.9933333333333333
+   ],
+   "drift": 0.109885946114858,
+   "kind_ok": 0.7433333333333333,
+   "kinds": {
+    "print": 92,
+    "painting": 66,
+    "drawing": 45,
+    "sculpture": 55,
+    "photograph": 42
+   }
+  },
+  "ht_cmyk_fine": {
+   "median_rank": 1.0,
+   "top10": 0.7633333333333333,
+   "top10_ci": [
+    0.7166666666666667,
+    0.81
+   ],
+   "drift": 0.21305150985717775,
+   "kind_ok": 0.5933333333333334,
+   "kinds": {
+    "print": 114,
+    "painting": 90,
+    "drawing": 36,
+    "sculpture": 43,
+    "photograph": 17
+   }
+  },
+  "ht_cmyk_medium": {
+   "median_rank": 1.0,
+   "top10": 0.9533333333333334,
+   "top10_ci": [
+    0.93,
+    0.9766666666666667
+   ],
+   "drift": 0.14535045782725017,
+   "kind_ok": 0.6366666666666667,
+   "kinds": {
+    "print": 109,
+    "painting": 87,
+    "sculpture": 48,
+    "drawing": 24,
+    "photograph": 32
+   }
+  },
+  "ht_cmyk_coarse": {
+   "median_rank": 358.5,
+   "top10": 0.21,
+   "top10_ci": [
+    0.16666666666666666,
+    0.25333333333333335
+   ],
+   "drift": 0.36085278113683067,
+   "kind_ok": 0.47,
+   "kinds": {
+    "print": 153,
+    "painting": 65,
+    "sculpture": 39,
+    "photograph": 14,
+    "drawing": 29
+   }
+  },
+  "rephoto_only": {
+   "median_rank": 1.0,
+   "top10": 0.9666666666666667,
+   "top10_ci": [
+    0.9433333333333334,
+    0.9866666666666667
+   ],
+   "drift": 0.11588720381259918,
+   "kind_ok": 0.7133333333333334,
+   "kinds": {
+    "print": 108,
+    "painting": 60,
+    "drawing": 33,
+    "sculpture": 50,
+    "photograph": 49
+   }
+  }
+ },
+ "dinov2": {
+  "orig": {
+   "median_rank": 1.0,
+   "top10": 1.0,
+   "top10_ci": [
+    1.0,
+    1.0
+   ],
+   "drift": -4.629294077555338e-08
+  },
+  "ht_cmy": {
+   "median_rank": 1.0,
+   "top10": 0.9866666666666667,
+   "top10_ci": [
+    0.9733333333333334,
+    0.9966666666666667
+   ],
+   "drift": 0.15038959085941314
+  },
+  "ht_cmy_colour": {
+   "median_rank": 1.0,
+   "top10": 0.9933333333333333,
+   "top10_ci": [
+    0.9833333333333333,
+    1.0
+   ],
+   "drift": 0.17696609278519948
+  },
+  "ht_blur_only": {
+   "median_rank": 1.0,
+   "top10": 1.0,
+   "top10_ci": [
+    1.0,
+    1.0
+   ],
+   "drift": 0.07524171332518259
+  },
+  "ht_cmyk_fine": {
+   "median_rank": 1.0,
+   "top10": 0.95,
+   "top10_ci": [
+    0.9233333333333333,
+    0.9733333333333334
+   ],
+   "drift": 0.2160868859787782
+  },
+  "ht_cmyk_medium": {
+   "median_rank": 1.0,
+   "top10": 0.9633333333333334,
+   "top10_ci": [
+    0.94325,
+    0.9866666666666667
+   ],
+   "drift": 0.16334493403633435
+  },
+  "ht_cmyk_coarse": {
+   "median_rank": 1803.5,
+   "top10": 0.07,
+   "top10_ci": [
+    0.043333333333333335,
+    0.1
+   ],
+   "drift": 0.7404073143502077
+  },
+  "rephoto_only": {
+   "median_rank": 1.0,
+   "top10": 0.9933333333333333,
+   "top10_ci": [
+    0.9833333333333333,
+    1.0
+   ],
+   "drift": 0.20628887176513672
+  }
+ },
+ "screen_period_input_px": {
+  "ht_cmyk_fine": 0.7,
+  "ht_cmyk_medium": 1.1666666666666667,
+  "ht_cmyk_coarse": 1.8666666666666667,
+  "ht_cmy": 1.1666666666666667
+ }
+}
