@@ -12,77 +12,112 @@ button{margin-top:18px;font:inherit;padding:8px 18px;background:var(--accent);co
 </style></head><body><main>
 <h1>Ce que montre une image</h1>
 <div id="intro">
-<p>Vous allez voir 8 images, une à la fois. Pour chacune, répondez simplement à quatre questions. Il n'y a pas de bonne ou de mauvaise réponse : nous voulons savoir ce que <em>vous</em> voyez. Comptez 10 minutes.</p>
+<p>Vous allez voir 12 images, une à la fois. Pour chacune, on vous pose d'abord une seule question, puis deux autres. Il n'y a pas de bonne ou de mauvaise réponse : nous voulons savoir ce que <em>vous</em> voyez. Comptez 10 à 15 minutes.</p>
 <p class="muted">Aucune donnée personnelle n'est demandée. À la fin, un fichier de réponses se télécharge : envoyez-le à la personne qui vous a transmis ce lien.</p>
-<label>Liste (donnée par l'enquêteur) <select id="list"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+<label>Liste (donnée par l'enquêteur) <select id="list"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
 <button onclick="start()">Commencer</button></div>
 <div id="q" hidden>
 <p class="muted" id="count"></p><img id="img" alt="image à décrire">
-<label>1. Que représente cette image ? (une phrase)<textarea id="subject" rows="2"></textarea></label>
-<label>2. Qu'est-ce que vous regardez, physiquement ? Quel objet, quel support ?<textarea id="support" rows="2"></textarea></label>
-<label>3. Combien de couches (cadres, supports, écrans, pages…) voyez-vous entre le bord de l'image et l'œuvre elle-même ?
-<select id="layers"><option value="">—</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8 ou plus</option></select></label>
-<label>4. L'œuvre elle-même est plutôt…
-<select id="kind"><option value="">—</option><option>une peinture</option><option>une estampe (gravure)</option><option>un dessin</option><option>une sculpture</option><option>une photographie</option><option>autre / je ne sais pas</option></select></label>
-<button onclick="next()">Suivant</button></div>
+<div id="stepA"><label>Que représente cette image ? (une phrase)<textarea id="subject" rows="2"></textarea></label>
+<button onclick="toB()">Suite</button></div>
+<div id="stepB" hidden><p class="muted">Votre première réponse est enregistrée ; vous ne pouvez plus la modifier.</p>
+<label>Y a-t-il une œuvre d'art reproduite dans cette image ? Si oui, que représente-t-elle ?<textarea id="artwork" rows="2"></textarea></label>
+<label>Qu'est-ce que vous regardez, physiquement ? Quel objet, quel support ?<textarea id="support" rows="2"></textarea></label>
+<button onclick="next()">Image suivante</button></div></div>
 <div id="end" hidden><p>Merci ! Le fichier de réponses vient d'être téléchargé.</p></div>
 </main><script>
 const LISTS = {
  "1": [
-  "images/img23.jpg",
-  "images/img73.jpg",
-  "images/img64.jpg",
-  "images/img00.jpg",
-  "images/img50.jpg",
-  "images/img41.jpg",
-  "images/img14.jpg",
-  "images/img32.jpg"
+  "images/i3b4443.jpg",
+  "images/i15ba8c.jpg",
+  "images/i8b9029.jpg",
+  "images/i3e5903.jpg",
+  "images/iee4b27.jpg",
+  "images/iece6ed.jpg",
+  "images/i7da52e.jpg",
+  "images/i2ff121.jpg",
+  "images/i965d99.jpg",
+  "images/ifb0f84.jpg",
+  "images/idf968a.jpg",
+  "images/i42143e.jpg"
  ],
  "2": [
-  "images/img24.jpg",
-  "images/img51.jpg",
-  "images/img01.jpg",
-  "images/img33.jpg",
-  "images/img42.jpg",
-  "images/img60.jpg",
-  "images/img10.jpg",
-  "images/img74.jpg"
+  "images/ib31f09.jpg",
+  "images/i1dc743.jpg",
+  "images/ib9cd65.jpg",
+  "images/i0df29a.jpg",
+  "images/i208ced.jpg",
+  "images/i02c7dd.jpg",
+  "images/i98379e.jpg",
+  "images/i669ac7.jpg",
+  "images/i32f2c3.jpg",
+  "images/i797e8d.jpg",
+  "images/i25b29f.jpg",
+  "images/ief345e.jpg"
  ],
  "3": [
-  "images/img70.jpg",
-  "images/img11.jpg",
-  "images/img34.jpg",
-  "images/img20.jpg",
-  "images/img43.jpg",
-  "images/img61.jpg",
-  "images/img02.jpg",
-  "images/img52.jpg"
+  "images/i149b5d.jpg",
+  "images/idd242b.jpg",
+  "images/i0e39d0.jpg",
+  "images/i62b220.jpg",
+  "images/i890cb5.jpg",
+  "images/i241b75.jpg",
+  "images/i92c1c6.jpg",
+  "images/i883ea9.jpg",
+  "images/i1abead.jpg",
+  "images/i949320.jpg",
+  "images/i80fc83.jpg",
+  "images/ia87ba4.jpg"
  ],
  "4": [
-  "images/img21.jpg",
-  "images/img53.jpg",
-  "images/img71.jpg",
-  "images/img44.jpg",
-  "images/img03.jpg",
-  "images/img62.jpg",
-  "images/img12.jpg",
-  "images/img30.jpg"
+  "images/i022374.jpg",
+  "images/i99079f.jpg",
+  "images/i29fa88.jpg",
+  "images/i2a807f.jpg",
+  "images/ie6a036.jpg",
+  "images/i571240.jpg",
+  "images/i36c77d.jpg",
+  "images/i043e3e.jpg",
+  "images/icfb300.jpg",
+  "images/icc3971.jpg",
+  "images/i489de1.jpg",
+  "images/i4538e9.jpg"
  ],
  "5": [
-  "images/img40.jpg",
-  "images/img31.jpg",
-  "images/img63.jpg",
-  "images/img22.jpg",
-  "images/img72.jpg",
-  "images/img54.jpg",
-  "images/img04.jpg",
-  "images/img13.jpg"
+  "images/i08eb21.jpg",
+  "images/idc7819.jpg",
+  "images/ib4a5b7.jpg",
+  "images/i5d0c55.jpg",
+  "images/i1eaada.jpg",
+  "images/i94e622.jpg",
+  "images/i2b5adb.jpg",
+  "images/ief0c5c.jpg",
+  "images/ibaac5c.jpg",
+  "images/ifcdb77.jpg",
+  "images/i7b365b.jpg",
+  "images/i226eff.jpg"
+ ],
+ "6": [
+  "images/i3d4593.jpg",
+  "images/ia46c98.jpg",
+  "images/i32bf2a.jpg",
+  "images/i62a49f.jpg",
+  "images/i0850cf.jpg",
+  "images/idb3950.jpg",
+  "images/i60e61b.jpg",
+  "images/ia28ec1.jpg",
+  "images/ied73b8.jpg",
+  "images/ib7d617.jpg",
+  "images/i27eafe.jpg",
+  "images/i72f90d.jpg"
  ]
 };
 let items=[], i=0, list="1", answers=[];
 function start(){list=document.getElementById('list').value;items=LISTS[list];document.getElementById('intro').hidden=true;document.getElementById('q').hidden=false;show();}
-function show(){document.getElementById('count').textContent=`Image ${i+1} sur ${items.length}`;document.getElementById('img').src=items[i];for(const f of ['subject','support','layers','kind'])document.getElementById(f).value='';window.scrollTo(0,0);}
-function next(){answers.push({list,image:items[i],subject:subject.value,support:support.value,layers:layers.value,kind:kind.value,time:new Date().toISOString()});
+let subj='';
+function show(){document.getElementById('count').textContent=`Image ${i+1} sur ${items.length}`;document.getElementById('img').src=items[i];for(const f of ['subject','artwork','support'])document.getElementById(f).value='';stepA.hidden=false;stepB.hidden=true;window.scrollTo(0,0);}
+function toB(){subj=subject.value;stepA.hidden=true;stepB.hidden=false;}
+function next(){answers.push({list,image:items[i],subject:subj,artwork:artwork.value,support:support.value,time:new Date().toISOString()});
  i++; if(i<items.length){show();return;}
  const keys=Object.keys(answers[0]);const esc=v=>'"'+String(v).replace(/"/g,'""')+'"';
  const csv=[keys.join(',')].concat(answers.map(a=>keys.map(k=>esc(a[k])).join(','))).join('\n');

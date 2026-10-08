@@ -1,55 +1,63 @@
 #!/usr/bin/env python3
-"""E7 — the human study package (prepared, not run).
+"""E7 — the human study package, rebuilt after Codex's review (08/10/2026): the first version
+tested an abandoned hypothesis (depth six, where the work is too small to see).
 
-8 works from the E5 subsample (so Claude's readings of the very same images exist) x 5 stages
-(original, gilt frame, photographed book, depth 4, depth 6) = 40 images, arranged in 5 lists by
-a Latin square: each participant sees each work once and each stage 1-2 times, 8 images in all.
-The questions are the ones Claude answered in E5, in plain words.
+It now asks people what Claude was asked in round 2, on the very same images: 12 of the 30
+round-2 works x 6 conditions = 72 images, in 6 lists by a Latin square, so that each person
+sees each work once (otherwise they would recognise it under the layers) and each condition
+twice. The subject question is shown alone first, as in round 2; the other questions come after.
 """
 
 from __future__ import annotations
 
 import csv
+import importlib.util
 import json
 import random
 import shutil
 from pathlib import Path
 
-STAGES = [("orig", 0), ("frame", 1), ("book", 2), ("deep", 4), ("deep", 6)]
-KINDS = ["painting", "painting", "print", "print", "drawing", "sculpture", "sculpture",
-         "photograph"]
+spec = importlib.util.spec_from_file_location("r2", "scripts/blind_round2.py")
+r2 = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(r2)
+
+CONDITIONS = ["degr", "degclut", "book", "book_notext2", "web", "wall"]
+N_WORKS = 12
+OUT = Path("human_study")
 
 
 def main() -> None:
-    reads = [json.loads(l) for l in open("data/annotations/e5_readings.jsonl")]
-    by_work = {}
-    for r in reads:
-        by_work.setdefault(r["work"], {})[(r["chain_name"], r["k"])] = r
-    rng = random.Random(77)
-    chosen = []
-    for kind in KINDS:
-        pool = [w for w, d in by_work.items() if d[("orig", 0)]["kind"] == kind
-                and w not in chosen]
-        chosen.append(rng.choice(pool))
-    out = Path("human_study")
+    works = r2.br.e5_works()
+    rng = random.Random(2026_10_08)
+    chosen = rng.sample(works, N_WORKS)
+    img_dir = OUT / "images"
+    shutil.rmtree(img_dir, ignore_errors=True)
+    img_dir.mkdir(parents=True)
     rows = []
+    n = len(CONDITIONS)
     for i, w in enumerate(chosen):
-        for j, (name, k) in enumerate(STAGES):
-            src = Path(by_work[w][(name, k)]["key"])
-            img_id = f"img{i}{j}"
-            shutil.copy(src, out / "images" / f"{img_id}.jpg")
-            lst = (i + j) % 5 + 1  # Latin square over works x stages
-            rows.append({"image": f"images/{img_id}.jpg", "list": lst, "work": w,
-                         "kind": by_work[w][(name, k)]["kind"], "stage": f"{name}|{k}"})
-    with open(out / "items.csv", "w", newline="") as fh:
+        key = w["id"].split(":")[1]
+        for j, cond in enumerate(CONDITIONS):
+            img_id = f"i{rng.randrange(16 ** 6):06x}"
+            shutil.copy(r2.SRC / f"{key}__{cond}.jpg", img_dir / f"{img_id}.jpg")
+            rows.append({"image": f"images/{img_id}.jpg", "list": (i + j) % n + 1,
+                         "work": w["id"], "kind": w["kind"], "condition": cond})
+    with open(OUT / "items.csv", "w", newline="") as fh:
         wr = csv.DictWriter(fh, fieldnames=list(rows[0]))
         wr.writeheader()
         wr.writerows(rows)
-    lists = {n: [r["image"] for r in rows if r["list"] == n] for n in range(1, 6)}
-    for n in lists:
-        rng.shuffle(lists[n])
-    (out / "lists.json").write_text(json.dumps(lists, indent=1))
-    print({n: len(v) for n, v in lists.items()})
+    lists = {str(k): [r["image"] for r in rows if r["list"] == k] for k in range(1, n + 1)}
+    for k in lists:
+        rng.shuffle(lists[k])
+    (OUT / "lists.json").write_text(json.dumps(lists, indent=1))
+    form = (OUT / "form_template.html").read_text()
+    (OUT / "form.html").write_text(form.replace("__LISTS__", json.dumps(lists, indent=1))
+                                   .replace("__NLISTS__", "".join(f"<option>{k}</option>" for k in lists)))
+    per_list = {k: sorted(r["condition"] for r in rows if r["list"] == int(k)) for k in lists}
+    assert all(len(v) == N_WORKS and all(v.count(c) == N_WORKS // n for c in CONDITIONS)
+               for v in per_list.values())
+    print({k: len(v) for k, v in lists.items()}, "images per list; each condition",
+          N_WORKS // n, "times; each work once")
 
 
 if __name__ == "__main__":
