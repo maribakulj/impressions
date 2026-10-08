@@ -1,0 +1,299 @@
+<title>Ce que montre une image</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one image at a time on a bare cool-grey ground (no frame, so the page adds no layer),
+   the question beside it; stacks on phones. Debrief at the end: one row per image. */
+:root {
+  --wall: #e8eaec;
+  --sheet: #f6f7f8;
+  --ink: #1b1d21;
+  --muted: #5c626a;
+  --line: #cdd2d8;
+  --accent: #2c4aa0;
+  --accent-ink: #ffffff;
+  --main: #2c4aa0;
+  --compl: #b4652f;
+  --absent: #6b7079;
+  --display: "Spectral", Georgia, "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --wall: #15171a; --sheet: #1e2125; --ink: #e8eaed; --muted: #9ba2aa; --line: #343940;
+    --accent: #8ea6f0; --accent-ink: #10131a; --main: #8ea6f0; --compl: #e0a070; --absent: #9ba2aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --wall: #15171a; --sheet: #1e2125; --ink: #e8eaed; --muted: #9ba2aa; --line: #343940;
+  --accent: #8ea6f0; --accent-ink: #10131a; --main: #8ea6f0; --compl: #e0a070; --absent: #9ba2aa;
+  color-scheme: dark;
+}
+html, body { background: var(--wall); color: var(--ink); }
+body { font: 16px/1.55 var(--body); padding-inline: 16px; padding-block: 20px 40px; }
+.wrap { max-width: 1120px; margin: 0 auto; }
+h1, h2 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.1; }
+h2 { font-size: 1.35rem; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow { font: 500 0.75rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+button {
+  font: 600 0.95rem/1 var(--body); padding: 12px 20px; border-radius: 6px; border: 1px solid var(--accent);
+  background: var(--accent); color: var(--accent-ink); cursor: pointer; align-self: flex-start;
+}
+button.ghost { background: transparent; color: var(--accent); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+button:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+label { font-weight: 600; display: flex; flex-direction: column; gap: 8px; }
+textarea, select {
+  font: 400 1rem/1.5 var(--body); color: var(--ink); background: var(--sheet);
+  border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; width: 100%; box-sizing: border-box;
+}
+textarea { resize: vertical; min-height: 4.5em; }
+.hint { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+
+/* intro */
+#intro { display: grid; gap: 28px; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; padding-top: 4vh; }
+#intro .card { background: var(--sheet); border: 1px solid var(--line); border-radius: 8px; padding: 22px; }
+.rules { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; max-width: 60ch; }
+.status { font-size: 0.85rem; color: var(--muted); }
+
+/* question */
+#q { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; grid-column: 1 / -1; }
+.bar { flex: 1; height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width 0.3s; }
+.count { font: 500 0.85rem/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.stage { min-height: 50vh; display: flex; align-items: center; justify-content: center; }
+.stage img { max-width: 100%; max-height: 74vh; display: block; }
+.locked { background: var(--sheet); border: 1px dashed var(--line); border-radius: 6px; padding: 10px 12px; color: var(--muted); font-size: 0.95rem; }
+
+/* end and debrief */
+#end .head { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: end; justify-content: space-between; margin-bottom: 22px; }
+.row { display: grid; grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr); gap: 20px; padding: 18px 0; border-top: 1px solid var(--line); }
+.row img { width: 180px; max-width: 100%; height: auto; display: block; }
+.who { font-family: var(--display); font-size: 1.05rem; }
+.cond { font-size: 0.88rem; color: var(--muted); }
+.say { font-size: 0.95rem; }
+.tag { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 7px; border-radius: 4px; border: 1px solid currentColor; display: inline-block; }
+.tag.main { color: var(--main); } .tag.complement { color: var(--compl); } .tag.absent { color: var(--absent); }
+.col-h { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+@media (max-width: 760px) {
+  #intro, #q { grid-template-columns: minmax(0, 1fr); }
+  .stage { min-height: 0; }
+  .stage img { max-height: 56vh; }
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .row img { width: 100%; max-width: 360px; }
+}
+@media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <section id="intro">
+    <div class="stack">
+      <span class="eyebrow">punctured sky · enquête humaine</span>
+      <h1>Ce que montre une image</h1>
+      <p>Vous allez voir 12 images, une à la fois. Pour chacune, on vous pose d'abord une seule question : que représente cette image ? Répondez en une phrase, avec vos mots, sans réfléchir longtemps. Deux autres questions viennent ensuite.</p>
+      <ul class="rules">
+        <li>Il n'y a pas de bonne réponse : nous voulons savoir ce que <em>vous</em> voyez.</li>
+        <li>Une fois validée, la première réponse ne peut plus être modifiée.</li>
+        <li>Comptez 10 à 15 minutes. À la fin, vous verrez ce qu'étaient les images et ce qu'une machine en a dit.</li>
+      </ul>
+    </div>
+    <div class="card stack">
+      <label for="list">Liste d'images
+        <select id="list"></select>
+        <span class="hint">Tirée au hasard. Six listes montrent les mêmes œuvres dans des situations différentes ; chacune ne montre jamais deux fois la même œuvre.</span>
+      </label>
+      <button id="go" type="button">Commencer</button>
+      <p class="status" id="saveStatus">Vos réponses restent sur cet appareil.</p>
+      <p class="status" id="resumeNote" hidden></p>
+    </div>
+  </section>
+
+  <section id="q" hidden>
+    <div class="top"><span class="count" id="count">1 / 12</span><div class="bar"><i id="barFill"></i></div></div>
+    <div class="stage"><img id="img" alt="Image à décrire"></div>
+    <div class="stack">
+      <div id="stepA" class="stack">
+        <label for="subject">Que représente cette image ?
+          <textarea id="subject" rows="3" placeholder="Une phrase"></textarea>
+        </label>
+        <button id="toB" type="button" disabled>Valider</button>
+        <span class="hint">Ctrl + Entrée pour valider.</span>
+      </div>
+      <div id="stepB" class="stack" hidden>
+        <div class="stack" style="gap:6px"><span class="col-h">Votre première réponse</span><div class="locked" id="lockedA"></div></div>
+        <label for="artwork">Y a-t-il une œuvre d'art reproduite dans cette image ? Si oui, que représente-t-elle ?
+          <textarea id="artwork" rows="2"></textarea>
+        </label>
+        <label for="support">Qu'est-ce que vous regardez, physiquement ? Quel objet, quel support ?
+          <textarea id="support" rows="2"></textarea>
+        </label>
+        <button id="next" type="button">Image suivante</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="end" hidden>
+    <div class="head">
+      <div class="stack">
+        <span class="eyebrow">terminé</span>
+        <h1>Merci.</h1>
+        <p id="endStatus">Voici ce qu'étaient les images. À droite, la description qu'en a donnée Claude quand on lui a posé la même question seule, et le verdict d'un second modèle : le sujet de l'œuvre est-il le sujet principal de la phrase, un complément, ou absent ?</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button id="copy" type="button" class="ghost">Copier mes réponses</button>
+        <button id="again" type="button" class="ghost">Recommencer avec une autre liste</button>
+      </div>
+    </div>
+    <div id="debrief"></div>
+  </section>
+</div>
+
+<script>
+const DATA = __DATA__;
+const LIST_IDS = Object.keys(DATA.lists);
+const $ = (id) => document.getElementById(id);
+let state = null;      // {list, i, answers: [], session, started}
+let pending = null;    // first answer of the current image
+let db = null, uid = null;
+
+function store(key, val) { try { val === undefined ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
+function load(key) { try { return JSON.parse(localStorage.getItem(key)); } catch (e) { return null; } }
+
+function setupIntro() {
+  const sel = $("list");
+  LIST_IDS.forEach((k) => { const o = document.createElement("option"); o.value = k; o.textContent = "Liste " + k; sel.appendChild(o); });
+  const done = load("ps-done") || [];
+  const fresh = LIST_IDS.filter((k) => !done.includes(k));
+  const pool = fresh.length ? fresh : LIST_IDS;
+  sel.value = pool[Math.floor(Math.random() * pool.length)];
+  const saved = load("ps-progress");
+  if (saved && saved.i < saved.answers.length + 1 && saved.i < DATA.lists[saved.list].length) {
+    $("resumeNote").hidden = false;
+    $("resumeNote").textContent = `Une passation est en cours (liste ${saved.list}, image ${saved.i + 1} sur 12). « Commencer » la reprend.`;
+    sel.value = saved.list;
+  }
+}
+
+function start() {
+  const saved = load("ps-progress");
+  const list = $("list").value;
+  if (saved && saved.list === list && saved.i < DATA.lists[list].length) state = saved;
+  else state = { list, i: 0, answers: [], session: Math.random().toString(36).slice(2, 10), started: new Date().toISOString() };
+  $("intro").hidden = true; $("q").hidden = false;
+  show();
+}
+
+function show() {
+  const items = DATA.lists[state.list];
+  $("count").textContent = `${state.i + 1} / ${items.length}`;
+  $("barFill").style.width = `${(state.i / items.length) * 100}%`;
+  $("img").src = items[state.i];
+  ["subject", "artwork", "support"].forEach((f) => ($(f).value = ""));
+  $("stepA").hidden = false; $("stepB").hidden = true; $("toB").disabled = true;
+  pending = null;
+  window.scrollTo(0, 0);
+  $("subject").focus({ preventScroll: true });
+}
+
+function toB() {
+  const v = $("subject").value.trim();
+  if (!v) return;
+  pending = v;
+  $("lockedA").textContent = v;
+  $("stepA").hidden = true; $("stepB").hidden = false;
+  $("artwork").focus({ preventScroll: true });
+}
+
+function next() {
+  const items = DATA.lists[state.list];
+  state.answers.push({ image: items[state.i], subject: pending, artwork: $("artwork").value.trim(),
+                       support: $("support").value.trim(), time: new Date().toISOString() });
+  state.i += 1;
+  store("ps-progress", state);
+  save(state.i >= items.length);
+  if (state.i < items.length) show(); else finish();
+}
+
+async function save(done) {
+  if (!db || !uid) return;
+  try {
+    await db.doc(`responses/${uid}`).set({ updated: new Date().toISOString(), lastSession: state.session });
+    await db.doc(`responses/${uid}/sessions/${state.session}`).set({
+      list: state.list, started: state.started, updated: new Date().toISOString(), done, answers: state.answers });
+    $("saveStatus").textContent = "Vos réponses sont enregistrées pour l'étude.";
+  } catch (e) {
+    db = null;
+    $("endStatus").dataset.local = "1";
+  }
+}
+
+function finish() {
+  $("barFill").style.width = "100%";
+  const done = load("ps-done") || [];
+  if (!done.includes(state.list)) done.push(state.list);
+  store("ps-done", done); store("ps-progress", undefined);
+  $("q").hidden = true; $("end").hidden = false;
+  const box = $("debrief"); box.textContent = "";
+  for (const a of state.answers) {
+    const it = DATA.items[a.image];
+    const row = document.createElement("div"); row.className = "row";
+    const img = document.createElement("img"); img.src = a.image; img.alt = it.title; img.loading = "lazy";
+    const left = document.createElement("div"); left.className = "stack"; left.style.gap = "6px";
+    const who = document.createElement("div"); who.className = "who";
+    who.textContent = it.title + (it.creator ? " — " + it.creator : "");
+    const cond = document.createElement("div"); cond.className = "cond"; cond.textContent = `${it.kind} · ${it.conditionLabel}`;
+    const you = document.createElement("div"); you.className = "stack"; you.style.gap = "4px";
+    you.innerHTML = '<span class="col-h">Vous</span>';
+    const ys = document.createElement("div"); ys.className = "say"; ys.textContent = a.subject; you.appendChild(ys);
+    left.append(who, cond, you);
+    const right = document.createElement("div"); right.className = "stack"; right.style.gap = "6px";
+    const h = document.createElement("span"); h.className = "col-h"; h.textContent = "Claude";
+    const cs = document.createElement("div"); cs.className = "say"; cs.textContent = it.claude;
+    const tag = document.createElement("span");
+    const cls = it.claudeRole === "sujet principal" ? "main" : it.claudeRole === "complément" ? "complement" : "absent";
+    tag.className = "tag " + cls; tag.textContent = "œuvre : " + it.claudeRole;
+    right.append(h, cs, tag);
+    const pic = document.createElement("div"); pic.appendChild(img);
+    row.append(pic, left, right);
+    box.appendChild(row);
+  }
+  if (!db) $("endStatus").insertAdjacentText("beforeend", " Vos réponses n'ont pas pu être envoyées : copiez-les avec le bouton et transmettez-les.");
+}
+
+async function copyAnswers() {
+  const txt = JSON.stringify({ list: state.list, session: state.session, answers: state.answers }, null, 1);
+  try { await navigator.clipboard.writeText(txt); $("copy").textContent = "Copié"; }
+  catch (e) {
+    const t = document.createElement("textarea"); t.value = txt; t.rows = 8; $("debrief").prepend(t); t.select();
+    $("copy").textContent = "Sélectionné ci-dessous";
+  }
+}
+
+$("subject").addEventListener("input", () => ($("toB").disabled = !$("subject").value.trim()));
+$("subject").addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); toB(); } });
+$("support").addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); next(); } });
+$("go").addEventListener("click", start);
+$("toB").addEventListener("click", toB);
+$("next").addEventListener("click", next);
+$("copy").addEventListener("click", copyAnswers);
+$("again").addEventListener("click", () => { $("end").hidden = true; $("intro").hidden = false; $("list").innerHTML = ""; setupIntro(); window.scrollTo(0, 0); });
+setupIntro();
+
+(async () => {
+  if (!window.claude?.use) return;
+  const [d, u] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+  if (!d || !u) return;
+  try { uid = await u.id(); } catch (e) { return; }
+  if (!uid) return;
+  db = d;
+  $("saveStatus").textContent = "Vos réponses seront enregistrées pour l'étude.";
+})();
+</script>

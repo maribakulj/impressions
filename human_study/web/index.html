@@ -1,0 +1,299 @@
+<title>Ce que montre une image</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one image at a time on a bare cool-grey ground (no frame, so the page adds no layer),
+   the question beside it; stacks on phones. Debrief at the end: one row per image. */
+:root {
+  --wall: #e8eaec;
+  --sheet: #f6f7f8;
+  --ink: #1b1d21;
+  --muted: #5c626a;
+  --line: #cdd2d8;
+  --accent: #2c4aa0;
+  --accent-ink: #ffffff;
+  --main: #2c4aa0;
+  --compl: #b4652f;
+  --absent: #6b7079;
+  --display: "Spectral", Georgia, "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --wall: #15171a; --sheet: #1e2125; --ink: #e8eaed; --muted: #9ba2aa; --line: #343940;
+    --accent: #8ea6f0; --accent-ink: #10131a; --main: #8ea6f0; --compl: #e0a070; --absent: #9ba2aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --wall: #15171a; --sheet: #1e2125; --ink: #e8eaed; --muted: #9ba2aa; --line: #343940;
+  --accent: #8ea6f0; --accent-ink: #10131a; --main: #8ea6f0; --compl: #e0a070; --absent: #9ba2aa;
+  color-scheme: dark;
+}
+html, body { background: var(--wall); color: var(--ink); }
+body { font: 16px/1.55 var(--body); padding-inline: 16px; padding-block: 20px 40px; }
+.wrap { max-width: 1120px; margin: 0 auto; }
+h1, h2 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.1; }
+h2 { font-size: 1.35rem; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow { font: 500 0.75rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+button {
+  font: 600 0.95rem/1 var(--body); padding: 12px 20px; border-radius: 6px; border: 1px solid var(--accent);
+  background: var(--accent); color: var(--accent-ink); cursor: pointer; align-self: flex-start;
+}
+button.ghost { background: transparent; color: var(--accent); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+button:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+label { font-weight: 600; display: flex; flex-direction: column; gap: 8px; }
+textarea, select {
+  font: 400 1rem/1.5 var(--body); color: var(--ink); background: var(--sheet);
+  border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; width: 100%; box-sizing: border-box;
+}
+textarea { resize: vertical; min-height: 4.5em; }
+.hint { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+
+/* intro */
+#intro { display: grid; gap: 28px; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; padding-top: 4vh; }
+#intro .card { background: var(--sheet); border: 1px solid var(--line); border-radius: 8px; padding: 22px; }
+.rules { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; max-width: 60ch; }
+.status { font-size: 0.85rem; color: var(--muted); }
+
+/* question */
+#q { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; grid-column: 1 / -1; }
+.bar { flex: 1; height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width 0.3s; }
+.count { font: 500 0.85rem/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.stage { min-height: 50vh; display: flex; align-items: center; justify-content: center; }
+.stage img { max-width: 100%; max-height: 74vh; display: block; }
+.locked { background: var(--sheet); border: 1px dashed var(--line); border-radius: 6px; padding: 10px 12px; color: var(--muted); font-size: 0.95rem; }
+
+/* end and debrief */
+#end .head { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: end; justify-content: space-between; margin-bottom: 22px; }
+.row { display: grid; grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr); gap: 20px; padding: 18px 0; border-top: 1px solid var(--line); }
+.row img { width: 180px; max-width: 100%; height: auto; display: block; }
+.who { font-family: var(--display); font-size: 1.05rem; }
+.cond { font-size: 0.88rem; color: var(--muted); }
+.say { font-size: 0.95rem; }
+.tag { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 7px; border-radius: 4px; border: 1px solid currentColor; display: inline-block; }
+.tag.main { color: var(--main); } .tag.complement { color: var(--compl); } .tag.absent { color: var(--absent); }
+.col-h { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+@media (max-width: 760px) {
+  #intro, #q { grid-template-columns: minmax(0, 1fr); }
+  .stage { min-height: 0; }
+  .stage img { max-height: 56vh; }
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .row img { width: 100%; max-width: 360px; }
+}
+@media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <section id="intro">
+    <div class="stack">
+      <span class="eyebrow">punctured sky · enquête humaine</span>
+      <h1>Ce que montre une image</h1>
+      <p>Vous allez voir 12 images, une à la fois. Pour chacune, on vous pose d'abord une seule question : que représente cette image ? Répondez en une phrase, avec vos mots, sans réfléchir longtemps. Deux autres questions viennent ensuite.</p>
+      <ul class="rules">
+        <li>Il n'y a pas de bonne réponse : nous voulons savoir ce que <em>vous</em> voyez.</li>
+        <li>Une fois validée, la première réponse ne peut plus être modifiée.</li>
+        <li>Comptez 10 à 15 minutes. À la fin, vous verrez ce qu'étaient les images et ce qu'une machine en a dit.</li>
+      </ul>
+    </div>
+    <div class="card stack">
+      <label for="list">Liste d'images
+        <select id="list"></select>
+        <span class="hint">Tirée au hasard. Six listes montrent les mêmes œuvres dans des situations différentes ; chacune ne montre jamais deux fois la même œuvre.</span>
+      </label>
+      <button id="go" type="button">Commencer</button>
+      <p class="status" id="saveStatus">Vos réponses restent sur cet appareil.</p>
+      <p class="status" id="resumeNote" hidden></p>
+    </div>
+  </section>
+
+  <section id="q" hidden>
+    <div class="top"><span class="count" id="count">1 / 12</span><div class="bar"><i id="barFill"></i></div></div>
+    <div class="stage"><img id="img" alt="Image à décrire"></div>
+    <div class="stack">
+      <div id="stepA" class="stack">
+        <label for="subject">Que représente cette image ?
+          <textarea id="subject" rows="3" placeholder="Une phrase"></textarea>
+        </label>
+        <button id="toB" type="button" disabled>Valider</button>
+        <span class="hint">Ctrl + Entrée pour valider.</span>
+      </div>
+      <div id="stepB" class="stack" hidden>
+        <div class="stack" style="gap:6px"><span class="col-h">Votre première réponse</span><div class="locked" id="lockedA"></div></div>
+        <label for="artwork">Y a-t-il une œuvre d'art reproduite dans cette image ? Si oui, que représente-t-elle ?
+          <textarea id="artwork" rows="2"></textarea>
+        </label>
+        <label for="support">Qu'est-ce que vous regardez, physiquement ? Quel objet, quel support ?
+          <textarea id="support" rows="2"></textarea>
+        </label>
+        <button id="next" type="button">Image suivante</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="end" hidden>
+    <div class="head">
+      <div class="stack">
+        <span class="eyebrow">terminé</span>
+        <h1>Merci.</h1>
+        <p id="endStatus">Voici ce qu'étaient les images. À droite, la description qu'en a donnée Claude quand on lui a posé la même question seule, et le verdict d'un second modèle : le sujet de l'œuvre est-il le sujet principal de la phrase, un complément, ou absent ?</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button id="copy" type="button" class="ghost">Copier mes réponses</button>
+        <button id="again" type="button" class="ghost">Recommencer avec une autre liste</button>
+      </div>
+    </div>
+    <div id="debrief"></div>
+  </section>
+</div>
+
+<script>
+const DATA = {"lists": {"1": ["images/i3b4443.jpg", "images/i15ba8c.jpg", "images/i8b9029.jpg", "images/i3e5903.jpg", "images/iee4b27.jpg", "images/iece6ed.jpg", "images/i7da52e.jpg", "images/i2ff121.jpg", "images/i965d99.jpg", "images/ifb0f84.jpg", "images/idf968a.jpg", "images/i42143e.jpg"], "2": ["images/ib31f09.jpg", "images/i1dc743.jpg", "images/ib9cd65.jpg", "images/i0df29a.jpg", "images/i208ced.jpg", "images/i02c7dd.jpg", "images/i98379e.jpg", "images/i669ac7.jpg", "images/i32f2c3.jpg", "images/i797e8d.jpg", "images/i25b29f.jpg", "images/ief345e.jpg"], "3": ["images/i149b5d.jpg", "images/idd242b.jpg", "images/i0e39d0.jpg", "images/i62b220.jpg", "images/i890cb5.jpg", "images/i241b75.jpg", "images/i92c1c6.jpg", "images/i883ea9.jpg", "images/i1abead.jpg", "images/i949320.jpg", "images/i80fc83.jpg", "images/ia87ba4.jpg"], "4": ["images/i022374.jpg", "images/i99079f.jpg", "images/i29fa88.jpg", "images/i2a807f.jpg", "images/ie6a036.jpg", "images/i571240.jpg", "images/i36c77d.jpg", "images/i043e3e.jpg", "images/icfb300.jpg", "images/icc3971.jpg", "images/i489de1.jpg", "images/i4538e9.jpg"], "5": ["images/i08eb21.jpg", "images/idc7819.jpg", "images/ib4a5b7.jpg", "images/i5d0c55.jpg", "images/i1eaada.jpg", "images/i94e622.jpg", "images/i2b5adb.jpg", "images/ief0c5c.jpg", "images/ibaac5c.jpg", "images/ifcdb77.jpg", "images/i7b365b.jpg", "images/i226eff.jpg"], "6": ["images/i3d4593.jpg", "images/ia46c98.jpg", "images/i32bf2a.jpg", "images/i62a49f.jpg", "images/i0850cf.jpg", "images/idb3950.jpg", "images/i60e61b.jpg", "images/ia28ec1.jpg", "images/ied73b8.jpg", "images/ib7d617.jpg", "images/i27eafe.jpg", "images/i72f90d.jpg"]}, "items": {"images/i3e5903.jpg": {"image": "images/i3e5903.jpg", "list": 1, "work": "Q97767981", "title": "The Times, planche 1", "creator": "William Hogarth", "kind": "estampe", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Une gravure ancienne en noir et blanc, « The Times » de William Hogarth, montrant une scène de rue animée avec un incendie, des échelles et des gens qui s'affairent, placée dans un coin d'un fond gris uni.", "claudeRole": "sujet principal"}, "images/ief345e.jpg": {"image": "images/ief345e.jpg", "list": 2, "work": "Q97767981", "title": "The Times, planche 1", "creator": "William Hogarth", "kind": "estampe", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Une scène galante de fête champêtre du XVIIIe siècle, avec des personnages en costumes d'époque assis près d'une grande maison, sur laquelle est superposée une petite gravure en noir et blanc intitulée « The Times » (Hogarth), qui montre un incendie dans une rue.", "claudeRole": "complément"}, "images/i0e39d0.jpg": {"image": "images/i0e39d0.jpg", "list": 3, "work": "Q97767981", "title": "The Times, planche 1", "creator": "William Hogarth", "kind": "estampe", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert (« Histoire de l'art », p. 92) : page de gauche en lignes de texte grisées, page de droite avec une gravure satirique de Hogarth, « The Times », montrant une scène de rue animée avec un incendie, légende « Fig. 77 » et quelques lignes de texte.", "claudeRole": "complément"}, "images/icc3971.jpg": {"image": "images/icc3971.jpg", "list": 4, "work": "Q97767981", "title": "The Times, planche 1", "creator": "William Hogarth", "kind": "estampe", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert dont la page de droite montre une gravure ancienne de William Hogarth, « The Times, Plate 1 », une scène de rue animée avec un incendie, des échelles et une foule, tandis que la page de gauche est vide.", "claudeRole": "complément"}, "images/ibaac5c.jpg": {"image": "images/ibaac5c.jpg", "list": 5, "work": "Q97767981", "title": "The Times, planche 1", "creator": "William Hogarth", "kind": "estampe", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Une capture d'écran d'un site de collection en ligne montrant une gravure en noir et blanc de William Hogarth, « The Times, Plate 1 », qui représente une scène de rue animée avec un incendie, des pompiers et une foule.", "claudeRole": "complément"}, "images/i72f90d.jpg": {"image": "images/i72f90d.jpg", "list": 6, "work": "Q97767981", "title": "The Times, planche 1", "creator": "William Hogarth", "kind": "estampe", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Une gravure en noir et blanc de William Hogarth, « The Times, Plate 1 » (1762), qui montre une rue de Londres en proie à un incendie, accrochée dans un cadre doré sur un mur vert, avec un cartel à côté.", "claudeRole": "sujet principal"}, "images/i797e8d.jpg": {"image": "images/i797e8d.jpg", "list": 2, "work": "Q21727631", "title": "Les Noces de Cana", "creator": "Benvenuto Tisi, dit le Garofalo", "kind": "peinture", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Une peinture de la Renaissance représentant un grand banquet de noces (probablement les Noces de Cana) sous de hautes arcades, avec une longue table entourée de convives et de grandes jarres au premier plan, reproduite en petit format sur un fond gris uni.", "claudeRole": "sujet principal"}, "images/i92c1c6.jpg": {"image": "images/i92c1c6.jpg", "list": 3, "work": "Q21727631", "title": "Les Noces de Cana", "creator": "Benvenuto Tisi, dit le Garofalo", "kind": "peinture", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Un gros plan d'un portrait au crayon en noir et blanc d'une jeune femme aux cheveux bouclés sombres, sur lequel est incrustée une petite peinture de la Renaissance en couleurs qui montre un grand banquet de noces dans une architecture à arcades.", "claudeRole": "complément"}, "images/ie6a036.jpg": {"image": "images/ie6a036.jpg", "list": 4, "work": "Q21727631", "title": "Les Noces de Cana", "creator": "Benvenuto Tisi, dit le Garofalo", "kind": "peinture", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre d'histoire de l'art ouvert, avec une page de texte (lignes grisées) à gauche et, à droite, la reproduction d'une peinture de la Renaissance représentant un banquet de noces dans un palais à arcades, légendée « Fig. 77 ».", "claudeRole": "complément"}, "images/i1eaada.jpg": {"image": "images/i1eaada.jpg", "list": 5, "work": "Q21727631", "title": "Les Noces de Cana", "creator": "Benvenuto Tisi, dit le Garofalo", "kind": "peinture", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert posé sur une surface brune, dont la page de gauche est vierge et la page de droite porte la reproduction d'une peinture de la Renaissance : un banquet (les noces de Cana) autour d'une longue table, dans une architecture à arcades.", "claudeRole": "complément"}, "images/i62a49f.jpg": {"image": "images/i62a49f.jpg", "list": 6, "work": "Q21727631", "title": "Les Noces de Cana", "creator": "Benvenuto Tisi, dit le Garofalo", "kind": "peinture", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Un écran d'ordinateur affichant la page d'une collection de musée en ligne, avec la reproduction d'une peinture de la Renaissance représentant un grand banquet (des noces) sous des arcades, avec quatre miniatures et des lignes de texte à côté.", "claudeRole": "complément"}, "images/i2ff121.jpg": {"image": "images/i2ff121.jpg", "list": 1, "work": "Q21727631", "title": "Les Noces de Cana", "creator": "Benvenuto Tisi, dit le Garofalo", "kind": "peinture", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Un tableau de la Renaissance encadré d'or, accroché à un mur vert dans une salle de musée avec un cartel à côté. Il montre un grand banquet de noces ou un festin autour d'une longue table, dans une architecture à arcades. Les jarres au premier plan font penser aux Noces de Cana.", "claudeRole": "sujet principal"}, "images/i949320.jpg": {"image": "images/i949320.jpg", "list": 3, "work": "Q41449677", "title": "Rue aux Saintes-Maries-de-la-Mer", "creator": "Vincent van Gogh", "kind": "dessin", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Un dessin à la plume en tons sépia représentant une rue de village bordée de maisons aux toits de chaume, avec un chemin de gravier et des buissons touffus sur la droite, placé dans un coin d'un fond gris uni.", "claudeRole": "sujet principal"}, "images/icfb300.jpg": {"image": "images/icfb300.jpg", "list": 4, "work": "Q41449677", "title": "Rue aux Saintes-Maries-de-la-Mer", "creator": "Vincent van Gogh", "kind": "dessin", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Détail d'un portrait peint ancien montrant une femme en robe claire avec un collier de perles, tenant un bébé coiffé d'un bonnet, avec en incrustation un petit dessin à l'encre d'une ruelle bordée de chaumières et de végétation.", "claudeRole": "complément"}, "images/ifcdb77.jpg": {"image": "images/ifcdb77.jpg", "list": 5, "work": "Q41449677", "title": "Rue aux Saintes-Maries-de-la-Mer", "creator": "Vincent van Gogh", "kind": "dessin", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert (« Histoire de l'art », page 285) dont la page de gauche est masquée par des barres grises et dont la page de droite montre un dessin à la plume d'une rue de village bordée de maisons au toit de chaume, avec la légende « Fig. 4. — Collection particulière » et un paragraphe de texte en dessous.", "claudeRole": "complément"}, "images/ied73b8.jpg": {"image": "images/ied73b8.jpg", "list": 6, "work": "Q41449677", "title": "Rue aux Saintes-Maries-de-la-Mer", "creator": "Vincent van Gogh", "kind": "dessin", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert posé sur une table brune, dont la page de droite montre un dessin à la plume d'une rue de village bordée de maisons aux toits de chaume, avec de la végétation à droite, dans le style de Van Gogh.", "claudeRole": "complément"}, "images/iece6ed.jpg": {"image": "images/iece6ed.jpg", "list": 1, "work": "Q41449677", "title": "Rue aux Saintes-Maries-de-la-Mer", "creator": "Vincent van Gogh", "kind": "dessin", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Une capture d'écran d'un site de collection en ligne affichant, sur un écran d'ordinateur, un dessin à l'encre sépia d'une rue de village bordée de chaumières et de végétation touffue.", "claudeRole": "complément"}, "images/i1dc743.jpg": {"image": "images/i1dc743.jpg", "list": 2, "work": "Q41449677", "title": "Rue aux Saintes-Maries-de-la-Mer", "creator": "Vincent van Gogh", "kind": "dessin", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Un dessin à l'encre d'un chemin de village bordé de toits de chaume et de végétation, encadré d'un cadre doré et accroché à un mur de musée.", "claudeRole": "sujet principal"}, "images/i043e3e.jpg": {"image": "images/i043e3e.jpg", "list": 4, "work": "Q18338569", "title": "L'Adoration des rois mages", "creator": "Albrecht Dürer", "kind": "estampe", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Une gravure sur bois ancienne représentant l'Adoration des mages : des personnages agenouillés devant la Vierge et l'Enfant, sous une arche en ruines, avec des anges et une étoile dans le ciel.", "claudeRole": "sujet principal"}, "images/ib4a5b7.jpg": {"image": "images/ib4a5b7.jpg", "list": 5, "work": "Q18338569", "title": "L'Adoration des rois mages", "creator": "Albrecht Dürer", "kind": "estampe", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Gros plan sur une Vierge à l'Enfant de la Renaissance du Nord, peinte à l'huile avec un visage craquelé. Un petit rectangle plaqué sur le visage de l'Enfant montre une gravure en noir et blanc, une Adoration des Mages.", "claudeRole": "complément"}, "images/i27eafe.jpg": {"image": "images/i27eafe.jpg", "list": 6, "work": "Q18338569", "title": "L'Adoration des rois mages", "creator": "Albrecht Dürer", "kind": "estampe", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert (« Histoire de l'art », page 367) : à gauche, des lignes de texte remplacées par des barres grises, à droite une gravure sur bois de style Dürer représentant une Adoration des mages, avec la légende « Fig. 138. — Reproduction autorisée » et quelques lignes de texte.", "claudeRole": "complément"}, "images/ifb0f84.jpg": {"image": "images/ifb0f84.jpg", "list": 1, "work": "Q18338569", "title": "L'Adoration des rois mages", "creator": "Albrecht Dürer", "kind": "estampe", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert posé sur une table brune, dont la page de droite porte une gravure sur bois de l'Adoration des Mages (une Nativité devant une étable en ruines, avec des rois agenouillés), et dont la page de gauche est vierge.", "claudeRole": "complément"}, "images/i208ced.jpg": {"image": "images/i208ced.jpg", "list": 2, "work": "Q18338569", "title": "L'Adoration des rois mages", "creator": "Albrecht Dürer", "kind": "estampe", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Une capture d'écran d'un site de collection en ligne de musée montrant une gravure sur bois en noir et blanc représentant une scène d'Adoration (Nativité ou Adoration des mages) devant une architecture en ruines, avec des vignettes et des lignes de texte à droite.", "claudeRole": "complément"}, "images/ia87ba4.jpg": {"image": "images/ia87ba4.jpg", "list": 3, "work": "Q18338569", "title": "L'Adoration des rois mages", "creator": "Albrecht Dürer", "kind": "estampe", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Une gravure sur bois ancienne, dans un cadre doré accroché à un mur vert, représentant une Adoration des Mages : la Vierge et l'Enfant sous une arche en ruines, entourés des rois mages et d'anges dans le ciel.", "claudeRole": "sujet principal"}, "images/i226eff.jpg": {"image": "images/i226eff.jpg", "list": 5, "work": "Q116377829", "title": "La Résurrection", "creator": "", "kind": "peinture", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Un petit bas-relief gothique en bois polychrome et doré, qui représente la Résurrection du Christ sortant du tombeau sous un dais architectural, avec des soldats endormis au premier plan. Il est posé sur un fond gris uni.", "claudeRole": "sujet principal"}, "images/ia28ec1.jpg": {"image": "images/ia28ec1.jpg", "list": 6, "work": "Q116377829", "title": "La Résurrection", "creator": "", "kind": "peinture", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Une scène de décapitation dans une peinture : un homme nu et barbu tient par les cheveux une femme agenouillée, nue elle aussi, et s'apprête à l'égorger avec un couteau. Au milieu de l'image, un petit encadré rapporté montre un retable sculpté gothique avec une Résurrection du Christ.", "claudeRole": "complément"}, "images/i42143e.jpg": {"image": "images/i42143e.jpg", "list": 1, "work": "Q116377829", "title": "La Résurrection", "creator": "", "kind": "peinture", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre d'histoire de l'art ouvert sur une page illustrant, sous une architecture gothique, un haut-relief sculpté et polychrome de la Résurrection du Christ (Fig. 85, collection particulière), avec du texte sur la page de droite et des lignes grises à la place du texte sur la page de gauche.", "claudeRole": "complément"}, "images/ib31f09.jpg": {"image": "images/ib31f09.jpg", "list": 2, "work": "Q116377829", "title": "La Résurrection", "creator": "", "kind": "peinture", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert posé sur un fond brun, dont la page de droite montre la photo d'un bas-relief gothique en bois polychrome et doré représentant la Résurrection du Christ sortant du tombeau, sous un décor d'architecture ajourée.", "claudeRole": "complément"}, "images/i1abead.jpg": {"image": "images/i1abead.jpg", "list": 3, "work": "Q116377829", "title": "La Résurrection", "creator": "", "kind": "peinture", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Un écran d'ordinateur affichant une page de collection en ligne de musée, avec la photo d'un bas-relief sculpté, doré et polychrome, de style gothique (une Résurrection du Christ sortant du tombeau), accompagnée de lignes de texte et de quatre miniatures.", "claudeRole": "complément"}, "images/i29fa88.jpg": {"image": "images/i29fa88.jpg", "list": 4, "work": "Q116377829", "title": "La Résurrection", "creator": "", "kind": "peinture", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Un bas-relief gothique polychrome en pierre ou en albâtre représentant la Résurrection du Christ sortant du tombeau, entouré de soldats endormis, encadré et accroché sur un mur rouge de musée à côté d'un cartel.", "claudeRole": "sujet principal"}, "images/i3d4593.jpg": {"image": "images/i3d4593.jpg", "list": 6, "work": "Q97733002", "title": "Le Général La Fayette… prend la Lune avec les dents", "creator": "", "kind": "estampe", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Une estampe satirique ancienne montrant trois personnages en uniforme qui jonglent ou s'équilibrent les uns sur les autres sous un ciel de nuit avec la lune, légendée comme le général La Fayette soutenu sur les bottes des maréchaux Lückner et Rochambeau, qui « prend la lune avec les dents ».", "claudeRole": "sujet principal"}, "images/i965d99.jpg": {"image": "images/i965d99.jpg", "list": 1, "work": "Q97733002", "title": "Le Général La Fayette… prend la Lune avec les dents", "creator": "", "kind": "estampe", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Une silhouette noire de profil, coiffée d'un chapeau à plumes, sur laquelle est collée une petite gravure d'époque montrant trois hommes en équilibre les uns sur les autres sous la lune.", "claudeRole": "complément"}, "images/i669ac7.jpg": {"image": "images/i669ac7.jpg", "list": 2, "work": "Q97733002", "title": "Le Général La Fayette… prend la Lune avec les dents", "creator": "", "kind": "estampe", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre d'histoire de l'art ouvert : la page de gauche est remplacée par des lignes grises, et la page de droite montre une gravure (Fig. 150) de trois militaires en équilibre acrobatique sous la lune, avec sa légende et quelques lignes de texte.", "claudeRole": "complément"}, "images/i80fc83.jpg": {"image": "images/i80fc83.jpg", "list": 3, "work": "Q97733002", "title": "Le Général La Fayette… prend la Lune avec les dents", "creator": "", "kind": "estampe", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert dont la page de droite porte une estampe satirique ancienne : le général La Fayette, debout sur les épaules de deux maréchaux, essaie d'attraper la Lune avec les dents.", "claudeRole": "complément"}, "images/i571240.jpg": {"image": "images/i571240.jpg", "list": 4, "work": "Q97733002", "title": "Le Général La Fayette… prend la Lune avec les dents", "creator": "", "kind": "estampe", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Capture d'écran d'une page de collection en ligne montrant une gravure ancienne où une figure aérienne tenue par des fils est dans le ciel, au clair de lune, au-dessus de deux hommes qui dansent ou manœuvrent sur le sol.", "claudeRole": "absent"}, "images/i2b5adb.jpg": {"image": "images/i2b5adb.jpg", "list": 5, "work": "Q97733002", "title": "Le Général La Fayette… prend la Lune avec les dents", "creator": "", "kind": "estampe", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Une gravure satirique sous cadre doré, accrochée à un mur vert, qui montre trois militaires en uniforme napoléonien en équilibre les uns sur les autres sous la lune, avec une légende en dessous.", "claudeRole": "sujet principal"}, "images/i8b9029.jpg": {"image": "images/i8b9029.jpg", "list": 1, "work": "Q17334826", "title": "Portrait de femme, peut-être Lucretia Boudaen", "creator": "Jacob van Loo", "kind": "peinture", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Un portrait peint d'une femme en robe sombre avec un col blanc, tenant un éventail, placé dans le coin d'un grand fond gris uni.", "claudeRole": "sujet principal"}, "images/i02c7dd.jpg": {"image": "images/i02c7dd.jpg", "list": 2, "work": "Q17334826", "title": "Portrait de femme, peut-être Lucretia Boudaen", "creator": "Jacob van Loo", "kind": "peinture", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Gros plan sur un détail de retable médiéval doré (main gantée, étoffes brodées, saint lisant) sur lequel est superposée, en petit, la photo d'un portrait de dame en noir du XVIIe siècle, col blanc, tenant un éventail.", "claudeRole": "complément"}, "images/i62b220.jpg": {"image": "images/i62b220.jpg", "list": 3, "work": "Q17334826", "title": "Portrait de femme, peut-être Lucretia Boudaen", "creator": "Jacob van Loo", "kind": "peinture", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert d'histoire de l'art, dont la page de droite reproduit un portrait peint d'une femme en robe sombre avec un col blanc, tenant un éventail (légende « Fig. 17 »), tandis que la page de gauche est remplie de lignes de texte masquées par des barres.", "claudeRole": "complément"}, "images/i36c77d.jpg": {"image": "images/i36c77d.jpg", "list": 4, "work": "Q17334826", "title": "Portrait de femme, peut-être Lucretia Boudaen", "creator": "Jacob van Loo", "kind": "peinture", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert posé sur un fond brun texturé, dont la page de droite montre la reproduction d'un portrait ancien d'une femme en robe sombre à col blanc, tenant un éventail, tandis que la page de gauche est vide.", "claudeRole": "complément"}, "images/i08eb21.jpg": {"image": "images/i08eb21.jpg", "list": 5, "work": "Q17334826", "title": "Portrait de femme, peut-être Lucretia Boudaen", "creator": "Jacob van Loo", "kind": "peinture", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Un écran d'ordinateur affichant la page d'une collection de musée en ligne, avec un portrait peint ancien d'une femme en robe noire à col blanc tenant un éventail, accompagné de lignes de texte et de vignettes.", "claudeRole": "complément"}, "images/idb3950.jpg": {"image": "images/idb3950.jpg", "list": 6, "work": "Q17334826", "title": "Portrait de femme, peut-être Lucretia Boudaen", "creator": "Jacob van Loo", "kind": "peinture", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Un portrait ancien, de style XVIIe siècle, d'une femme en robe noire à col blanc et collier de perles tenant un éventail, dans un cadre doré accroché à un mur de musée, avec un cartel sans texte lisible à côté.", "claudeRole": "sujet principal"}, "images/i0df29a.jpg": {"image": "images/i0df29a.jpg", "list": 2, "work": "Q112181476", "title": "Baptême du Christ", "creator": "Veit Stoss", "kind": "sculpture", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Un bas-relief en bois polychrome et doré représentant le baptême du Christ, avec saint Jean-Baptiste en vêtement de poils, le Christ debout les mains jointes et un ange en robe dorée, photographié sur un fond gris.", "claudeRole": "sujet principal"}, "images/i241b75.jpg": {"image": "images/i241b75.jpg", "list": 3, "work": "Q112181476", "title": "Baptême du Christ", "creator": "Veit Stoss", "kind": "sculpture", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Un détail de peinture de branches d'arbre aux jeunes feuilles vertes sur fond clair, avec en incrustation la photo d'un bas-relief sculpté et doré représentant le baptême du Christ, entre saint Jean-Baptiste et un ange.", "claudeRole": "complément"}, "images/i2a807f.jpg": {"image": "images/i2a807f.jpg", "list": 4, "work": "Q112181476", "title": "Baptême du Christ", "creator": "Veit Stoss", "kind": "sculpture", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert (« Histoire de l'art », page 243) dont la page de droite montre la figure 103, un bas-relief en bois polychrome et doré représentant le baptême du Christ, avec saint Jean-Baptiste et un ange, tandis que la page de gauche est remplacée par des barres grises à la place du texte.", "claudeRole": "complément"}, "images/idc7819.jpg": {"image": "images/idc7819.jpg", "list": 5, "work": "Q112181476", "title": "Baptême du Christ", "creator": "Veit Stoss", "kind": "sculpture", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert dont la page de droite montre la photographie d'un bas-relief en bois polychrome représentant le baptême du Christ par saint Jean-Baptiste, avec un ange aux ailes dorées, la page de gauche restant vierge.", "claudeRole": "complément"}, "images/i32bf2a.jpg": {"image": "images/i32bf2a.jpg", "list": 6, "work": "Q112181476", "title": "Baptême du Christ", "creator": "Veit Stoss", "kind": "sculpture", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Un écran d'ordinateur affichant la fiche d'une collection en ligne de musée, avec la photo d'un bas-relief sculpté en bois polychrome et doré représentant le baptême du Christ par saint Jean-Baptiste, en présence d'un ange.", "claudeRole": "complément"}, "images/i15ba8c.jpg": {"image": "images/i15ba8c.jpg", "list": 1, "work": "Q112181476", "title": "Baptême du Christ", "creator": "Veit Stoss", "kind": "sculpture", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Un relief sculpté en bois polychrome et doré, dans un cadre accroché à un mur rouge de musée, représentant le baptême du Christ, avec saint Jean-Baptiste en peau de bête à gauche, le Christ debout dans l'eau au centre et un ange aux ailes dorées à droite.", "claudeRole": "sujet principal"}, "images/idd242b.jpg": {"image": "images/idd242b.jpg", "list": 3, "work": "Q97788707", "title": "John Bull observant la comète", "creator": "Thomas Rowlandson", "kind": "estampe", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Une caricature coloriée de l'époque géorgienne : John Bull, penché sur un télescope, observe une « comète » radieuse dont le cœur est une tête d'homme. Une autre tête coiffée d'un bicorne tricolore passe à côté, et des navires sont visibles à l'horizon.", "claudeRole": "sujet principal"}, "images/i489de1.jpg": {"image": "images/i489de1.jpg", "list": 4, "work": "Q97788707", "title": "John Bull observant la comète", "creator": "Thomas Rowlandson", "kind": "estampe", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Une nature morte de fleurs à l'huile (tulipe, volubilis bleu, souci, roses blanches et rouges) sur laquelle est incrustée une petite caricature anglaise coloriée, « John Bull observing the Comet », où un homme regarde à travers un télescope un soleil à tête humaine.", "claudeRole": "complément"}, "images/i5d0c55.jpg": {"image": "images/i5d0c55.jpg", "list": 5, "work": "Q97788707", "title": "John Bull observant la comète", "creator": "Thomas Rowlandson", "kind": "estampe", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert (« Histoire de l'art », page 400) montrant une caricature coloriée anglaise, « John Bull observing the Comet », où John Bull regarde dans un télescope un soleil dont le visage rappelle Napoléon, avec une flotte à l'horizon.", "claudeRole": "complément"}, "images/ia46c98.jpg": {"image": "images/ia46c98.jpg", "list": 6, "work": "Q97788707", "title": "John Bull observant la comète", "creator": "Thomas Rowlandson", "kind": "estampe", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert dont la page de droite porte une caricature anglaise colorée, « John Bull observing the Comet », où un homme à perruque grise regarde dans un télescope des têtes qui brillent comme une comète dans un soleil rayonnant, au-dessus d'une mer avec des navires.", "claudeRole": "complément"}, "images/idf968a.jpg": {"image": "images/idf968a.jpg", "list": 1, "work": "Q97788707", "title": "John Bull observant la comète", "creator": "Thomas Rowlandson", "kind": "estampe", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Capture d'écran d'une page de collection en ligne montrant une caricature satirique anglaise colorée, « John Bull making observations on the Comet », où un homme observe à la lunette un soleil rayonnant à têtes de profil.", "claudeRole": "complément"}, "images/i25b29f.jpg": {"image": "images/i25b29f.jpg", "list": 2, "work": "Q97788707", "title": "John Bull observant la comète", "creator": "Thomas Rowlandson", "kind": "estampe", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Une caricature anglaise coloriée, « John Bull making observations on the Comet », montrant un homme corpulent en habit bleu qui observe à travers un télescope un soleil rayonnant dont émergent un visage et un bicorne, avec des navires à l'horizon, le tout encadré et accroché à un mur bleu.", "claudeRole": "sujet principal"}, "images/i99079f.jpg": {"image": "images/i99079f.jpg", "list": 4, "work": "Q96181868", "title": "Sphacelaria filicina (algue)", "creator": "", "kind": "photographie", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Une page d'album photographique sur fond gris : un cyanotype bleu montrant la silhouette blanche d'une algue, avec une courte légende manuscrite en bas (de type herbier d'algues d'Anna Atkins).", "claudeRole": "sujet principal"}, "images/i94e622.jpg": {"image": "images/i94e622.jpg", "list": 5, "work": "Q96181868", "title": "Sphacelaria filicina (algue)", "creator": "", "kind": "photographie", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Portrait en noir et blanc d'un jeune homme en nœud papillon et veste sombre, sur lequel est superposée une petite image d'un cyanotype bleu montrant une algue blanche, avec une légende manuscrite illisible.", "claudeRole": "complément"}, "images/ib7d617.jpg": {"image": "images/ib7d617.jpg", "list": 6, "work": "Q96181868", "title": "Sphacelaria filicina (algue)", "creator": "", "kind": "photographie", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert d'histoire de l'art dont la page de droite montre la photo d'un cyanotype, une algue blanche sur fond bleu (type Anna Atkins) légendée « Fig. 86 — Musée, inv. 9075 », et dont la page de gauche est occupée par des lignes grises à la place du texte.", "claudeRole": "complément"}, "images/i3b4443.jpg": {"image": "images/i3b4443.jpg", "list": 1, "work": "Q96181868", "title": "Sphacelaria filicina (algue)", "creator": "", "kind": "photographie", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert posé sur une surface brune, dont la page de droite montre une petite reproduction d'un cyanotype bleu (type Anna Atkins) avec une algue blanche et une légende en bas, la page de gauche étant vide.", "claudeRole": "complément"}, "images/ib9cd65.jpg": {"image": "images/ib9cd65.jpg", "list": 2, "work": "Q96181868", "title": "Sphacelaria filicina (algue)", "creator": "", "kind": "photographie", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Un écran d'ordinateur affichant une page de collection en ligne de musée, avec la photo d'un livre à couverture bleue ornée d'une plante blanche (style cyanotype, probablement un album d'algues d'Anna Atkins), accompagnée de lignes de texte et de miniatures.", "claudeRole": "complément"}, "images/i149b5d.jpg": {"image": "images/i149b5d.jpg", "list": 3, "work": "Q96181868", "title": "Sphacelaria filicina (algue)", "creator": "", "kind": "photographie", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Un cyanotype bleu montrant une algue blanche (légendée « Sphacelaria filicina »), dans un cadre doré accroché à un mur, avec un petit cartel à côté.", "claudeRole": "sujet principal"}, "images/i7b365b.jpg": {"image": "images/i7b365b.jpg", "list": 5, "work": "Q20201879", "title": "Vierge à l'Enfant debout", "creator": "", "kind": "sculpture", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Une statue ancienne en pierre polychrome, très usée, d'une Vierge à l'Enfant couronnée, photographiée sur fond noir et placée sur un grand fond gris uni.", "claudeRole": "sujet principal"}, "images/i60e61b.jpg": {"image": "images/i60e61b.jpg", "list": 6, "work": "Q20201879", "title": "Vierge à l'Enfant debout", "creator": "", "kind": "sculpture", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Détail d'une peinture baroque montrant un vieil homme à la barbe bouclée (probablement saint Joseph, avec des lys en bas), sur lequel est incrustée une petite photo d'une statue en pierre polychrome usée de la Vierge à l'Enfant.", "claudeRole": "complément"}, "images/iee4b27.jpg": {"image": "images/iee4b27.jpg", "list": 1, "work": "Q20201879", "title": "Vierge à l'Enfant debout", "creator": "", "kind": "sculpture", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert (« Histoire de l'art ») montrant, page de droite, la photographie d'une statue gothique en pierre polychrome d'une Vierge à l'Enfant couronnée, légendée « Fig. 12 — Musée, inv. 6705 », avec un paragraphe de texte en dessous, tandis que la page de gauche est remplacée par des barres grises illisibles.", "claudeRole": "complément"}, "images/i98379e.jpg": {"image": "images/i98379e.jpg", "list": 2, "work": "Q20201879", "title": "Vierge à l'Enfant debout", "creator": "", "kind": "sculpture", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Une photographie d'une statue ancienne en pierre polychrome très usée représentant la Vierge à l'Enfant couronnée, reproduite sur la page de droite d'un livre ouvert posé sur un fond brun texturé.", "claudeRole": "sujet principal"}, "images/i890cb5.jpg": {"image": "images/i890cb5.jpg", "list": 3, "work": "Q20201879", "title": "Vierge à l'Enfant debout", "creator": "", "kind": "sculpture", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Une capture d'écran de page de collection en ligne d'un musée, montrant une statue médiévale polychrome en bois ou en pierre de la Vierge à l'Enfant couronnée, avec des vignettes et des lignes de texte, affichée sur un écran d'ordinateur.", "claudeRole": "complément"}, "images/i4538e9.jpg": {"image": "images/i4538e9.jpg", "list": 4, "work": "Q20201879", "title": "Vierge à l'Enfant debout", "creator": "", "kind": "sculpture", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Une statue ancienne en pierre polychrome, à la peinture écaillée, représentant une Vierge couronnée portant l'Enfant Jésus, présentée dans un cadre doré sur un mur de musée.", "claudeRole": "sujet principal"}, "images/i0850cf.jpg": {"image": "images/i0850cf.jpg", "list": 6, "work": "Q59590707", "title": "Tête de saint, d'après Fra Angelico", "creator": "Edgar Degas", "kind": "dessin", "condition": "degr", "conditionLabel": "les pixels de l'œuvre tels qu'ils sont dans le livre photographié, à la même place, sur du gris", "claude": "Un dessin ancien au crayon sur papier beige montrant le profil d'un homme aux cheveux longs et à la barbe, avec un halo clair derrière la tête (peut-être une figure du Christ), placé en petit à droite sur un fond gris uni.", "claudeRole": "sujet principal"}, "images/i7da52e.jpg": {"image": "images/i7da52e.jpg", "list": 1, "work": "Q59590707", "title": "Tête de saint, d'après Fra Angelico", "creator": "Edgar Degas", "kind": "dessin", "condition": "degclut", "conditionLabel": "les mêmes pixels, à la même place, sur le détail d'un autre tableau", "claude": "Un vitrail à motifs de feuilles de vigne et de fleur pourpre, entouré de perles bleues, sur lequel est superposé un petit dessin au crayon du visage de profil d'un homme barbu aux cheveux longs, probablement le Christ.", "claudeRole": "complément"}, "images/i32f2c3.jpg": {"image": "images/i32f2c3.jpg", "list": 2, "work": "Q59590707", "title": "Tête de saint, d'après Fra Angelico", "creator": "Edgar Degas", "kind": "dessin", "condition": "book", "conditionLabel": "l'œuvre reproduite dans un livre ouvert, photographié sur une table", "claude": "Un livre ouvert (« Histoire de l'art », page 318) dont la page de droite montre un dessin en profil d'un homme barbu aux cheveux longs, légendé « Fig. 120 », tandis que la page de gauche est remplacée par des barres grises à la place du texte.", "claudeRole": "complément"}, "images/i883ea9.jpg": {"image": "images/i883ea9.jpg", "list": 3, "work": "Q59590707", "title": "Tête de saint, d'après Fra Angelico", "creator": "Edgar Degas", "kind": "dessin", "condition": "book_notext2", "conditionLabel": "le même livre photographié, même géométrie, sans aucun texte", "claude": "Un livre ouvert posé sur une surface brune, dont la page de droite porte un dessin pâle et estompé d'un visage d'homme barbu aux cheveux longs, vu de profil (qui évoque un portrait du Christ).", "claudeRole": "complément"}, "images/i022374.jpg": {"image": "images/i022374.jpg", "list": 4, "work": "Q59590707", "title": "Tête de saint, d'après Fra Angelico", "creator": "Edgar Degas", "kind": "dessin", "condition": "web", "conditionLabel": "l'œuvre dans une page web de musée, photographiée sur un écran", "claude": "Un écran d'ordinateur affichant une page de collection en ligne de musée, avec le dessin ancien d'un profil d'homme aux cheveux longs et à la barbe, accompagné de texte et de quatre miniatures.", "claudeRole": "complément"}, "images/ief0c5c.jpg": {"image": "images/ief0c5c.jpg", "list": 5, "work": "Q59590707", "title": "Tête de saint, d'après Fra Angelico", "creator": "Edgar Degas", "kind": "dessin", "condition": "wall", "conditionLabel": "l'œuvre encadrée, accrochée au mur d'une salle", "claude": "Un dessin de profil d'un homme aux cheveux longs et à la barbiche, encadré et accroché sur un mur rouge de musée, avec un cartel à côté.", "claudeRole": "sujet principal"}}};
+const LIST_IDS = Object.keys(DATA.lists);
+const $ = (id) => document.getElementById(id);
+let state = null;      // {list, i, answers: [], session, started}
+let pending = null;    // first answer of the current image
+let db = null, uid = null;
+
+function store(key, val) { try { val === undefined ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
+function load(key) { try { return JSON.parse(localStorage.getItem(key)); } catch (e) { return null; } }
+
+function setupIntro() {
+  const sel = $("list");
+  LIST_IDS.forEach((k) => { const o = document.createElement("option"); o.value = k; o.textContent = "Liste " + k; sel.appendChild(o); });
+  const done = load("ps-done") || [];
+  const fresh = LIST_IDS.filter((k) => !done.includes(k));
+  const pool = fresh.length ? fresh : LIST_IDS;
+  sel.value = pool[Math.floor(Math.random() * pool.length)];
+  const saved = load("ps-progress");
+  if (saved && saved.i < saved.answers.length + 1 && saved.i < DATA.lists[saved.list].length) {
+    $("resumeNote").hidden = false;
+    $("resumeNote").textContent = `Une passation est en cours (liste ${saved.list}, image ${saved.i + 1} sur 12). « Commencer » la reprend.`;
+    sel.value = saved.list;
+  }
+}
+
+function start() {
+  const saved = load("ps-progress");
+  const list = $("list").value;
+  if (saved && saved.list === list && saved.i < DATA.lists[list].length) state = saved;
+  else state = { list, i: 0, answers: [], session: Math.random().toString(36).slice(2, 10), started: new Date().toISOString() };
+  $("intro").hidden = true; $("q").hidden = false;
+  show();
+}
+
+function show() {
+  const items = DATA.lists[state.list];
+  $("count").textContent = `${state.i + 1} / ${items.length}`;
+  $("barFill").style.width = `${(state.i / items.length) * 100}%`;
+  $("img").src = items[state.i];
+  ["subject", "artwork", "support"].forEach((f) => ($(f).value = ""));
+  $("stepA").hidden = false; $("stepB").hidden = true; $("toB").disabled = true;
+  pending = null;
+  window.scrollTo(0, 0);
+  $("subject").focus({ preventScroll: true });
+}
+
+function toB() {
+  const v = $("subject").value.trim();
+  if (!v) return;
+  pending = v;
+  $("lockedA").textContent = v;
+  $("stepA").hidden = true; $("stepB").hidden = false;
+  $("artwork").focus({ preventScroll: true });
+}
+
+function next() {
+  const items = DATA.lists[state.list];
+  state.answers.push({ image: items[state.i], subject: pending, artwork: $("artwork").value.trim(),
+                       support: $("support").value.trim(), time: new Date().toISOString() });
+  state.i += 1;
+  store("ps-progress", state);
+  save(state.i >= items.length);
+  if (state.i < items.length) show(); else finish();
+}
+
+async function save(done) {
+  if (!db || !uid) return;
+  try {
+    await db.doc(`responses/${uid}`).set({ updated: new Date().toISOString(), lastSession: state.session });
+    await db.doc(`responses/${uid}/sessions/${state.session}`).set({
+      list: state.list, started: state.started, updated: new Date().toISOString(), done, answers: state.answers });
+    $("saveStatus").textContent = "Vos réponses sont enregistrées pour l'étude.";
+  } catch (e) {
+    db = null;
+    $("endStatus").dataset.local = "1";
+  }
+}
+
+function finish() {
+  $("barFill").style.width = "100%";
+  const done = load("ps-done") || [];
+  if (!done.includes(state.list)) done.push(state.list);
+  store("ps-done", done); store("ps-progress", undefined);
+  $("q").hidden = true; $("end").hidden = false;
+  const box = $("debrief"); box.textContent = "";
+  for (const a of state.answers) {
+    const it = DATA.items[a.image];
+    const row = document.createElement("div"); row.className = "row";
+    const img = document.createElement("img"); img.src = a.image; img.alt = it.title; img.loading = "lazy";
+    const left = document.createElement("div"); left.className = "stack"; left.style.gap = "6px";
+    const who = document.createElement("div"); who.className = "who";
+    who.textContent = it.title + (it.creator ? " — " + it.creator : "");
+    const cond = document.createElement("div"); cond.className = "cond"; cond.textContent = `${it.kind} · ${it.conditionLabel}`;
+    const you = document.createElement("div"); you.className = "stack"; you.style.gap = "4px";
+    you.innerHTML = '<span class="col-h">Vous</span>';
+    const ys = document.createElement("div"); ys.className = "say"; ys.textContent = a.subject; you.appendChild(ys);
+    left.append(who, cond, you);
+    const right = document.createElement("div"); right.className = "stack"; right.style.gap = "6px";
+    const h = document.createElement("span"); h.className = "col-h"; h.textContent = "Claude";
+    const cs = document.createElement("div"); cs.className = "say"; cs.textContent = it.claude;
+    const tag = document.createElement("span");
+    const cls = it.claudeRole === "sujet principal" ? "main" : it.claudeRole === "complément" ? "complement" : "absent";
+    tag.className = "tag " + cls; tag.textContent = "œuvre : " + it.claudeRole;
+    right.append(h, cs, tag);
+    const pic = document.createElement("div"); pic.appendChild(img);
+    row.append(pic, left, right);
+    box.appendChild(row);
+  }
+  if (!db) $("endStatus").insertAdjacentText("beforeend", " Vos réponses n'ont pas pu être envoyées : copiez-les avec le bouton et transmettez-les.");
+}
+
+async function copyAnswers() {
+  const txt = JSON.stringify({ list: state.list, session: state.session, answers: state.answers }, null, 1);
+  try { await navigator.clipboard.writeText(txt); $("copy").textContent = "Copié"; }
+  catch (e) {
+    const t = document.createElement("textarea"); t.value = txt; t.rows = 8; $("debrief").prepend(t); t.select();
+    $("copy").textContent = "Sélectionné ci-dessous";
+  }
+}
+
+$("subject").addEventListener("input", () => ($("toB").disabled = !$("subject").value.trim()));
+$("subject").addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); toB(); } });
+$("support").addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); next(); } });
+$("go").addEventListener("click", start);
+$("toB").addEventListener("click", toB);
+$("next").addEventListener("click", next);
+$("copy").addEventListener("click", copyAnswers);
+$("again").addEventListener("click", () => { $("end").hidden = true; $("intro").hidden = false; $("list").innerHTML = ""; setupIntro(); window.scrollTo(0, 0); });
+setupIntro();
+
+(async () => {
+  if (!window.claude?.use) return;
+  const [d, u] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+  if (!d || !u) return;
+  try { uid = await u.id(); } catch (e) { return; }
+  if (!uid) return;
+  db = d;
+  $("saveStatus").textContent = "Vos réponses seront enregistrées pour l'étude.";
+})();
+</script>
