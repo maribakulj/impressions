@@ -3,9 +3,11 @@
 PY = uv run python
 HEAVY = ~/outils-seg/lourd.sh
 
-.PHONY: all works layers pool stages screens real measures claude figures test
+.PHONY: all works layers pool stages screens real measures claude blind analyses figures test study
 
-all: measures blind figures
+# `make analyses figures` recomputes every number and figure from the cached readings and
+# encodings, without any model call.
+all: measures blind analyses figures
 
 works:            ## E1 — the 300 works
 	$(PY) scripts/select_works.py
@@ -41,4 +43,9 @@ blind:            ## E10b/E10c — blind readings (opaque names), Opus judgments
 	PYTHONPATH=src $(PY) scripts/blind_readings.py 2
 	PYTHONPATH=src $(PY) scripts/blind_judge_artwork.py
 	PYTHONPATH=src $(PY) scripts/blind_round2.py
+	PYTHONPATH=src $(PY) scripts/blind_round2_notext.py
+analyses:         ## E10b/E10c — every number from the blind readings, no model call
 	PYTHONPATH=src $(PY) scripts/blind_analyse.py
+	PYTHONPATH=src $(PY) scripts/blind_round2_analyse.py
+study:            ## E7 — the human study package
+	$(PY) scripts/e7_build_study.py

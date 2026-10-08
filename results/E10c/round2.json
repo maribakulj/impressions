@@ -2,113 +2,157 @@
  "conditions": {
   "book": {
    "n": 30,
-   "main": 0.0,
-   "main_ci": [
+   "main": 0,
+   "complement": 30,
+   "absent": 0,
+   "main_share": 0.0,
+   "main_wilson": [
     0.0,
-    0.0
-   ],
-   "named": 1.0
+    0.113517091390478
+   ]
   },
-  "book_notext": {
+  "book_notext2": {
    "n": 30,
-   "main": 0.2,
-   "main_ci": [
-    0.06666666666666667,
-    0.36666666666666664
-   ],
-   "named": 1.0
+   "main": 2,
+   "complement": 28,
+   "absent": 0,
+   "main_share": 0.06666666666666667,
+   "main_wilson": [
+    0.01847663532769335,
+    0.21323817721072091
+   ]
   },
   "clut": {
    "n": 30,
-   "main": 0.4666666666666667,
-   "main_ci": [
-    0.3,
-    0.6333333333333333
-   ],
-   "named": 1.0
+   "main": 14,
+   "complement": 16,
+   "absent": 0,
+   "main_share": 0.4666666666666667,
+   "main_wilson": [
+    0.30232127224128236,
+    0.6385798671847496
+   ]
   },
   "degclut": {
    "n": 30,
-   "main": 0.0,
-   "main_ci": [
+   "main": 0,
+   "complement": 29,
+   "absent": 1,
+   "main_share": 0.0,
+   "main_wilson": [
     0.0,
-    0.0
-   ],
-   "named": 0.9666666666666667
+    0.113517091390478
+   ]
   },
   "degr": {
    "n": 30,
-   "main": 1.0,
-   "main_ci": [
-    1.0,
+   "main": 30,
+   "complement": 0,
+   "absent": 0,
+   "main_share": 1.0,
+   "main_wilson": [
+    0.8864829086095221,
     1.0
-   ],
-   "named": 1.0
+   ]
   },
   "match": {
    "n": 30,
-   "main": 1.0,
-   "main_ci": [
-    1.0,
+   "main": 30,
+   "complement": 0,
+   "absent": 0,
+   "main_share": 1.0,
+   "main_wilson": [
+    0.8864829086095221,
     1.0
-   ],
-   "named": 1.0
+   ]
   },
   "wall": {
    "n": 30,
-   "main": 0.9666666666666667,
-   "main_ci": [
-    0.9,
+   "main": 30,
+   "complement": 0,
+   "absent": 0,
+   "main_share": 1.0,
+   "main_wilson": [
+    0.8864829086095221,
     1.0
-   ],
-   "named": 1.0
+   ]
   },
   "web": {
    "n": 30,
-   "main": 0.0,
-   "main_ci": [
+   "main": 0,
+   "complement": 27,
+   "absent": 3,
+   "main_share": 0.0,
+   "main_wilson": [
     0.0,
-    0.0
-   ],
-   "named": 0.9333333333333333
+    0.113517091390478
+   ]
   }
  },
  "contrasts": {
-  "book - book_notext": {
-   "what": "texte lisible",
-   "diff_main": -0.2,
-   "ci": [
-    -0.3333333333333333,
-    -0.06666666666666667
-   ],
-   "n": 30
+  "book - book_notext2": {
+   "what": "texte lisible (même géométrie)",
+   "n": 30,
+   "diff_main": -0.06666666666666667,
+   "main_only_first": 0,
+   "main_only_second": 2,
+   "mcnemar_exact_p": 0.5
   },
   "degclut - degr": {
    "what": "être entourée (mêmes pixels, même place)",
+   "n": 30,
    "diff_main": -1.0,
-   "ci": [
-    -1.0,
-    -1.0
-   ],
-   "n": 30
+   "main_only_first": 0,
+   "main_only_second": 30,
+   "mcnemar_exact_p": 1.862645149230957e-09
   },
-  "book_notext - degclut": {
-   "what": "être contenue par un support (même place, mêmes pixels, sans texte)",
-   "diff_main": 0.2,
-   "ci": [
-    0.06666666666666667,
-    0.3333333333333333
-   ],
-   "n": 30
+  "book_notext2 - degclut": {
+   "what": "être contenue par un support plutôt qu'entourée d'un tableau (mêmes pixels, même place, sans texte)",
+   "n": 30,
+   "diff_main": 0.06666666666666667,
+   "main_only_first": 2,
+   "main_only_second": 0,
+   "mcnemar_exact_p": 0.5
   },
   "book - degr": {
    "what": "tout ce que le livre ajoute",
+   "n": 30,
    "diff_main": -1.0,
-   "ci": [
-    -1.0,
-    -1.0
-   ],
-   "n": 30
+   "main_only_first": 0,
+   "main_only_second": 30,
+   "mcnemar_exact_p": 1.862645149230957e-09
+  },
+  "match - degr": {
+   "what": "dégradation et position (sur gris)",
+   "n": 30,
+   "diff_main": 0.0,
+   "main_only_first": 0,
+   "main_only_second": 0,
+   "mcnemar_exact_p": 1.0
   }
+ },
+ "judge_stability": {
+  "conditions": [
+   "book",
+   "clut",
+   "degclut",
+   "degr",
+   "match",
+   "wall",
+   "web"
+  ],
+  "pairs": 210,
+  "same_verdict": 0.9809523809523809
+ },
+ "first_run_flawed_notext": {
+  "n": 30,
+  "main": 6,
+  "complement": 24,
+  "absent": 0,
+  "main_share": 0.2,
+  "main_wilson": [
+   0.09504978102401235,
+   0.37306047381027446
+  ]
  }
 }
