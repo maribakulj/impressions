@@ -237,12 +237,13 @@ def book_page(im: Image.Image, rng: random.Random, caption: str | None = None,
     page.paste(fg, (x, top))
     d.rectangle([x - 1, top - 1, x + fg.width, top + fg.height], outline=(60, 55, 50), width=1)
     n = rng.randint(3, 180)
-    if not text:  # review 2: is it the readable text that makes the book the subject?
+    cap = caption or rng.choice(NEUTRAL_CAPTIONS).format(n=rng.randint(100, 9999))
+    folio = rng.randint(10, 400)
+    if not text:  # review 2: same random draws as with text, so the geometry stays identical
         return page
     head = _font(SERIF_IT, 17)
     d.text((W // 2, 52), "HISTOIRE DE L'ART", fill=(60, 55, 50), font=_font(SERIF, 15),
            anchor="mm")
-    cap = caption or rng.choice(NEUTRAL_CAPTIONS).format(n=rng.randint(100, 9999))
     y = top + fg.height + 30
     d.text((W // 2, y), f"Fig. {n}. — {cap}", fill=(40, 36, 32), font=head, anchor="mm")
     body = _font(SERIF, 17)
@@ -255,7 +256,7 @@ def book_page(im: Image.Image, rng: random.Random, caption: str | None = None,
             line, y = w, y + 24
         else:
             line += " " + w
-    d.text((W // 2, H - 48), str(rng.randint(10, 400)), fill=(60, 55, 50), font=body,
+    d.text((W // 2, H - 48), str(folio), fill=(60, 55, 50), font=body,
            anchor="mm")
     return page
 
@@ -273,9 +274,10 @@ def book_photo(im: Image.Image, rng: random.Random, text: bool = True) -> Image.
     left = _paper(page.size, rng)
     d = ImageDraw.Draw(left)
     body, y = _font(SERIF, 12), 50
-    for k in range(32 if text else 0):
-        d.line([40, y, page.width - 40 - (rng.randint(0, 120) if k % 7 == 6 else 0), y],
-               fill=(110, 104, 98), width=4)
+    for k in range(32):
+        end = page.width - 40 - (rng.randint(0, 120) if k % 7 == 6 else 0)
+        if text:
+            d.line([40, y, end, y], fill=(110, 104, 98), width=4)
         y += 16
     spread = Image.new("RGB", (page.width * 2, page.height))
     spread.paste(left, (0, 0))
