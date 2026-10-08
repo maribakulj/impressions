@@ -12,6 +12,7 @@ bootstrap over works (2 000 draws) or Wilson for single proportions.
 from __future__ import annotations
 
 import json
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -122,7 +123,7 @@ def main() -> None:
         a = manifest[f]
         if a["support"] == "clean":  # review 2: clean museum images are not reproductions
             continue
-        rows.append({"work": a["work"], "layers": a["n_layers"],
+        rows.append({"work": a["work"], "file": f, "layers": a["n_layers"],
                      "area": max(a["work_area"], 0.005), "in_situ": a["support"] == "in_situ",
                      "named": bool(v.get("named")), "main": v.get("role") == "main",
                      "support": a["support"]})
@@ -155,6 +156,24 @@ def main() -> None:
         "n": len(rows_ns),
         **{name: [float(pt[i]), *np.percentile(bs[:, i], [2.5, 97.5]).tolist()]
            for i, name in enumerate(["intercept", "layers", "log10_area"])}}
+    # Codex review: visitors add a layer *and* another possible subject. Sensitivity with an
+    # indicator "people visible" (crowd, visitors, people posing), not counting the "visitor
+    # photo" layer itself, which is the photograph.
+    people = re.compile(r"crowd|visitors|^visitor$|men holding|women posing")
+    for r in rows:
+        r["people"] = any(people.search(x) for x in manifest[r["file"]]["layers"])
+    Xp = lambda rs: np.column_stack([X(rs), [r["people"] for r in rs]])
+    pt = logit_fit(Xp(rows), y(rows))
+    bs = []
+    for _ in range(2000):
+        pick = rng.choice(works, len(works))
+        rs = [r for w in pick for r in rows if r["work"] == w]
+        bs.append(logit_fit(Xp(rs), y(rs)))
+    bs = np.array(bs)
+    out["real"]["logit_not_main_with_people"] = {
+        "n_people": int(sum(r["people"] for r in rows)),
+        **{name: [float(pt[i]), *np.percentile(bs[:, i], [2.5, 97.5]).tolist()]
+           for i, name in enumerate(["intercept", "layers", "log10_area", "in_situ", "people"])}}
     out["real"]["n_reproductions"] = len(rows)
     for lab, sel in [("0-1", lambda r: r["layers"] <= 1), ("2", lambda r: r["layers"] == 2),
                      ("3", lambda r: r["layers"] == 3), ("4+", lambda r: r["layers"] >= 4)]:

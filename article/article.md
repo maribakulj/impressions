@@ -1,4 +1,4 @@
-# La machine n'a pas de parergon : cadres emboîtés et lecture des images
+# Ce qui entoure l'œuvre : supports emboîtés et lecture automatique des reproductions
 
 *Projet *punctured sky*, octobre 2026 — https://github.com/maribakulj/punctured-sky. Chaque chiffre
 renvoie à un fichier de `results/` ou `data/annotations/` ; `make all` reproduit les mesures.*
@@ -25,14 +25,17 @@ support ou non. Pour la machine, le support n'enveloppe pas le sens : il fait pa
 Une œuvre ne nous parvient presque jamais seule. Un tableau est dans un cadre ; le cadre est sur
 un mur ; le mur est photographié ; la photographie est imprimée dans un livre ; le livre est
 photographié, numérisé, affiché sur un écran, et l'écran à son tour est parfois photographié. Les
-supports s'emboîtent comme des poupées russes. La théorie du cadre, de Simmel à Derrida, soutient
-que le cadre n'est pas un accessoire : en isolant l'œuvre, il dit « ceci est une image », et il
-enveloppe une part de son sens. Le cadre isole le support et le rend déterminant.
+supports s'emboîtent comme des poupées russes. Une partie de la théorie du cadre (Simmel, Ortega
+y Gasset) lui prête une fonction d'isolement : en séparant l'œuvre, il dit « ceci est une image »
+et enveloppe une part de son sens. D'autres auteurs historicisent cette fonction (Schapiro) ou
+interrogent la limite même entre l'œuvre et son dehors (Derrida). L'intuition de départ de ce
+projet est la première : le cadre isole le support et le rend déterminant.
 
-La vision par ordinateur a, sur ce point, une position opposée et rarement formulée comme telle.
-Quand une même chose apparaît peinte, dessinée, photographiée ou imprimée, elle parle de
-« changement de domaine » et cherche des modèles *invariants*, qui reconnaissent la chose quel
-que soit son support (PACS, DomainNet, ImageNet-R). Les travaux sur la reconnaissance d'œuvres
+La vision par ordinateur, pour beaucoup de ses tâches, cherche autre chose. Quand une même chose
+apparaît peinte, dessinée, photographiée ou imprimée, elle parle de « changement de domaine » et
+cherche des modèles *invariants*, qui reconnaissent la chose quel que soit son support (PACS,
+DomainNet, ImageNet-R). C'est un objectif de tâche, pas une thèse selon laquelle le support
+n'aurait pas de sens ; d'autres travaux étudient justement les contextes d'exposition (section 2.4). Les travaux sur la reconnaissance d'œuvres
 d'art rendent des tableaux avec cadres, reflets et vues obliques de salle — mais pour apprendre au
 modèle à les ignorer (SynGallery, 2026). Le support y est un bruit.
 
@@ -50,10 +53,11 @@ annotées, 48 seulement ne montrent aucune couche autour de l'œuvre (section 4.
 
 ## 2. Ce qu'on sait déjà
 
-Deux littératures parlent du support des images. Elles ne se lisent presque jamais. L'histoire et
-la théorie de l'art tiennent le cadre et la reproduction pour des lieux de sens. La vision par
-ordinateur les tient pour des obstacles. Cette section les résume l'une après l'autre, puis dit ce
-qui manque entre les deux.
+Deux littératures parlent du support des images. L'histoire et la théorie de l'art tiennent le
+cadre et la reproduction pour des lieux de sens. La vision par ordinateur, quand elle vise la
+reconnaissance, les traite le plus souvent comme un décalage à surmonter. Elles se sont déjà
+croisées (section 2.4). Cette section les résume l'une après l'autre, puis dit ce qui manque
+entre les deux.
 
 ### 2.1 Le cadre
 
@@ -201,10 +205,11 @@ Materzyńska et al. 2022) : le bord et l'inscription agissent, mais ce sont des 
 non des supports. La criminalistique sait depuis quinze ans reconnaître une photo d'écran ou de
 tirage (Cao et Kot 2010 ; Gao et al. 2010) : le support se voit, sans qu'on demande ce qu'il fait
 au sens. Enfin, Lang et Ommer (2018) retrouvent des œuvres dans des vues d'exposition, en traitant
-la salle comme ce qu'il faut traverser. Du côté
-des humanités, la théorie du cadre n'a, à notre connaissance, jamais été mise à l'épreuve sur des
-modèles de vision ; la seule mesure empirique trouvée de l'idée que « le cadre isole » porte sur
-des statistiques d'image, sans modèle (Redies et Groß 2013). À notre connaissance, aucun travail
+la salle comme ce qu'il faut traverser, mais pour reconstituer l'histoire des expositions : le
+contexte y est un document. Redies et Groß (2013) mesurent sur des statistiques d'image, sans
+modèle, comment le cadre fait transition entre le tableau et le musée. La photothèque comme
+archive matérielle est étudiée de près (Caraffa 2011 ; PHAROS), et Impett et Offert (2024)
+demandent une critique des conditions computationnelles de l'histoire de l'art. À notre connaissance, aucun travail
 ne fait passer une même œuvre par une chaîne contrôlée de supports emboîtés pour demander à des
 modèles ce qu'est l'image : la chose représentée, l'œuvre, ou le support. Notre recherche a été
 large mais n'est pas exhaustive. C'est ce creux que l'article tente de remplir.
@@ -278,7 +283,11 @@ points sans dominante à trois finesses, la rephotographie seule.
   le sujet principal de la phrase ?
 - Sur le réel : régressions (log10 du rang ; probabilité que l'œuvre ne soit pas le sujet
   principal) sur le nombre de couches annoté, la surface de l'œuvre et le type de support.
-- Intervalles de confiance à 95 % par rééchantillonnage groupé par œuvre (2 000 tirages).
+- Intervalles de confiance à 95 % : intervalle de Wilson pour une proportion sur 30 œuvres (le
+  rééchantillonnage donne des intervalles nuls à 0/30 et 30/30) ; pour comparer deux conditions
+  sur les mêmes œuvres, les paires discordantes et un test exact de McNemar ; pour les régressions
+  sur le réel, rééchantillonnage groupé par œuvre (2 000 tirages), qui traite la dépendance entre
+  images d'une même œuvre mais ne contrôle pas les différences entre œuvres.
 
 ## 4. Résultats
 
@@ -293,11 +302,14 @@ marges avant de se lire dans l'œuvre. La « couche zéro » n'existe pas : nos 
 l'image telle que le musée la donne. (Annotation faite par Claude, contrôlée à l'œil par l'agent de la
 boucle — Claude encore, pas un humain — sur 15 images ; voir `notes/verifications.md`.)
 
-### 4.2 Le cadre seul ne fait rien
+### 4.2 Un cadre doré change peu ces mesures
 
-Un cadre doré autour de l'œuvre ne change ni ce que les encodeurs retrouvent (l'œuvre reste dans
-les dix premiers pour 99 à 100 % des œuvres), ni ce que Claude décrit (le sujet de l'œuvre est le
-sujet principal de 30 descriptions sur 30). C'est attendu : pour une machine, le seul cadre
+Un cadre doré autour de l'œuvre change peu ce que les encodeurs retrouvent (l'œuvre reste dans
+les dix premiers pour 99 à 100 % des œuvres ; le vecteur ne s'éloigne que d'environ 0,1 en
+distance cosinus) et ne change pas ce que Claude décrit (le sujet de l'œuvre est le sujet
+principal de 30 descriptions sur 30, Wilson [89 % ; 100 %]). Ce n'est pas la preuve qu'un cadre
+« ne fait rien » : ces mesures sont proches de leur plafond et ne disent rien d'autres tâches.
+C'est en tout cas attendu : pour une machine, le seul cadre
 certain est le bord de l'image, et un cadre *dans* l'image n'est qu'un motif de plus autour de
 l'œuvre. Le médium lu suit d'ailleurs l'enveloppe la plus extérieure, comme on pouvait s'y
 attendre : accrochée au mur, presque toute œuvre devient « une peinture » pour CLIP ; dans un livre
@@ -341,10 +353,20 @@ Sur 131 vraies reproductions de 22 œuvres célèbres (photos de salle, pages de
 affiches, écrans ; figure 3 ; les images de musée « propres » servent de référence et sont
 exclues), Claude identifie le sujet de l'œuvre presque toujours, quel que soit le nombre de
 couches (98 à 100 %). Mais l'œuvre cesse d'être le sujet principal à mesure que les couches
-s'accumulent : 75 % à deux couches, 28 % à trois, 6 % à quatre et plus. Dans une régression
-logistique groupée par œuvre, l'effet du nombre de couches tient à surface d'œuvre égale
-(+1,03 [0,14 ; 2,04] ; surface −3,34 [−6,06 ; −2,15]), mais de justesse ; il est porté surtout
-par les photos de salle : sans elles (84 images), il n'est plus établi (+0,82 [−0,07 ; 1,80]). Les descriptions disent la même chose que la synthèse :
+s'accumulent : 75 % à deux couches, 28 % à trois, 6 % à quatre et plus. C'est une étude
+d'observation, pas une expérience : dans une régression logistique (intervalles par
+rééchantillonnage des œuvres), l'association avec le nombre de couches subsiste après ajustement
+sur la surface estimée de l'œuvre et sur la présence d'une salle (+1,03 [0,14 ; 2,04] ; surface
+−3,34 [−6,06 ; −2,15]), mais de justesse. Elle est portée surtout par les photos de salle : sans
+elles (84 images), elle devient trop incertaine pour conclure (+0,82 [−0,07 ; 1,80]). Le nombre de
+couches est d'ailleurs une variable hétérogène : il additionne des relations différentes
+(reproduire, contenir, encadrer, occulter, jouxter) et compte les visiteurs comme une couche,
+alors que des visiteurs sont aussi un autre sujet possible pour la phrase. Si l'on ajoute une
+indicatrice « personnes visibles » (foule, visiteurs ; 33 images), l'association avec le nombre
+de couches n'est plus établie (+0,89 [−0,15 ; 1,93]), tandis que la présence de personnes pèse
+nettement (+1,98 [0,51 ; 7,85]). Sur le réel, nous ne pouvons donc pas séparer l'effet des couches
+de celui d'un autre sujet présent dans l'image ; c'est cohérent avec la seconde manche (4.3) :
+ce qui compte est ce que l'image offre d'autre à décrire. Les descriptions disent la même chose que la synthèse :
 « des visiteurs se pressent dans une salle de musée devant *La Nuit étoilée* de Van Gogh ».
 
 Les encodeurs perdent aussi l'œuvre avec les couches, au-delà de sa surface : dans une régression
@@ -409,6 +431,15 @@ médium lu suit l'enveloppe ; une œuvre trop petite n'est plus reconnue.
   célèbres, que les modèles connaissent sans doute par cœur.
 - **Un seul modèle descriptif, une seule famille.** Lecteur (Sonnet), juge (Opus), annotation des
   couches présentes : tout passe par Claude. Aucun codage humain ne valide le juge.
+- **« Identifier le sujet » veut dire : concorder avec la lecture de l'original par le même
+  lecteur.** Deux versions peuvent partager la même erreur : *Erminia parmi les bergers* de Paolo
+  de' Matteis (Q27982670) est lue « Minerve » sur l'original comme dans le livre, et compte comme
+  identifiée. C'est une mesure de stabilité de la description, pas d'identification iconographique.
+- **Deux tâches différentes.** Les encodeurs résument toute l'image en un vecteur et doivent
+  retrouver une image exacte ; Claude répond à une question. Comparer « leur » rapport au support
+  compare aussi deux tâches.
+- **Reproductibilité.** Les caches sont indexés par œuvre et condition, sans empreinte des images
+  ni des consignes ; les réponses brutes des appels ne sont pas toutes conservées.
 - **L'annotation du réel** (couches, surface) a été faite par un agent Claude en connaissant les
   hypothèses, sans aveugle.
 - **Un seul tirage par œuvre** : le décor (couleur du mur, largeur du cadre) est confondu avec
