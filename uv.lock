@@ -509,48 +509,6 @@ wheels = [
 ]
 
 [[package]]
-name = "impressions"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "matplotlib" },
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
-    { name = "numpy", version = "2.5.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "open-clip-torch" },
-    { name = "pandas" },
-    { name = "pillow" },
-    { name = "protobuf" },
-    { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
-    { name = "scipy", version = "1.18.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "sentencepiece" },
-    { name = "torch" },
-    { name = "torchvision" },
-    { name = "transformers" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "pytest" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "matplotlib", specifier = ">=3.8" },
-    { name = "numpy", specifier = ">=1.26" },
-    { name = "open-clip-torch", specifier = "==3.3.0" },
-    { name = "pandas", specifier = ">=2.2" },
-    { name = "pillow", specifier = ">=10.4" },
-    { name = "protobuf" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
-    { name = "scipy", specifier = ">=1.13" },
-    { name = "sentencepiece", specifier = ">=0.2" },
-    { name = "torch", specifier = "==2.14.0" },
-    { name = "torchvision" },
-    { name = "transformers", specifier = "==5.17.0" },
-]
-provides-extras = ["dev"]
-
-[[package]]
 name = "iniconfig"
 version = "2.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1487,6 +1445,48 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/8a/55/b77bda4e5e5f5971fb51b07663694690e9afdb9402136c16a522bd621cad/protobuf-7.36.2-cp310-abi3-win_amd64.whl", hash = "sha256:a300819d441e078a5608c0d3c709796bb548136058fda017ae51d425b44fd353", size = 456514, upload-time = "2026-09-17T20:07:57.188Z" },
     { url = "https://files.pythonhosted.org/packages/e4/04/d52c7016b04b6c5108f26691f9d33ec82a9b65d041f1a9c771137693d618/protobuf-7.36.2-py3-none-any.whl", hash = "sha256:bdb3a345d48db958e6ce1f18e508beb0cc981d64f24088427549c866cd039f1e", size = 179806, upload-time = "2026-09-17T20:07:58.211Z" },
 ]
+
+[[package]]
+name = "punctured-sky"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "matplotlib" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "numpy", version = "2.5.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "open-clip-torch" },
+    { name = "pandas" },
+    { name = "pillow" },
+    { name = "protobuf" },
+    { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "scipy", version = "1.18.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "sentencepiece" },
+    { name = "torch" },
+    { name = "torchvision" },
+    { name = "transformers" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "matplotlib", specifier = ">=3.8" },
+    { name = "numpy", specifier = ">=1.26" },
+    { name = "open-clip-torch", specifier = "==3.3.0" },
+    { name = "pandas", specifier = ">=2.2" },
+    { name = "pillow", specifier = ">=10.4" },
+    { name = "protobuf" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+    { name = "scipy", specifier = ">=1.13" },
+    { name = "sentencepiece", specifier = ">=0.2" },
+    { name = "torch", specifier = "==2.14.0" },
+    { name = "torchvision" },
+    { name = "transformers", specifier = "==5.17.0" },
+]
+provides-extras = ["dev"]
 
 [[package]]
 name = "pygments"
