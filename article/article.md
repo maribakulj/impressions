@@ -390,7 +390,18 @@ du log10 du rang de l'image propre de l'œuvre, groupée par œuvre, chaque couc
 images soient complétées en carré, seul SigLIP montrait cet effet : le recadrage central de CLIP
 et DINOv2 en masquait une partie.
 
-[À COMPLÉTER — encodeurs sur la synthèse, contre les trois témoins (E4 v2).]
+Sur la synthèse, les trois encodeurs disent la même chose que le modèle descriptif, à leur
+manière (figure 2 ; écart au témoin en log10 du rang de l'œuvre parmi les 18 405 images, avec
+intervalles par rééchantillonnage des œuvres). Le cadre doré ne change presque rien (au plus
++0,04 contre l'œuvre seule). Le livre photographié fait perdre l'œuvre bien au-delà de sa surface
+(+0,55 à +1,09 contre l'œuvre seule, selon l'encodeur) et au-delà de la dégradation de ses pixels
+(+0,23 [0,16 ; 0,31] pour DINOv2 à +0,75 [0,68 ; 0,82] pour SigLIP contre les mêmes pixels sur
+gris). Mais l'œuvre centrée sur un autre tableau, à la même surface, est perdue *davantage* que
+dans le livre (le livre fait mieux de 0,39 à 1,40). Le support ne fait donc rien de propre : tout
+entourage dilue l'œuvre dans le vecteur de l'image, et un entourage qui est lui-même une image en
+dilue plus qu'une page. Concrètement, CLIP retrouve l'œuvre seule dans ses dix premiers résultats
+pour 17 % des œuvres, les mêmes pixels sur gris pour 12 %, le livre pour 5 %, l'œuvre sur un autre
+tableau pour 2 % ; SigLIP pour 60, 46, 18 et 13 % ; DINOv2 pour 41, 29, 19 et 2 %.
 
 ### 4.5 La trame
 

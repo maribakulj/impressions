@@ -112,7 +112,7 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
       Offert & Bell, Kamath et al. 2023 ; et chercher qui a déjà étudié des reproductions
       d'œuvres vues par la machine (recapture, « photo of a photo », art-history photo
       archives). `notes/litterature.md` + `references.bib`.
-- [ ] **E9 — Article.** `article/article.md` en français (~8 000 mots) : question, état de
+- [x] **E9 — Article.** `article/article.md` en français (~8 000 mots) : question, état de
       l'art, protocole, résultats (avec figures et IC), ce qui est réfuté, limites, conclusion.
       Chaque chiffre renvoie à un fichier de `results/`. `make all` reproduit tout.
 - [x] **E10 — Relecture adverse.** Un sous-agent neuf relit l'article et le code comme un
@@ -139,6 +139,10 @@ bruit (« domain shift », invariance) ; la thèse testée ici est qu'il porte d
          Zhao 2026 et les familles manquantes (I8) ; mineurs m1-m4, m8, m10, m12 ; Limites I5, I9.
       7. Seconde relecture adverse sur la version révisée.
       8. **Après le réencodage** : `mv ~/impressions ~/punctured-sky`, `uv sync`, tests, mémoire.
+         *Reporté (08/10) : Marcel a demandé le 07/10 de ne rien déplacer pendant l'inventaire du
+         stockage (`~/stockage/inventaire/CONSIGNE.md`). Réencodage v2 fini (300/300), E4 v2 mesuré.*
+      8b. **Revue de Codex (06/10)**, reprise le 08/10 : voir `notes/relecture-codex.md`. Fait,
+         sauf le recadrage de DINOv2 (limite déclarée).
       9. **Décider de la forme** (Marcel, 06/10 : « t'es sûr que l'article est pertinent ? ») :
          article court « la machine n'a pas de parergon » si les témoins le confirment, sinon
          rapport de résultats honnête. Ne pas gonfler les résultats attendus.
