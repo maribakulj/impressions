@@ -578,3 +578,56 @@ L'œuvre encadrée au mur, plus grande et centrée, reste le sujet (97 %). C'est
 dans le même appel (manche 1), 97 % quand le sujet est demandé seul (manche 2). Le livre et l'écran
 restent à 0 % dans les deux. Les chiffres de la manche 1 sur le mur sont donc un artefact de
 format ; la manche 2 fait foi.
+
+## 2026-10-08 — Reprise de la revue de Codex ; le « livre sans texte » corrigé
+
+Codex (OpenAI) avait relu le projet le 06/10 dans une autre session : revue principale, audit
+empirique, deux rapports de sous-agents. Il n'a plus de crédits ; Marcel me demande de reprendre son
+travail sans rien perdre. Ses rapports sont gardés tels quels dans `notes/codex/`, et chaque point
+est suivi dans `notes/relecture-codex.md`. Le redémarrage du Mac du 07/10 avait aussi coupé le
+réencodage v2 à 297/300 ; il est fini.
+
+**Défaut réel trouvé par Codex.** Le témoin « livre photographié sans texte » de la seconde manche
+ne gardait pas la géométrie du livre : sans texte, `book_page` et `book_photo` sautaient des tirages
+au hasard, et la perspective suivante changeait (recouvrement des masques 0,77–0,89). Vérifié,
+corrigé (mêmes tirages, rendu seulement conditionnel ; le livre avec texte est identique à l'octet
+près), condition refaite sous la clé `book_notext2` : recouvrement 1,0000 sur les 30 œuvres, vu sur
+planche. Relue à l'aveugle, puis tout le groupe rejugé dans un cache séparé.
+
+| condition (sujet demandé seul) | principal | complément | absent |
+| --- | --- | --- | --- |
+| mêmes pixels sur gris (`degr`) | 30 | 0 | 0 |
+| seule, centrée (`match`) | 30 | 0 | 0 |
+| au mur (`wall`) | 30 | 0 | 0 |
+| centrée sur un autre tableau (`clut`) | 14 | 16 | 0 |
+| livre sans texte, géométrie exacte | **2** | 28 | 0 |
+| livre photographié | 0 | 30 | 0 |
+| écran | 0 | 27 | 3 |
+| mêmes pixels sur un autre tableau (`degclut`) | 0 | 29 | 1 |
+
+Le livre sans texte tombe à 2/30 (6/30 avec la géométrie fausse). **L'effet du texte (−0,20) que
+j'avais annoncé venait du défaut** : 2 paires discordantes sur 30, McNemar p = 0,5. Contenue par
+un livre ou entourée d'un tableau : même résultat. La thèse de la saillance en sort plus nette. Le
+juge rend le même verdict pour 98,1 % des 210 descriptions communes aux deux passages.
+
+**Omission et subordination** (Codex) : sujet demandé seul, l'œuvre n'est presque jamais absente —
+elle devient un complément. Avec la question double de la première manche, elle était absente
+20 fois sur 30 au livre : le modèle répartissait l'information entre les deux champs. Les deux sont
+dans l'article ; la figure 1 montre maintenant les trois issues.
+
+**Sur le réel, les personnes.** Avec une indicatrice « personnes visibles » (33 images), le
+coefficient des couches n'est plus établi (+0,89 [−0,15 ; 1,93]) ; les personnes pèsent
+(+1,98 [0,51 ; 7,85]). Codex donnait 1,01 sans intervalle avec une autre définition. Écrit tel quel :
+sur le réel, on ne sépare pas les couches d'un autre sujet présent.
+
+**Autres reprises** : titre « La machine n'a pas de parergon » abandonné (Codex : le *parergon* de
+Derrida n'est pas une faculté qu'un modèle aurait ou non) ; théorie du cadre et vision par
+ordinateur décrites sans généralisation ; « le cadre ne fait rien » → « change peu ces mesures » ;
+intervalles de Wilson et McNemar ; limites ajoutées (*Erminia* lue « Minerve », deux tâches
+différentes, caches sans empreinte) ; étude humaine refaite autour du résultat actuel (72 images de
+la seconde manche, carré latin à 6 conditions, référence écrite par des humains, validation du
+juge, marge de 15 points) ; `make analyses figures` refait tous les chiffres sans appel aux modèles.
+
+**Pour Marcel** : Codex propose de déplacer le projet vers une question doctorale (reproductions
+comme preuves historiques ; pilote sur le *Rhinocéros* de Dürer). C'est un autre projet ; je ne le
+lance pas sans décision.
