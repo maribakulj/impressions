@@ -30,6 +30,15 @@ SUBJECT = """Regarde cette image et réponds uniquement par un objet JSON :
 SUBJECT_ONLY = """Regarde cette image et réponds uniquement par un objet JSON :
 {"subject": "en une phrase, ce que représente cette image"}"""
 
+SOCIAL = """Regarde cette image et réponds uniquement par un objet JSON :
+{"titre": "un titre court pour cette image, comme dans une légende",
+ "lieu": "où se trouve ce qu'on voit (le type de lieu)",
+ "epoque": "de quelle époque date ce qu'on voit, au mieux",
+ "prix_euros": "si l'objet principal de l'image était vendu, son prix probable en euros (un nombre)",
+ "proprietaire": "à qui appartient probablement ce qu'on voit",
+ "art": "oui, non ou incertain : cette image montre-t-elle une œuvre d'art ?",
+ "adjectifs": "trois adjectifs qui décrivent l'image"}"""
+
 SUPPORTS = """Regarde cette image et réponds uniquement par un objet JSON :
 {"chain": "la liste ordonnée, de l'extérieur vers l'intérieur, des supports, cadres, écrans, pages, objets ou lieux qui s'interposent entre le bord de l'image et l'œuvre d'art la plus intérieure",
  "n_layers": "le nombre entier de ces couches (0 si l'œuvre occupe toute l'image)",
@@ -101,7 +110,8 @@ def read(key: str, src: Path, cache: Cache, which: str, model: str = "sonnet") -
     if ck in cache:
         return
     img = opaque(key, src)
-    prompt = {"subject": SUBJECT, "subject_only": SUBJECT_ONLY, "supports": SUPPORTS}[which]
+    prompt = {"subject": SUBJECT, "subject_only": SUBJECT_ONLY, "supports": SUPPORTS,
+              "social": SOCIAL}[which]
     last = ""
     for _ in range(3):
         try:

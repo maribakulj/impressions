@@ -7,3 +7,9 @@ logs/
 data/real/images/
 data/real/candidates/
 data/blind/
+data/social/src/contents/
+data/social/src/spaces/
+data/social/src/spaces2/
+data/social/src/frames/*.jpg
+data/social/src/frames/*.png
+data/social/gemini/img/

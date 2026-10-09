@@ -1,0 +1,100 @@
+{"key": "soc|renoir|none|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|renoir|none|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": false, "room": "salon"}
+{"key": "soc|renoir|none|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": false, "room": "salon"}
+{"key": "soc|renoir|none|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": false, "room": "cuisine"}
+{"key": "soc|renoir|modern|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": false, "room": "salon"}
+{"key": "soc|renoir|modern|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "galerie d'exposition"}
+{"key": "soc|renoir|modern|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon moderne"}
+{"key": "soc|renoir|modern|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|renoir|classic|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|renoir|classic|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "musée"}
+{"key": "soc|renoir|classic|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|renoir|classic|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|renoir|ebonized|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|renoir|ebonized|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|renoir|ebonized|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|renoir|ebonized|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|renoir|rococo|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|renoir|rococo|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|renoir|rococo|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon domestique"}
+{"key": "soc|renoir|rococo|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|mondrian|none|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|mondrian|none|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": false, "room": "galerie d'art"}
+{"key": "soc|mondrian|none|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": false, "room": "salon"}
+{"key": "soc|mondrian|none|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": false, "room": "cuisine"}
+{"key": "soc|mondrian|modern|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|mondrian|modern|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": false, "room": "galerie d'art"}
+{"key": "soc|mondrian|modern|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": false, "room": "salon"}
+{"key": "soc|mondrian|modern|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": false, "room": "cuisine"}
+{"key": "soc|mondrian|classic|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|mondrian|classic|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|mondrian|classic|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|mondrian|classic|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|mondrian|ebonized|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|mondrian|ebonized|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|mondrian|ebonized|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|mondrian|ebonized|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|mondrian|rococo|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|mondrian|rococo|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "salle de musée"}
+{"key": "soc|mondrian|rococo|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon moderne"}
+{"key": "soc|mondrian|rococo|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|child|none|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|child|none|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": false, "room": "salon"}
+{"key": "soc|child|none|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|child|none|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": false, "room": "cuisine"}
+{"key": "soc|child|modern|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|child|modern|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|child|modern|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|child|modern|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "cuisine au carrelage blanc"}
+{"key": "soc|child|classic|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|child|classic|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|child|classic|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|child|ebonized|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|child|classic|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|child|ebonized|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|child|ebonized|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|child|ebonized|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|child|rococo|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|child|rococo|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "musée"}
+{"key": "soc|child|rococo|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|child|rococo|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|beach|none|grey", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": false, "room": "plage de sable"}
+{"key": "soc|beach|none|salon", "model": "claude-haiku-5-5", "named": false, "role": "absent", "as_artwork": false, "frame_mentioned": false, "room": "salon"}
+{"key": "soc|beach|none|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|beach|none|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": false, "room": "cuisine"}
+{"key": "soc|beach|modern|grey", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": false, "room": "plage de sable"}
+{"key": "soc|beach|modern|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|beach|modern|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|beach|modern|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": false, "room": "cuisine"}
+{"key": "soc|beach|classic|grey", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "plage de sable"}
+{"key": "soc|beach|classic|gallery", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|beach|classic|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|beach|classic|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|beach|ebonized|grey", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|beach|ebonized|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|beach|ebonized|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|beach|ebonized|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|beach|rococo|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|beach|rococo|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|beach|rococo|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|receipt|none|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|beach|rococo|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|receipt|none|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|receipt|none|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|receipt|modern|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|receipt|none|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": false, "room": "cuisine carrelée"}
+{"key": "soc|receipt|modern|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon domestique"}
+{"key": "soc|receipt|modern|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": false, "room": "aucun"}
+{"key": "soc|receipt|modern|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|receipt|classic|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|receipt|classic|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|receipt|classic|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|receipt|ebonized|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|receipt|classic|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|receipt|ebonized|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|receipt|ebonized|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon lumineux"}
+{"key": "soc|receipt|ebonized|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "cuisine"}
+{"key": "soc|receipt|rococo|grey", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": false, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|receipt|rococo|gallery", "model": "claude-haiku-5-5", "named": true, "role": "main", "as_artwork": true, "frame_mentioned": true, "room": "aucun"}
+{"key": "soc|receipt|rococo|salon", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": false, "frame_mentioned": true, "room": "salon"}
+{"key": "soc|receipt|rococo|kitchen", "model": "claude-haiku-5-5", "named": true, "role": "complement", "as_artwork": true, "frame_mentioned": true, "room": "cuisine"}

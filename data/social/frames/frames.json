@@ -1,0 +1,41 @@
+{
+ "frame_classic": {
+  "file": "frame_classic.png",
+  "size": [
+   1233,
+   1398
+  ],
+  "opening": [
+   107,
+   107,
+   1132,
+   1295
+  ]
+ },
+ "frame_rococo": {
+  "file": "frame_rococo.png",
+  "size": [
+   732,
+   1044
+  ],
+  "opening": [
+   137,
+   185,
+   600,
+   900
+  ]
+ },
+ "frame_ebonized": {
+  "file": "frame_ebonized.png",
+  "size": [
+   935,
+   1157
+  ],
+  "opening": [
+   233,
+   292,
+   696,
+   910
+  ]
+ }
+}
